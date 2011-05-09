@@ -6,3 +6,10 @@ app.get('/', function(req, res){
 });
 
 app.listen(9000);
+
+var io = require('socket.io');
+var socket = io.listen(app);
+socket.on('connection', function(client) {
+
+  console.log('connected with socket.io');
+});
