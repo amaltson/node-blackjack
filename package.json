@@ -5,6 +5,6 @@
     "express":"",
     "mongoose":"",
     "mustache":"",
-    "socket.io":"",
+    "socket.io":""
   }
 }
