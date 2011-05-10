@@ -4,6 +4,6 @@
   "dependencies":{
     "express":"",
     "mongoose":"",
-    "mustache":"",
+    "mustache":""
   }
 }
