@@ -5,9 +5,10 @@ var app = express.createServer();
 var jade = require('jade');
 
 app.get('/', function(req, res){
-  jade.renderFile('views/index.jade', function(err, html) {
-   /* res.send(html);*/
-    res.send('hello, world');
+  jade.renderFile(__dirname + '/views/index.jade', function(err, html) {
+    if (err) throw err;
+    console.log(html);
+    res.send(html);
   });
 });
 
