@@ -2,10 +2,11 @@
 html(lang="en")
   head
     title='Node Blackjack'
+    script(src='/socket.io/socket.io.js')
     script(type='text/javascript')
-      if (foo) {
-         bar()
-      }
+      var socket = new io.Socket('localhost');
+      socket.connect();
+      socket.on('connect', function() { alert('Hello'); });
   body
     h1 Jade - node template engine
     #container
