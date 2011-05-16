@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>
+      Node Blackjack
+    </title>
+    <script src='/socket.io/socket.io.js'></script>
+    <script type='text/javascript'>
+      var socket = new io.Socket('localhost');
+      socket.connect();
+      socket.on('connect', function() { alert('Hello'); });
+    </script>
+  </head>
+  <body>
+    <h1>Socket.io here</h1>
+  </body>
+</html>
+

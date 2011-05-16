@@ -2,13 +2,9 @@ require.paths.unshift('./node_modules')
 
 var express = require('express');
 var app = express.createServer();
-var jade = require('jade');
 
-app.get('/', function(req, res){
-  jade.renderFile(__dirname + '/views/index.jade', function(err, html) {
-    if (err) throw err;
-    res.send(html);
-  });
+app.configure(function() {
+  app.use(express.static(__dirname + '/views'));
 });
 
 app.listen(9000);
