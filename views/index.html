@@ -1,18 +1,121 @@
 <!doctype html>
-<html>
-  <head>
-    <title>
-      Node Blackjack
-    </title>
-    <script src='/socket.io/socket.io.js'></script>
-    <script type='text/javascript'>
-      var socket = new io.Socket('localhost');
-      socket.connect();
-      socket.on('connect', function() { alert('Hello'); });
-    </script>
-  </head>
-  <body>
-    <h1>Socket.io here</h1>
-  </body>
-</html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+		<title>Broke-safe Black Jack</title>
+	    <script src='/socket.io/socket.io.js'></script>
+	    <script src='/jquery/node-jquery.js'></script>
+	    <script src="/client.js"></script>		
+		<link rel="stylesheet" href="blackjack_files/mobile_layout.css">
+		<link rel="stylesheet" media="screen and (min-width: 480px)" href="blackjack_files/tablet_layout.css">
+		<link rel="stylesheet" media="screen and (min-width: 900px)" href="blackjack_files/layout.css">
+	</head>
+	<body>
+		<div id="page">
+			<div id="header">
+				<h1>Broke-Safe Black Jack</h1>
+			</div>
+			
+			<div id="nav">
+				<ul>
+					<li><a href="#">Log Out</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+			</div>
+			
+			<div id="main">
+			    <!-- 
+				<div id="dealer">
+					<div id="turn_indicator">&nbsp;</div>
+					<div id="name">Dealer</div>
+					<div id="cards">
+						<img id="card_image" src="blackjack_files/s01d.gif">
+						<img id="card_image" src="blackjack_files/h02d.gif">
+						<img id="card_image" src="blackjack_files/c05d.gif">
+					</div>
+				</div>
+				
+				<hr>
+				
+				<div id="player">
+					<div id="turn_indicator">&nbsp;</div>
+					<div id="name">Player 1</div>
+					<div id="cards">
+						<img id="card_image" src="blackjack_files/s06.gif">
+						<img id="card_image" src="blackjack_files/h05.gif">
+						<img id="card_image" src="blackjack_files/c08.gif">
+					</div>
+					<div id="stats"><b>win: 7 lose: 2</b></div>
+				</div>
+				
+				<div id="current_player">
+					<div id="turn_indicator">
+						<img id="turn_indicator_image" src="blackjack_files/next.png">
+					</div>
+					<div id="name">Player 2</div>
+					<div id="cards">
+						<img id="card_image" src="blackjack_files/h04.gif">
+						<img id="card_image" src="blackjack_files/d13.gif">
+						<img id="card_image" src="blackjack_files/c02.gif">
+					</div>
+					<div id="player_action">
+						<button type="button">Hit</button>
+						<button type="button">Stay</button>
+					</div>
+					<div id="stats"><b>win: 1 lose: 3</b></div>
+				</div>
+				
+				<div id="player">
+					<div id="turn_indicator">&nbsp;</div>
+					<div id="name">Player 3</div>
+					<div id="cards">
+						<img id="card_image" src="blackjack_files/s07.gif">
+						<img id="card_image" src="blackjack_files/d05.gif">
+						<img id="card_image" src="blackjack_files/c01.gif">
+					</div>
+					<div id="stats"><b>win: 0 lose: 0</b></div>
+				</div>
+				
+				<div id="player">
+					<div id="turn_indicator">&nbsp;</div>
+					<div id="name">Player 4</div>
+					<div id="cards">
+						<img id="card_image" src="blackjack_files/s10.gif">
+						<img id="card_image" src="blackjack_files/d03.gif">
+						<img id="card_image" src="blackjack_files/c06.gif">
+					</div>
+					<div id="stats"><b>win: 2 lose: 2</b></div>
+				</div>
+				-->
+			</div>
+			
+			<div id="sidebar">
+				<div id="howtoplay">
+					<h2>How to play</h2>
+					<p>The object of the blackjack game is to accumulate cards with point totals as close 
+					to 21 without going over 21. Face cards (Jacks, Queens and Kings) are worth 10 points. 
+					Aces are worth 1 or 11, whichever is preferable. 
+					Other cards are represented by their number.</p>
+					<p>
+					If player and the House tie, it is a push and no one wins. 
+					Ace and 10 (Blackjack) on the first two cards dealt is an automatic player win at 1.5 to 1, 
+					unless the house ties. A player may stand at any time.
+					</p>
+				</div>
 
+				<div id="logs">
+					<h2>Logs</h2>
+					<ul>
+						<li>Player 2 has joined!</li>
+						<li>Player 4 has joined!</li>
+						<li>Player 3 has joined!</li>
+					</ul>					
+				</div>
+			</div>
+			
+			<div id="footer">
+				<p>(C) Dev Days 2011</p>
+			</div>
+		</div>
+	
+</body>
+</html>

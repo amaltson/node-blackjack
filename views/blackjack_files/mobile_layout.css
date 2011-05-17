@@ -1,0 +1,104 @@
+body,
+html {
+	margin:0;
+	padding:0;
+	color:#000;
+	background:#a7a09a;
+}
+
+/* PAGE */
+#page {
+	width:100%;
+	margin:0 auto;
+	background:#9C9;
+}
+
+/* HEADER */
+#header {
+	padding:5px 10px;
+	background:#ddd;
+}
+h1 { 
+	margin:0;
+	font-size:30px;
+}
+
+/* NAV */
+#nav {
+	background:#c99;
+}
+#nav ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#nav li {
+	display:inline;
+	margin:0;
+	padding:0;
+}
+
+/* MAIN */
+#main {
+	float:left;
+	width:100%;
+	background:#9c9;
+	font-size:12px;
+}
+#dealer {
+	padding:10px;
+	display:block;
+}
+#player {
+	padding:10px;
+	display:block;
+}
+#current_player {
+	padding:10px;
+	background: #lightyellow;
+}
+#turn_indicator {
+	display:inline;
+}
+#turn_indicator_image {
+	width: 24px;
+	height: 24px;
+}
+#name {
+	position:absolute;
+	left:40px;
+	display:inline;
+}
+#cards {
+	position:absolute;
+	left:100px;
+	display:inline;
+}
+#player_action {
+	position:absolute;
+	left:200px;
+	display:inline;
+	align:center;
+}
+#stats {
+	display: none;
+}
+
+/* SIDEBAR */
+#sidebar {
+	display: none;
+	float:right;
+	width:30%;
+	background:#c9c;
+}
+#howtoplay {
+	padding:5px;
+}
+#logs {
+	padding:5px;
+}
+
+#footer {
+	clear:both;
+	background:#cc9;
+}
