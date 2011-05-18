@@ -4,24 +4,25 @@
 	float:left;
 	width:70%;
 	background:#9c9;
-	font-size:26px;
+	font-size:22px;
 }
-#cards {
+.cards {
 	position:absolute;
 	left:160px;
 	display:inline;
 }
-#player_action {
+.player_action {
 	position:absolute;
 	left:300px;
 	display:inline;
 	align:center;
 }
-#stats {
+.stats {
 	position:absolute;
 	left:420px;
 	display: inline;
 }
+
 #howtoplay {
 	padding:5px;
 }

@@ -6,21 +6,21 @@
 	background:#9c9;
 	font-size:20px;
 }
-#cards {
+.cards {
 	position:absolute;
 	left:160px;
 	display:inline;
 }
-#player_action {
+.player_action {
 	position:absolute;
 	left:280px;
 	display:inline;
 	align:center;
 }
-#stats {
+.stats {
 	position:absolute;
 	left:380px;
-	display: inline;
+	display: none;
 }
 
 

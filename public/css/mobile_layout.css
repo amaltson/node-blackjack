@@ -14,7 +14,7 @@ html {
 }
 
 /* HEADER */
-#header {
+header {
 	padding:5px 10px;
 	background:#ddd;
 }
@@ -24,15 +24,15 @@ h1 {
 }
 
 /* NAV */
-#nav {
+nav {
 	background:#c99;
 }
-#nav ul {
+nav ul {
 	margin:0;
 	padding:0;
 	list-style:none;
 }
-#nav li {
+nav li {
 	display:inline;
 	margin:0;
 	padding:0;
@@ -49,38 +49,38 @@ h1 {
 	padding:10px;
 	display:block;
 }
-#player {
+.player {
 	padding:10px;
 	display:block;
 }
-#current_player {
+.current_player {
 	padding:10px;
 	background: #lightyellow;
 }
-#turn_indicator {
+.turn_indicator {
 	display:inline;
 }
-#turn_indicator_image {
+.turn_indicator_image {
 	width: 24px;
 	height: 24px;
 }
-#name {
+.name {
 	position:absolute;
 	left:40px;
 	display:inline;
 }
-#cards {
+.cards {
 	position:absolute;
 	left:100px;
 	display:inline;
 }
-#player_action {
+.player_action {
 	position:absolute;
 	left:200px;
 	display:inline;
 	align:center;
 }
-#stats {
+.stats {
 	display: none;
 }
 
