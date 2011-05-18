@@ -1,3 +1,14 @@
+# Node generated files #
+########################
 node_modules/
+
+# OS generated files #
+######################
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
+# Eclipse generated files #
+###########################
 /.project
 /.settings
