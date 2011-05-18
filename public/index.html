@@ -26,6 +26,11 @@
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="css/boilerplate.css?v=2">
 
+  <!- CSS:  laod main CSS depends on resolution using media queries -->
+  <link rel="stylesheet" href="css/mobile_layout.css" />
+  <link rel="stylesheet" media="screen and (min-width: 480px)" href="css/tablet_layout.css" />
+  <link rel="stylesheet" media="screen and (min-width: 900px)" href="css/layout.css" />
+
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="js/libs/modernizr-1.7.min.js"></script>
 
@@ -33,17 +38,108 @@
 
 <body>
 
-  <h1>Socket.io here.</h1>
-  <div id="container">
-    <header>
-    </header>
-    <div id="main" role="main">
+  <div id="page">
 
+    <!-- Title Pane-->
+    <div id="header">
+      <h1>Broke-Safe Black Jack</h1>
     </div>
-    <footer>
 
-    </footer>
-  </div> <!--! end of #container -->
+    <!-- Action Pane-->
+    <div id="nav">
+      <ul>
+        <li><a href="#">Log Out</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Pane-->
+    <div id="main">
+      <div id="dealer">
+        <div id="turn_indicator">&nbsp;</div>
+	<div id="name">Dealer</div>
+	<div id="cards">
+	  <img id="card_image" src="img_down/s01d.gif" />
+	  <img id="card_image" src="img_down/h02d.gif" />
+	  <img id="card_image" src="img_down/c05d.gif" />
+	</div>
+      </div>
+
+      <div id="player">
+        <div id="turn_indicator">&nbsp;</div>
+	<div id="name">Player 1</div>
+	<div id="cards">
+	  <img id="card_image" src="img/s06.gif" />
+	  <img id="card_image" src="img/h05.gif" />
+          <img id="card_image" src="img/c08.gif" />
+	</div>
+        <div id="stats"><b>win: 7 lose: 2</b></div>
+      </div>
+
+      <div id="current_player">
+        <div id="turn_indicator">&nbsp;</div>
+	<div id="name">Player 2</div>
+	<div id="cards">
+	  <img id="card_image" src="img/h04.gif" />
+	  <img id="card_image" src="img/d13.gif" />
+          <img id="card_image" src="img/c02.gif" />
+	</div>
+        <div id="stats"><b>win: 1 lose: 3</b></div>
+      </div>
+
+      <div id="player">
+        <div id="turn_indicator">&nbsp;</div>
+	<div id="name">Player 3</div>
+	<div id="cards">
+	  <img id="card_image" src="img/s07.gif" />
+	  <img id="card_image" src="img/d05.gif" />
+          <img id="card_image" src="img/c01.gif" />
+	</div>
+        <div id="stats"><b>win: 0 lose: 0</b></div>
+      </div>
+
+      <div id="player">
+        <div id="turn_indicator">&nbsp;</div>
+	<div id="name">Player 4</div>
+	<div id="cards">
+	  <img id="card_image" src="img/s10.gif" />
+	  <img id="card_image" src="img/d03.gif" />
+          <img id="card_image" src="img/c06.gif" />
+	</div>
+        <div id="stats"><b>win: 2 lose: 2</b></div>
+      </div>
+    </div><!--! end of #main -->
+
+    <div id="sidebar">
+      <div id="howtoplay">
+        <h2>How to play</h2>
+        <p>The object of the blackjack game is to accumulate cards with point totals as close 
+           to 21 without going over 21. Face cards (Jacks, Queens and Kings) are worth 10 points. 
+           Aces are worth 1 or 11, whichever is preferable. 
+           Other cards are represented by their number.</p>
+         <p>
+           If player and the House tie, it is a push and no one wins. 
+           Ace and 10 (Blackjack) on the first two cards dealt is an automatic player win at 1.5 to 1, 
+           unless the house ties. A player may stand at any time.
+         </p>
+      </div>
+
+      <div id="logs">
+        <h2>Logs</h2>
+        <ul>
+          <li>Player 2 has joined!</li>
+	  <li>Player 4 has joined!</li>
+	  <li>Player 3 has joined!</li>
+	</ul>					
+      </div>
+    </div> <!--! end of #sidebar -->
+
+    <!-- Footer Pane-->
+    <div id="footer">
+      <p>(C) Dev Days 2011</p>
+    </div>
+   
+  </div> <!--! end of #page -->
 
 
   <!-- JavaScript at the bottom for fast page loading -->
