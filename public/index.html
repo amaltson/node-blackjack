@@ -41,72 +41,78 @@
   <div id="page">
 
     <!-- Title Pane-->
-    <div id="header">
-      <h1>Broke-Safe Black Jack</h1>
-    </div>
+    <header>
+      <hgroup>
+        <h1>Broke-Safe Black Jack</h1>
+      </hgroup>
+    </header>
 
     <!-- Action Pane-->
-    <div id="nav">
+    <nav>
       <ul>
         <li><a href="#">Log Out</a></li>
         <li><a href="#">About</a></li>
       </ul>
-    </div>
+    </nav>
 
     <!-- Main Pane-->
     <div id="main">
       <div id="dealer">
-        <div id="turn_indicator">&nbsp;</div>
-	<div id="name">Dealer</div>
-	<div id="cards">
-	  <img id="card_image" src="img_down/s01d.gif" />
-	  <img id="card_image" src="img_down/h02d.gif" />
-	  <img id="card_image" src="img_down/c05d.gif" />
+        <div class="turn_indicator">&nbsp;</div>
+	<div class="name">Dealer</div>
+	<div class="cards">
+	  <img class="card_image" src="img_down/s01d.gif" />
+	  <img class="card_image" src="img_down/h02d.gif" />
+	  <img class="card_image" src="img_down/c05d.gif" />
 	</div>
       </div>
 
-      <div id="player">
-        <div id="turn_indicator">&nbsp;</div>
-	<div id="name">Player 1</div>
-	<div id="cards">
-	  <img id="card_image" src="img/s06.gif" />
-	  <img id="card_image" src="img/h05.gif" />
-          <img id="card_image" src="img/c08.gif" />
+      <div class="player" id="player_1">
+        <div class="turn_indicator">&nbsp;</div>
+	<div class="name">Player 1</div>
+	<div class="cards">
+	  <img class="card_image" src="img/s06.gif" />
+	  <img class="card_image" src="img/h05.gif" />
+          <img class="card_image" src="img/c08.gif" />
 	</div>
-        <div id="stats"><b>win: 7 lose: 2</b></div>
+        <div class="stats"><b>win: 7 lose: 2</b></div>
       </div>
 
-      <div id="current_player">
-        <div id="turn_indicator">&nbsp;</div>
-	<div id="name">Player 2</div>
-	<div id="cards">
-	  <img id="card_image" src="img/h04.gif" />
-	  <img id="card_image" src="img/d13.gif" />
-          <img id="card_image" src="img/c02.gif" />
+      <div class="current_player" id="player_2">
+        <div class="turn_indicator">&nbsp;</div>
+	<div class="name">Player 2</div>
+	<div class="cards">
+	  <img class="card_image" src="img/h04.gif" />
+	  <img class="card_image" src="img/d13.gif" />
+          <img class="card_image" src="img/c02.gif" />
 	</div>
-        <div id="stats"><b>win: 1 lose: 3</b></div>
+        <div class="stats"><b>win: 1 lose: 3</b></div>
       </div>
 
-      <div id="player">
-        <div id="turn_indicator">&nbsp;</div>
-	<div id="name">Player 3</div>
-	<div id="cards">
-	  <img id="card_image" src="img/s07.gif" />
-	  <img id="card_image" src="img/d05.gif" />
-          <img id="card_image" src="img/c01.gif" />
+      <div class="player" id="player_3">
+        <div class="turn_indicator">&nbsp;</div>
+	<div class="name">Player 3</div>
+	<div class="cards">
+	  <img class="card_image" src="img/s07.gif" />
+	  <img class="card_image" src="img/d05.gif" />
+          <img class="card_image" src="img/c01.gif" />
 	</div>
-        <div id="stats"><b>win: 0 lose: 0</b></div>
+        <div class="player_action">
+	  <button type="button">Hit</button>
+	  <button type="button">Stay</button>
+	</div>
+        <div class="stats"><b>win: 0 lose: 0</b></div>
       </div>
 
-      <div id="player">
-        <div id="turn_indicator">&nbsp;</div>
-	<div id="name">Player 4</div>
-	<div id="cards">
-	  <img id="card_image" src="img/s10.gif" />
-	  <img id="card_image" src="img/d03.gif" />
-          <img id="card_image" src="img/c06.gif" />
+      <div class="player" id="player_4">
+        <div class="turn_indicator">&nbsp;</div>
+	<div class="name">Player 4</div>
+	<div class="cards">
+	  <img class="card_image" src="img/s10.gif" />
+	  <img class="card_image" src="img/d03.gif" />
+          <img class="card_image" src="img/c06.gif" />
 	</div>
-        <div id="stats"><b>win: 2 lose: 2</b></div>
+        <div class="stats"><b>win: 2 lose: 2</b></div>
       </div>
     </div><!--! end of #main -->
 
