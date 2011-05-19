@@ -5,6 +5,7 @@
     "express":"",
     "mongoose":"",
     "jade":"",
-    "socket.io":""
+    "socket.io":"",
+    "jasmine-node":""
   }
 }
