@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Client Test Suite</title>
+
+	<link rel="stylesheet" href="qunit/qunit.css" media="screen">
+
+<!-- reference your own javascript files here -->
+
+  <script src="../js/libs/modernizr-1.7.min.js"></script>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> 
+  <script src="../js/plugins.js"></script> 
+  <script src="../js/script.js"></script> 
+
+
+<!-- test runner files -->
+	<script src="qunit/qunit.js"></script>
+	<script src="../js/client.js"></script>
+	<script src="clientTests.js"></script>
+
+<style>
+#qunit-fixture {
+	font-size: 10pt;
+	font-family: 'trebuchet ms', verdana, arial;
+}
+
+#list,#list1 *,#navigation,#navigation * {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+	<h1 id="qunit-header">Client Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests">
+	</ol>
+
+	<div id="qunit-fixture">
+		<ul id="logList">
+			<li>Log 1</li>
+			<li>Log 2</li>
+			<li>Log 3</li>
+		</ul>
+	</div>
+
+</body>
+</html>
+
