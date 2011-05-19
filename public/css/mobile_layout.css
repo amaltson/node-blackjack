@@ -11,50 +11,52 @@ html {
 	width:100%;
 	margin:0 auto;
 	background:#9C9;
+	background-image:url('../img/bg_table.jpg');
 }
 
 /* HEADER */
 header {
-	padding:5px 10px;
-	background:#ddd;
+	background:#000;
 }
 h1 { 
-	margin:0;
 	font-size:30px;
 }
 
 /* NAV */
 nav {
-	background:#c99;
+	background:#000;
 }
 nav ul {
-	margin:0;
-	padding:0;
 	list-style:none;
 }
 nav li {
 	display:inline;
-	margin:0;
-	padding:0;
 }
 
 /* MAIN */
 #main {
 	float:left;
 	width:100%;
-	background:#9c9;
+	/*background:#9c9;*/
 	font-size:12px;
 }
 #dealer {
 	padding:10px;
+	height: 40px;
+	align:center;
 	display:block;
 }
 .player {
 	padding:10px;
+	height: 40px;
+	align:center;
 	display:block;
 }
 .current_player {
 	padding:10px;
+	height: 40px;
+	opacity: 0.9;
+	align:center;
 	background: #lightyellow;
 }
 .turn_indicator {
@@ -76,9 +78,13 @@ nav li {
 }
 .player_action {
 	position:absolute;
-	left:200px;
+	left:240px;
 	display:inline;
 	align:center;
+}
+.busted_image {
+	width:120px;
+	height:40px;
 }
 .stats {
 	display: none;
@@ -89,7 +95,8 @@ nav li {
 	display: none;
 	float:right;
 	width:30%;
-	background:#c9c;
+	background-image:url('../img/bg_paper.gif');
+	/*background:#c9c;*/
 }
 #howtoplay {
 	padding:5px;
@@ -100,5 +107,7 @@ nav li {
 
 #footer {
 	clear:both;
-	background:#cc9;
+	background:#000;
+	color: #fff;
+	font-size: 20px;
 }

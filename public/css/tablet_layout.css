@@ -3,7 +3,7 @@
 #main {
 	float:left;
 	width:75%;
-	background:#9c9;
+	/*background:#9c9;*/
 	font-size:20px;
 }
 .cards {
@@ -29,7 +29,8 @@
 	display: block;
 	float:right;
 	width:25%;
-	background:#c9c;
+	background-image:url('../img/bg_paper.gif');
+	/*background:#c9c;*/
 }
 #howtoplay {
 	padding:5px;
