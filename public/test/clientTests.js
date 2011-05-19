@@ -3,9 +3,12 @@
 
 module("client tests");
 
+/**
+ * Tests that more than 3 logs are only displayed on the main page.
+ */
 test("Only 3 logs are shown", function() {
   expect(1);
-  var expectedLogs = blackjackClient.maximumNumberOfLogs;
+  var maximumNumberOfLogsToDisplay = blackjackClient.maximumNumberOfLogsToDisplay;
   blackjackClient.logMessage("Log 4");
-  equals($('#logList li').length, 3, "Number of logs dispalyed are " + expectedLogs);
+  equals($('#logList li').length, maximumNumberOfLogsToDisplay, "Number of logs dispalyed are " + maximumNumberOfLogsToDisplay);
 });
