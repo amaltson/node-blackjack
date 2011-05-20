@@ -8,7 +8,10 @@ var player2 = {
   userId : "player_2",
   name : "Player 2"
 };
-
+var player3 = {
+  userId : "player_3",
+  name : "Player 3"
+};
 var blackjackClient = {
   /**
    * Socket io connection.
@@ -38,10 +41,11 @@ var blackjackClient = {
         this.addDealerAndBlackjackPlayers([ player1, player2 ]);
         // case 'end':
         // this.updateScores(players);
-        // this.disableTurnForAllPlayers();
+        this.disableTurnForAllPlayers();
         // break;
         // case 'hand':
         this.assignCard(player1.userId, "s07");
+        this.assignCard(player2.userId, "s07");
         // break;
         // case 'turn':
         this.enableTurnForPlayer(player1.userId);
@@ -49,10 +53,11 @@ var blackjackClient = {
         // this.removePlayer(player1.userId);
         // break;
         // case 'add':
-        // this.addBlackjackPlayer(player1.userId,player1.name);
+        this.addBlackjackPlayer(player3.userId, player3.name);
         // break;
         // case 'bust':
-        // this.playerBusted(player1.userId);
+        this.playerBusted();
+        this.enableTurnForPlayer(player2.userId);
         // break;
         // default:
         // console.log("ERROR: Message event not understood");
@@ -69,10 +74,6 @@ var blackjackClient = {
       $('#logList li:first').remove();
     }
     $('#logList').append("<li>" + message + "</li>");
-  },
-
-  findPlayerActionDiv : function(playerDiv) {
-    return playerDiv.find('.player_action');
   },
 
   assignCard : function(userId, cardImageName) {
@@ -132,36 +133,51 @@ var blackjackClient = {
     var aBlackjackClientInstance = this;
 
     var playerDiv = aBlackjackClientInstance.createPlayerDiv(playerUserId, playerDisplayName);
+    playerDiv.addClass('player');
     playerDiv.find('.cards')
         .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats"> <b>win: 0 lose: 0</b> </div>');
 
-    var playerActionDiv = aBlackjackClientInstance.findPlayerActionDiv(playerDiv);
-    playerActionDiv.hide();
-
+    var playerActionDiv = playerDiv.find('.player_action');
     var hitButton = playerActionDiv.find(':button:first');
     hitButton.click(function() {
       aBlackjackClientInstance.hit.apply(aBlackjackClientInstance, [ playerUserId ]);
     });
-
+    hitButton.hide();
     var stayButton = playerActionDiv.find(':button:last');
     stayButton.click(function() {
       aBlackjackClientInstance.stay.apply(aBlackjackClientInstance, [ playerUserId ]);
     });
-
+    stayButton.hide();
     $('#main').append(playerDiv);
   },
 
   enableTurnForPlayer : function(userId) {
-    this.disableTurnForAllPlayers();
-    this.findPlayerActionDiv($('#' + userId)).show();
+    // this.disableTurnForAllPlayers();
+
+    this.togglePlayerActionButtonsForCurrentPlayer(false);
+    $('#main .current_player').removeClass('current_player').addClass('player');
+    $('#' + userId).removeClass('player').addClass('current_player');
+    this.togglePlayerActionButtonsForCurrentPlayer(true);
   },
 
   disableTurnForAllPlayers : function() {
-    $('#main .player_action').hide();
+    $('#main .player_action :button').hide();
   },
 
-  playerBusted : function(userId) {
-    // TODO talk about this with Tomo
+  playerBusted : function() {
+    this.togglePlayerActionButtonsForCurrentPlayer(false);
+    $('#main .current_player .player_action').append('<img class="busted_image" src="img/busted.png" />');
+  },
+
+  togglePlayerActionButtonsForCurrentPlayer : function(show) {
+    var currentPlayerActionDiveButtons = $('#main').find('.current_player :button');
+    if (currentPlayerActionDiveButtons.length > 0) {
+      if (show) {
+        currentPlayerActionDiveButtons.show();
+      } else {
+        currentPlayerActionDiveButtons.hide();
+      }
+    }
   }
 
 };
