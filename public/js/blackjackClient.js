@@ -41,15 +41,18 @@ var blackjackClient = {
         // this.disableTurnForAllPlayers();
         // break;
         // case 'hand':
-        this.assignCard(player1.userId, "");
+        this.assignCard(player1.userId, "s07");
         // break;
         // case 'turn':
         this.enableTurnForPlayer(player1.userId);
         // case 'remove':
+        // this.removePlayer(player1.userId);
         // break;
         // case 'add':
+        // this.addBlackjackPlayer(player1.userId,player1.name);
         // break;
         // case 'bust':
+        // this.playerBusted(player1.userId);
         // break;
         // default:
         // console.log("ERROR: Message event not understood");
@@ -73,7 +76,7 @@ var blackjackClient = {
   },
 
   assignCard : function(userId, cardImageName) {
-
+    $('#' + userId + ' .cards').append('<img class="card_image" src="img/' + cardImageName + '.gif" />');
   },
 
   hit : function(playerUserId) {
@@ -97,18 +100,13 @@ var blackjackClient = {
   },
 
   removePlayer : function(playerUserId) {
-    $('#main .player_action').hide();
+    $('#main').remove('#' + playerUserId);
   },
 
   resetGame : function() {
     $('#main').empty();
   },
 
-  // <div class="cards">
-  // <img class="card_image" src="img/s07.gif" />
-  // <img class="card_image" src="img/d05.gif" />
-  // <img class="card_image" src="img/c01.gif" />
-  // </div>
   addDealerAndBlackjackPlayers : function(players) {
     this.addDealer();
 
