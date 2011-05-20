@@ -14,10 +14,12 @@ blackjackClient.connectToServer = function() {
 
   aBlackjackClientInstance.socket.on('close', function() {
     aBlackjackClientInstance.logMessage("Connection closed");
+    aBlackjackClientInstance.disableTurnForAllPlayers();
   });
 
   aBlackjackClientInstance.socket.on('disconnect', function() {
     aBlackjackClientInstance.logMessage("Connection disconnected");
+    aBlackjackClientInstance.disableTurnForAllPlayers();
   });
 };
 
