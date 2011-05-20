@@ -8,8 +8,8 @@ blackjackClient.connectToServer = function() {
     aBlackjackClientInstance.logMessage("Connected to server");
   });
 
-  aBlackjackClientInstance.socket.on('message', function(msg) {
-    aBlackjackClientInstance.logMessage.apply(aBlackjackClientInstance, [ "Message recieved: " + msg ]);
+  aBlackjackClientInstance.socket.on('message', function(serverMessage) {
+    aBlackjackClientInstance.processIncommingMessage.apply(aBlackjackClientInstance, [ serverMessage ]);
   });
 
   aBlackjackClientInstance.socket.on('close', function() {

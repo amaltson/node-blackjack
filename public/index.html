@@ -57,13 +57,14 @@
 
     <!-- Main Pane-->
 		<div id="main">
+			<!-- 
 			<div id="dealer">
 				<div class="turn_indicator">&nbsp;</div>
 				<div class="name">Dealer</div>
 				<div class="cards">
-					<img class="card_image" src="img_down/s01d.gif" /> <img
-						class="card_image" src="img_down/h02d.gif" /> <img
-						class="card_image" src="img_down/c05d.gif" />
+					<img class="card_image" src="img_down/s01d.gif" /> 
+					<img class="card_image" src="img_down/h02d.gif" /> 
+					<img class="card_image" src="img_down/c05d.gif" />
 				</div>
 			</div>
 
@@ -84,9 +85,9 @@
 				<div class="turn_indicator">&nbsp;</div>
 				<div class="name">Player 2</div>
 				<div class="cards">
-					<img class="card_image" src="img/h04.gif" /> <img
-						class="card_image" src="img/d13.gif" /> <img class="card_image"
-						src="img/c02.gif" />
+					<img class="card_image" src="img/h04.gif" />
+					<img class="card_image" src="img/d13.gif" />
+					<img class="card_image"	src="img/c02.gif" />
 				</div>
 				<div class="stats">
 					<b>win: 1 lose: 3</b>
@@ -97,9 +98,9 @@
 				<div class="turn_indicator">&nbsp;</div>
 				<div class="name">Player 3</div>
 				<div class="cards">
-					<img class="card_image" src="img/s07.gif" /> <img
-						class="card_image" src="img/d05.gif" /> <img class="card_image"
-						src="img/c01.gif" />
+					<img class="card_image" src="img/s07.gif" />
+					<img class="card_image" src="img/d05.gif" />
+					<img class="card_image"	src="img/c01.gif" />
 				</div>
 				<div class="player_action">
 					<button type="button">Hit</button>
@@ -122,6 +123,7 @@
 					<b>win: 2 lose: 2</b>
 				</div>
 			</div>
+			 -->
 		</div>
 		<!--! end of #main -->
 
@@ -142,9 +144,6 @@
 			<div id="logs">
 				<h2>Logs</h2>				 
 				<ul id="logList">
-				<!--<li>Player 2 has joined!</li>
-					<li>Player 4 has joined!</li>
-					<li>Player 3 has joined!</li>-->
 				</ul>				
 			</div>
 		</div>
@@ -168,7 +167,7 @@
   <!-- scripts concatenated and minified via ant build script-->
   <script src="js/plugins.js"></script>
   <script src="js/blackjackClient.js"></script>
-  <script src="js/client.js"></script>
+  <script src="js/clientSocketIO.js"></script>
 
   <!-- socket.io stuff -->
   <script src='/socket.io/socket.io.js'></script>
