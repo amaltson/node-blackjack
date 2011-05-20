@@ -93,3 +93,31 @@ function determinePlayerWin(dealerTotal, playerTotal) {
 	}
 
 }
+
+// the hand value calculator
+function calculateHandValue(aHand) {
+	var totalValue = 0;
+	if (!aHand && aHand.length != 0) {
+		for (var aCard in aHand) {
+			var cardValue = parseInt(aCard.type);
+			alert(cardValue);
+			if (isNaN(cardValue)) {	
+				alert(aCard);
+				switch(aCard.type) {
+				case 'A':
+					cardValue = 11;
+					break;
+				case 'J':
+				case 'Q':
+				case 'K':
+					cardValue = 10;
+					break;
+				default:
+					throw 'calculateHandValue cannot convert unrecognized card type';
+				}
+			} 
+			totalValue += cardValue;
+		}
+	}
+	return totalValue;
+}

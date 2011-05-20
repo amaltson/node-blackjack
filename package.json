@@ -6,6 +6,6 @@
     "mongoose":"",
     "jade":"",
     "socket.io":"",
-    "jasmine-node":""
+    "nodeunit":""
   }
 }
