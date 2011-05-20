@@ -3,7 +3,7 @@
 #main {
 	float:left;
 	width:70%;
-	background:#9c9;
+	/*background:#9c9;*/
 	font-size:22px;
 }
 .cards {
@@ -19,7 +19,7 @@
 }
 .stats {
 	position:absolute;
-	left:420px;
+	left:480px;
 	display: inline;
 }
 
@@ -35,5 +35,7 @@
 	display: block;
 	float:right;
 	width:30%;
-	background:#c9c;
+	background-image:url('../img/bg_paper.gif');
+	background-image:repeat-x;
+	/*background:#c9c;*/
 }
