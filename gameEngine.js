@@ -97,12 +97,11 @@ function determinePlayerWin(dealerTotal, playerTotal) {
 // the hand value calculator
 function calculateHandValue(aHand) {
 	var totalValue = 0;
-	if (!aHand && aHand.length != 0) {
-		for (var aCard in aHand) {
+	if (aHand != undefined && aHand.length != 0) {
+		for (var i = 0; i < aHand.length; i++) {
+      var aCard = aHand[i];
 			var cardValue = parseInt(aCard.type);
-			alert(cardValue);
 			if (isNaN(cardValue)) {	
-				alert(aCard);
 				switch(aCard.type) {
 				case 'A':
 					cardValue = 11;
