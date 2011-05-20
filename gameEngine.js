@@ -1,5 +1,6 @@
 // global variable
-var blackjack = 21;
+var BLACKJACK = 21;
+var BUSTED_VALUE = 22;
 
 // this simulates the dealer shoe
 // we are not keeping track of "burnt" cards
@@ -94,29 +95,38 @@ function determinePlayerWin(dealerTotal, playerTotal) {
 
 }
 
+// test if something is undefined
+function isUndefined(anObject) {
+	// undefined and null are "==" but not identity equal ("===")
+	return anObject == null && anObject !== null; 
+}
+
 // the hand value calculator
 function calculateHandValue(aHand) {
 	var totalValue = 0;
-	if (aHand != undefined && aHand.length != 0) {
-		for (var i = 0; i < aHand.length; i++) {
-      var aCard = aHand[i];
-			var cardValue = parseInt(aCard.type);
-			if (isNaN(cardValue)) {	
-				switch(aCard.type) {
-				case 'A':
-					cardValue = 11;
-					break;
-				case 'J':
-				case 'Q':
-				case 'K':
-					cardValue = 10;
-					break;
-				default:
-					throw 'calculateHandValue cannot convert unrecognized card type';
-				}
-			} 
-			totalValue += cardValue;
-		}
+	
+	// protect against empty argument list or empty collection
+	if (isUndefined(aHand) || aHand.length === 0) {
+		return totalValue;
 	}
-	return totalValue;
+	
+	for (var i = 0; i < aHand.length; i++) {
+		var aCard = aHand[i];
+		var cardValue = parseInt(aCard.type);
+		if (isNaN(cardValue)) {	
+			switch(aCard.type) {
+			case 'A':
+				cardValue = (totalValue > 10) ? 1 : 11;
+				break;
+			case 'J':
+			case 'Q':
+			case 'K':
+				cardValue = 10;
+				break;
+			default:
+				throw 'calculateHandValue cannot convert unrecognized card type';				}
+		} 
+		totalValue += cardValue;
+	}
+	return (totalValue > BLACKJACK) ? BUSTED_VALUE : totalValue;
 }
