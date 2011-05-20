@@ -33,17 +33,23 @@ var blackjackClient = {
     // switch (jsonParsedMessage.event) {
     switch ("") {
       default:
-        // case 'gameFinished':
-        // break;
         // case 'start':
-        this.createDealerAndPlayers([ player1, player2 ]);
+        this.resetGame();
+        this.addDealerAndBlackjackPlayers([ player1, player2 ]);
         // case 'end':
-        // this.resetGame();
+        // this.updateScores(players);
+        // this.disableTurnForAllPlayers();
         // break;
-        // case 'hands':
+        // case 'hand':
+        this.assignCard(player1.userId, "");
         // break;
         // case 'turn':
         this.enableTurnForPlayer(player1.userId);
+        // case 'remove':
+        // break;
+        // case 'add':
+        // break;
+        // case 'bust':
         // break;
         // default:
         // console.log("ERROR: Message event not understood");
@@ -62,8 +68,40 @@ var blackjackClient = {
     $('#logList').append("<li>" + message + "</li>");
   },
 
-  createDealerDivAndAppendToMainDiv : function() {
-    $('#main').append(this.createPlayerDiv("dealer", "Dealer"));
+  findPlayerActionDiv : function(playerDiv) {
+    return playerDiv.find('.player_action');
+  },
+
+  assignCard : function(userId, cardImageName) {
+
+  },
+
+  hit : function(playerUserId) {
+    console.log(playerUserId + " pressed hit");
+    this.socket.send({
+      userId : playerUserId,
+      action : "hit"
+    });
+  },
+
+  stay : function(playerUserId) {
+    console.log(playerUserId + " pressed stay");
+    this.socket.send({
+      userId : playerUserId,
+      action : "stay"
+    });
+  },
+
+  updateScores : function(players) {
+
+  },
+
+  removePlayer : function(playerUserId) {
+    $('#main .player_action').hide();
+  },
+
+  resetGame : function() {
+    $('#main').empty();
   },
 
   // <div class="cards">
@@ -71,17 +109,37 @@ var blackjackClient = {
   // <img class="card_image" src="img/d05.gif" />
   // <img class="card_image" src="img/c01.gif" />
   // </div>
-  createBlackjackPlayerDivAndAppendToMainDiv : function(playerUserId, playerDisplayName) {
-    $('#main').append(this.createBlackjackPlayerDiv(playerUserId, playerDisplayName));
+  addDealerAndBlackjackPlayers : function(players) {
+    this.addDealer();
+
+    for ( var playerIndex = 0; playerIndex < players.length; playerIndex += 1) {
+      var player = players[playerIndex];
+      this.addBlackjackPlayer(player.userId, player.name);
+    }
   },
 
-  createBlackjackPlayerDiv : function(playerUserId, playerDisplayName) {
-    var playerDiv = this.createPlayerDiv(playerUserId, playerDisplayName);
+  addDealer : function() {
+    $('#main').append(this.createPlayerDiv("dealer", "Dealer"));
+  },
+
+  createPlayerDiv : function(divId, displayName) {
+    var playerDiv = $('<div id="' + divId + '"/>');
+    playerDiv.append('<div class="turn_indicator">&nbsp;</div>');
+    playerDiv.append('<div class="name">' + displayName + '</div>');
+    playerDiv.append('<div class="cards">');
+    return playerDiv;
+  },
+
+  addBlackjackPlayer : function(playerUserId, playerDisplayName) {
     var aBlackjackClientInstance = this;
+
+    var playerDiv = aBlackjackClientInstance.createPlayerDiv(playerUserId, playerDisplayName);
     playerDiv.find('.cards')
         .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats"> <b>win: 0 lose: 0</b> </div>');
-    var playerActionDiv = this.findPlayerActionDiv(playerDiv);
+
+    var playerActionDiv = aBlackjackClientInstance.findPlayerActionDiv(playerDiv);
     playerActionDiv.hide();
+
     var hitButton = playerActionDiv.find(':button:first');
     hitButton.click(function() {
       aBlackjackClientInstance.hit.apply(aBlackjackClientInstance, [ playerUserId ]);
@@ -92,54 +150,20 @@ var blackjackClient = {
       aBlackjackClientInstance.stay.apply(aBlackjackClientInstance, [ playerUserId ]);
     });
 
-    return playerDiv;
-  },
-
-  findPlayerActionDiv : function(playerDiv) {
-    return playerDiv.find('.player_action');
-  },
-
-  createPlayerDiv : function(divId, nameToDisplay) {
-    var playerDiv = $('<div id="' + divId + '"/>');
-    playerDiv.append('<div class="turn_indicator">&nbsp;</div>');
-    playerDiv.append('<div class="name">' + nameToDisplay + '</div>');
-    playerDiv.append('<div class="cards">');
-    return playerDiv;
-  },
-
-  assignPlayerHands : function(playersHands) {
-
-  },
-
-  hit : function(playerUserId) {
-    console.log(playerUserId + " pressed hit");
-  },
-
-  stay : function(playerUserId) {
-    console.log(playerUserId + " pressed stay");
+    $('#main').append(playerDiv);
   },
 
   enableTurnForPlayer : function(userId) {
+    this.disableTurnForAllPlayers();
     this.findPlayerActionDiv($('#' + userId)).show();
   },
 
-  updateScoreForPlayer : function() {
-
-  },
-  removePlayer : function() {
-
+  disableTurnForAllPlayers : function() {
+    $('#main .player_action').hide();
   },
 
-  resetGame : function() {
-
-  },
-
-  createDealerAndPlayers : function(players) {
-    this.createDealerDivAndAppendToMainDiv();
-
-    for ( var playerIndex = 0; playerIndex < players.length; playerIndex += 1) {
-      var player = players[playerIndex];
-      this.createBlackjackPlayerDivAndAppendToMainDiv(player.userId, player.name);
-    }
+  playerBusted : function(userId) {
+    // TODO talk about this with Tomo
   }
+
 };
