@@ -4,21 +4,21 @@
 <meta charset="UTF-8" />
 <title>Client Test Suite</title>
 
-	<link rel="stylesheet" href="qunit/qunit.css" media="screen">
+<link rel="stylesheet" href="qunit/qunit.css" media="screen">
 
 <!-- reference your own javascript files here -->
 
-  <script src="../js/libs/modernizr-1.7.min.js"></script>
-  
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> 
-  <script src="../js/plugins.js"></script> 
-  <script src="../js/script.js"></script> 
+<script src="../js/libs/modernizr-1.7.min.js"></script>
+
+<script src="../js/libs/jquery-1.6.1.min.js"></script>
+<script src="../js/plugins.js"></script>
+<script src="../js/script.js"></script>
 
 
 <!-- test runner files -->
-	<script src="qunit/qunit.js"></script>
-	<script src="../js/blackjackClient.js"></script>
-	<script src="clientTests.js"></script>
+<script src="qunit/qunit.js"></script>
+<script src="../js/blackjackClient.js"></script>
+<script src="clientTests.js"></script>
 
 <style>
 #qunit-fixture {
@@ -43,11 +43,59 @@
 	</ol>
 
 	<div id="qunit-fixture">
-		<ul id="logList">
-			<li>Log 1</li>
-			<li>Log 2</li>
-			<li>Log 3</li>
-		</ul>
+		<div id="main">
+			<div id="dealer">
+				<div class="turn_indicator">&nbsp;</div>
+				<div class="name">Dealer</div>
+				<div class="cards">
+					<img class="card_image" src="img/ub0.gif" /> <img
+						class="card_image" src="img_down/h02d.gif" />
+				</div>
+			</div>
+			<div class="current_player" id="player_1">
+				<div class="turn_indicator">&nbsp;</div>
+				<div class="name">Player 1</div>
+				<div class="cards">
+					<img class="card_image" src="img/s06.gif" /> <img
+						class="card_image" src="img/h05.gif" /> <img class="card_image"
+						src="img/c12.gif" />
+				</div>
+				<div class="player_action">
+					<button type="button">Hit</button>
+					<button type="button">Stay</button>
+					<!--img class="busted_image" src="img/busted.png" /-->
+				</div>
+				<div class="stats">
+					<b>win: 7 lose: 2</b>
+				</div>
+			</div>
+			<div class="player" id="player_2">
+				<div class="turn_indicator">&nbsp;</div>
+				<div class="name">Player 2</div>
+				<div class="cards">
+					<img class="card_image" src="img/h04.gif" /> <img
+						class="card_image" src="img/d13.gif" /> <img class="card_image"
+						src="img/c02.gif" />
+				</div>
+				<div class="player_action">
+					<button type="button" style="display: none;">Hit</button>
+					<button type="button" style="display: none;">Stay</button>
+				</div>
+				<div class="stats">
+					<b>win: 1 lose: 3</b>
+				</div>
+			</div>
+		</div>
+		<div id="sidebar">
+			<div id="logs">
+				<h2>Logs</h2>
+				<ul id="logList">
+					<li>Log 1</li>
+					<li>Log 2</li>
+					<li>Log 3</li>
+				</ul>
+			</div>
+		</div>		
 	</div>
 
 </body>

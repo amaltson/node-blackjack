@@ -152,12 +152,10 @@ var blackjackClient = {
   },
 
   enableTurnForPlayer : function(userId) {
-    // this.disableTurnForAllPlayers();
-
-    this.togglePlayerActionButtonsForCurrentPlayer(false);
-    $('#main .current_player').removeClass('current_player').addClass('player');
-    $('#' + userId).removeClass('player').addClass('current_player');
-    this.togglePlayerActionButtonsForCurrentPlayer(true);
+    this.hidePlayerActionButtonsForCurrentPlayer();
+    $('#main .current_player').toggleClass('player', true);
+    $('#' + userId).removeClass('current_player', true);
+    this.showPlayerActionButtonsForCurrentPlayer();
   },
 
   disableTurnForAllPlayers : function() {
@@ -165,17 +163,25 @@ var blackjackClient = {
   },
 
   playerBusted : function() {
-    this.togglePlayerActionButtonsForCurrentPlayer(false);
+    this.hidetogglePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player .player_action').append('<img class="busted_image" src="img/busted.png" />');
   },
 
+  hidePlayerActionButtonsForCurrentPlayer : function() {
+    this.togglePlayerActionButtonsForCurrentPlayer(false);
+  },
+
+  showPlayerActionButtonsForCurrentPlayer : function() {
+    this.togglePlayerActionButtonsForCurrentPlayer(true);
+  },
+
   togglePlayerActionButtonsForCurrentPlayer : function(show) {
-    var currentPlayerActionDiveButtons = $('#main').find('.current_player :button');
-    if (currentPlayerActionDiveButtons.length > 0) {
+    var currentPlayerActionButtons = $('#main').find('.current_player :button');
+    if (currentPlayerActionButtons.length > 0) {
       if (show) {
-        currentPlayerActionDiveButtons.show();
+        currentPlayerActionButtons.show();
       } else {
-        currentPlayerActionDiveButtons.hide();
+        currentPlayerActionButtons.hide();
       }
     }
   }
