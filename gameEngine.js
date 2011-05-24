@@ -1,6 +1,12 @@
-// global variable
+// global constants
 var BLACKJACK = 21;
 var BUSTED_VALUE = 22;
+var IDLE = "Idle... Waiting for Players to join";
+var WAITING = "Waiting For More Players";
+var DEALING = "Dealing out initial cards";
+var PLAYER_TURN = "Player's Turn";
+var DEALER_TURN = "Dealer's Turn";
+var DETERMINING_WINNERS = "Determining Winners";
 
 // this simulates the dealer shoe
 // we are not keeping track of "burnt" cards
@@ -104,19 +110,23 @@ function isUndefined(anObject) {
 // the hand value calculator
 function calculateHandValue(aHand) {
 	var totalValue = 0;
+	var numberOfAces = 0;
 	
 	// protect against empty argument list or empty collection
 	if (isUndefined(aHand) || aHand.length === 0) {
 		return totalValue;
 	}
-	
+		
+	// Calculate the non-Ace hand value, and count up the Aces. They're trickier
+	// so we'll do them later.
 	for (var i = 0; i < aHand.length; i++) {
 		var aCard = aHand[i];
 		var cardValue = parseInt(aCard.type);
 		if (isNaN(cardValue)) {	
 			switch(aCard.type) {
 			case 'A':
-				cardValue = (totalValue > 10) ? 1 : 11;
+				cardValue = 0;
+				numberOfAces++;
 				break;
 			case 'J':
 			case 'Q':
@@ -128,5 +138,14 @@ function calculateHandValue(aHand) {
 		} 
 		totalValue += cardValue;
 	}
+	
+	// Now we handle the case of the Aces, they're trickier because they can be
+	// 1 or 11.
+	if (totalValue < BLACKJACK) {
+		for (var j = 0; j < numberOfAces; j++) {
+			cardValue = (totalValue > 10) ? 1 : 11;
+			totalValue += cardValue;
+		}		
+	}	
 	return (totalValue > BLACKJACK) ? BUSTED_VALUE : totalValue;
 }

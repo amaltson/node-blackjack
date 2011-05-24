@@ -1,21 +1,17 @@
-this.gameEngineTestSuite = {
-	'start GameEngine' : function(test) {
+this.calculateHandValueTestSuite = {
+	'calculateHandValue with null argument' : function(test) {
 		setTimeout(function() {
-			var gameEngine = new GameEngine();
-			gameEngine.start();
-			var gameState = gameEngine.getStatus();
-			test.strictEqual(gameEngine.getStatus(), GameEngine.IDLE,
-					"Should be Waiting but was " + gameState);
+			test.strictEqual(calculateHandValue(), 0, "Should be 0");
 			test.done();
 		}, 10);
 	},
-	'transition from idle to waiting due to add player' : function(test) {
+	'calculateHandValue with empty collection' : function(test) {
 		setTimeout(function() {
 			test.strictEqual(calculateHandValue([]), 0, "Should be 0");
 			test.done();
 		}, 10);
 	},
-	'waiting due to non-empty player list' : function(test) {
+	'calculateHandValue with a single ace' : function(test) {
 		setTimeout(function() {
 			var aCard = {
 				type : 'A'
@@ -27,7 +23,7 @@ this.gameEngineTestSuite = {
 			test.done();
 		}, 10);
 	},
-	'waiting period is 30 seconds' : function(test) {
+	'calculateHandValue with a single 2' : function(test) {
 		setTimeout(function() {
 			var aCard = {
 				type : '2'
@@ -39,7 +35,7 @@ this.gameEngineTestSuite = {
 			test.done();
 		}, 10);
 	},
-	'adding player after wait period' : function(test) {
+	'calculateHandValue with a single 3' : function(test) {
 		setTimeout(function() {
 			var aCard = {
 				type : '3'
@@ -51,7 +47,7 @@ this.gameEngineTestSuite = {
 			test.done();
 		}, 10);
 	},
-	'dealing period' : function(test) {
+	'calculateHandValue with a single 4' : function(test) {
 		setTimeout(function() {
 			var aCard = {
 				type : '4'
@@ -63,7 +59,7 @@ this.gameEngineTestSuite = {
 			test.done();
 		}, 10);
 	},
-	'player hits' : function(test) {
+	'calculateHandValue with a single 5' : function(test) {
 		setTimeout(function() {
 			var aCard = {
 				type : '5'
@@ -75,7 +71,7 @@ this.gameEngineTestSuite = {
 			test.done();
 		}, 10);
 	},
-	'player stands' : function(test) {
+	'calculateHandValue with a single 6' : function(test) {
 		setTimeout(function() {
 			var aCard = {
 				type : '6'

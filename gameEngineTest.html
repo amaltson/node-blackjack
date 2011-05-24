@@ -3,12 +3,14 @@
     <title>Game Engine Test Suite</title>
     <script src="./node_modules/nodeunit/examples/browser/nodeunit.js"></script>
     <script src="./gameEngine.js"></script>
+    <script src="./calculateHandValueTestSuite.js"></script>
     <script src="./gameEngineTestSuite.js"></script>
   </head>
   <body>
     <script>
       nodeunit.run({
-        'The Game Engine Suite': gameEngineTestSuite 
+        'The Hand Value Calculator Test Suite': calculateHandValueTestSuite,
+        'The Game Engine Test Suite' : gameEngineTestSuite
       });
     </script>
   </body>
