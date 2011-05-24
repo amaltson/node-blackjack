@@ -12,14 +12,19 @@ app.listen(9000);
 var io = require('socket.io');
 var socket = io.listen(app);
 socket.on('connection', function(client) {
-<<<<<<< HEAD
   console.log('connected with socket.io');
   client.send('This is your server. Thanks for connecting to me.');
   client.on('message', function(msg) {
     console.log(msg);
+    processMessage(msg);
   });
-=======
-
-	console.log('connected with socket.io');
->>>>>>> origin/game-engine
 });
+
+function processMessage(data) {
+  if (data.action === "hit") {
+    data.player.hand.push(dealNextCard());
+    socket.broadcast(data.player);
+  } else if (data.action === "stay") {
+    socket.broadcast({userId: data.player.userId, action: 'turn'});
+  }
+}

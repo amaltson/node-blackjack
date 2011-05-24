@@ -163,7 +163,7 @@ var blackjackClient = {
   },
 
   playerBusted : function() {
-    this.hidetogglePlayerActionButtonsForCurrentPlayer();
+    this.hidePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player .player_action').append('<img class="busted_image" src="img/busted.png" />');
   },
 
