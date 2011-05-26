@@ -153,8 +153,8 @@ var blackjackClient = {
 
   enableTurnForPlayer : function(userId) {
     this.hidePlayerActionButtonsForCurrentPlayer();
-    $('#main .current_player').toggleClass('player', true);
-    $('#' + userId).removeClass('current_player', true);
+    $('#main .current_player').removeClass('current_player').addClass('player');
+    $('#' + userId).removeClass('player').addClass('current_player');
     this.showPlayerActionButtonsForCurrentPlayer();
   },
 
@@ -184,6 +184,8 @@ var blackjackClient = {
         currentPlayerActionButtons.hide();
       }
     }
+    // TODO
+    // throw an exception that buttons weren't found
   }
 
 };
