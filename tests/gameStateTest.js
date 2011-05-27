@@ -36,5 +36,16 @@ module.exports = testCase({
       test.equals(blackjack.nextTurn(), 'hi', 'second player again');
       test.done();
     },
+
+    'current turn' : function(test) {
+      blackjack.addPlayer({userId: 'hello'}, {userId: 'hi'}, {userId: 'player2'});
+      test.equals(blackjack.currentTurn(), 'hello', 'first person has the turn');
+      blackjack.nextTurn();
+      test.equals(blackjack.currentTurn(), 'hi', 'second player has a turn');
+      blackjack.nextTurn();
+      blackjack.nextTurn();
+      test.equals(blackjack.currentTurn(), 'hello', 'back to first');
+      test.done();
+    }
 });
 

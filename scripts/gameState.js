@@ -37,4 +37,8 @@ Blackjack.prototype = {
 
     return result;
   },
+
+  currentTurn : function() {
+    return this.table[this.current];
+  },
 }
