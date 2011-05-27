@@ -7,27 +7,35 @@ var Blackjack = module.exports = function Blackjack() {
 
 Blackjack.prototype = {
   
-  addPlayer: function() {
+  /**
+   * Adds players to the current game. No arguments on the function because
+   * this works with varargs.
+   *
+   * @param players 0 to arguments.length -1  are players.
+   * @param callback argument.length is the callback function.
+   */
+  addPlayers: function() {
     // assume getting a vararg
-    for (var i = 0; i < arguments.length; i++) {
+    for (var i = 0; i < arguments.length - 1; i++) {
       this.players[arguments[i].userId] = arguments[i];
       this.table.push(arguments[i].userId);
     }
+    arguments[arguments.length -1]();
   },
 
-  getPlayer: function(userId) {
-    return this.players[userId];
+  getPlayer: function(userId, callback) {
+    callback(this.players[userId]);
   },
 
-  getAllPlayers: function() {
+  getAllPlayers: function(callback) {
     var result = [];
     for (userId in this.players) {
       result.push(this.players[userId]);
     }
-    return result;
+    callback(result);
   },
 
-  nextTurn : function() {
+  nextTurn : function(callback) {
     var result = this.table[this.current];
     if (this.current < this.table.length - 1) {
       this.current += 1;
@@ -35,10 +43,10 @@ Blackjack.prototype = {
       this.current = 0;
     }
 
-    return result;
+    callback(result);
   },
 
-  currentTurn : function() {
-    return this.table[this.current];
+  currentTurn : function(callback) {
+    callback(this.table[this.current]);
   },
 }

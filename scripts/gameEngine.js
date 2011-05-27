@@ -81,7 +81,7 @@ function dealNextCard() {
 		break;
 	default:
 		// should never get here
-		return 'error';
+		throw Error(randomNumber + " couldn't be made into a card.");
 		break;
 	}
 
