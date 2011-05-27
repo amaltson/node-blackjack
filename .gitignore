@@ -7,3 +7,8 @@ node_modules/
 .DS_Store
 ehthumbs.db
 Thumbs.db
+
+# Eclipse generated files #
+###########################
+/.project
+/.settings

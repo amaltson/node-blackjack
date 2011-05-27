@@ -14,4 +14,9 @@ var socket = io.listen(app);
 socket.on('connection', function(client) {
 
 	console.log('connected with socket.io');
+  console.log('connected with socket.io');
+  client.send('This is your server. Thanks for connecting to me.');
+  client.on('message', function(msg) {
+    console.log(msg);
+  });
 });
