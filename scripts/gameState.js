@@ -35,9 +35,24 @@ Blackjack.prototype = {
     callback(result);
   },
 
+  removePlayer: function(userId, callback) {
+    delete this.players[userId];
+    for (var i = 0; i < this.table.length; i++) {
+      if (this.table[i] === userId) {
+        this.table.splice(i, 1);
+        break;
+      }
+    }
+    callback();
+  },
+
   nextTurn : function(callback) {
+    var last = this.table.length - 1;
+    if (this.current >= last) {
+      this.current = last;
+    }
     var result = this.table[this.current];
-    if (this.current < this.table.length - 1) {
+    if (this.current < last) {
       this.current += 1;
     } else {
       this.current = 0;
@@ -47,6 +62,10 @@ Blackjack.prototype = {
   },
 
   currentTurn : function(callback) {
-    callback(this.table[this.current]);
+    var cur = this.current;
+    if (this.current > this.table.length - 1) {
+      cur = this.table.length - 1;
+    }
+    callback(this.table[cur]);
   },
 }

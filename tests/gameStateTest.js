@@ -35,6 +35,21 @@ module.exports = testCase({
       test.done();
     },
 
+    'delete player' : function(test) {
+      test.expect(4);
+      blackjack.addPlayers({userId: 'hello'}, {userId: 'hi'}, function() {
+        blackjack.removePlayer('hello', function() {
+          test.equals(blackjack.table.length, 1, 'removed from table');
+          test.equals(blackjack.table[0], 'hi', 'hi remains');
+          blackjack.getAllPlayers(function(players) {
+            test.equals(players.length, 1, 'removed player');
+            test.equals(players[0].userId, 'hi', 'hi remains');
+          });
+        });
+      });
+      test.done();
+    },
+
     'player turns' : function(test) {
       blackjack.addPlayers({userId: 'hello'}, {userId: 'hi'}, function() {
         blackjack.nextTurn(function(userId) {
@@ -66,6 +81,23 @@ module.exports = testCase({
                     test.equals(userId, 'hello', 'back to first');
                   });
                 })
+              });
+            });
+          });
+        });
+      });
+      test.done();
+    },
+
+    'turn and remove' : function(test) {
+      test.expect(2);
+      blackjack.addPlayers({userId: 'hello'}, {userId: 'hi'}, function() {
+        blackjack.nextTurn(function() {
+          blackjack.removePlayer('hi', function() {
+            blackjack.currentTurn(function(userId) {
+              test.equals(userId, 'hello', 'Just the first player remaining');
+              blackjack.nextTurn(function(userId) {
+                test.equals(userId, 'hello', 'Just the first player remaining');
               });
             });
           });
