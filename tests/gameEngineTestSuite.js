@@ -1,14 +1,14 @@
 this.gameEngineTestSuite = {
-	'start GameEngine' : function(test) {
-		setTimeout(function() {
-			var gameEngine = new GameEngine();
-			gameEngine.start();
-			var gameState = gameEngine.getStatus();
-			test.strictEqual(gameEngine.getStatus(), GameEngine.IDLE,
-					"Should be Waiting but was " + gameState);
-			test.done();
-		}, 10);
-	},
+	// 'start GameEngine' : function(test) {
+	//   setTimeout(function() {
+	//     var gameEngine = new GameEngine();
+	//     gameEngine.start();
+	//     var gameState = gameEngine.getStatus();
+	//     test.strictEqual(gameEngine.getStatus(), GameEngine.IDLE,
+	//         "Should be Waiting but was " + gameState);
+	//     test.done();
+	//   }, 10);
+	// },
 	'transition from idle to waiting due to add player' : function(test) {
 		setTimeout(function() {
 			test.strictEqual(calculateHandValue([]), 0, "Should be 0");

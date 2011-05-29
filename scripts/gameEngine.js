@@ -13,55 +13,15 @@ var DETERMINING_WINNERS = "Determining Winners";
 function dealNextCard() {
 	// randomly pick a number between 1 and 13
 	var randomNumber = Math.floor(Math.random() * 13 + 1);
+  if (randomNumber >= 2 && randomNumber <= 10) {
+    return {
+      type: randomNumber + ''
+    };
+  }
 	switch (randomNumber) {
 	case 1:
 		return {
 			type : 'A'
-		};
-		break;
-	case 2:
-		return {
-			type : '2'
-		};
-		break;
-	case 3:
-		return {
-			type : '3'
-		};
-		break;
-	case 4:
-		return {
-			type : '4'
-		};
-		break;
-	case 5:
-		return {
-			type : '5'
-		};
-		break;
-	case 6:
-		return {
-			type : '6'
-		};
-		break;
-	case 7:
-		return {
-			type : '7'
-		};
-		break;
-	case 8:
-		return {
-			type : '8'
-		};
-		break;
-	case 9:
-		return {
-			type : '9'
-		};
-		break;
-	case 10:
-		return {
-			type : '10'
 		};
 		break;
 	case 11:
