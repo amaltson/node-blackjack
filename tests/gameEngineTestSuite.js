@@ -1,4 +1,4 @@
-var Blackjack = require('../scripts/gameState.js');
+var Blackjack = require('../scripts/game.js');
 var blackjack = new Blackjack();
 
 this.gameEngineTestSuite = {
