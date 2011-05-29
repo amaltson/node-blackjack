@@ -19,13 +19,18 @@ test("Only 3 logs are shown", function() {
 
 test("Player is assigned a card", function() {
   var userId = "player_1";
-  var cardImageName = "s01";
-  blackjackClient.assignCard(userId, cardImageName);
+  var cardType = "A";
+  var suite = "s";
+  blackjackClient.generateRandomSuite = function() {
+    return suite;
+
+  };
+  blackjackClient.assignCard(userId, cardType);
   expect(3);
   var actualCards = $('#' + userId + ' .cards img');
   equals(actualCards.length, 4, "Total number of cards is 4");
   var lastCard = $('#' + userId + ' .cards img:last');
-  equals(lastCard.attr('src'), "img/" + cardImageName + ".gif", "Names matched");
+  equals(lastCard.attr('src'), "img/" + suite + cardType.toLowerCase() + ".gif", "Names matched");
   equals(lastCard.attr('class'), "card_image", "Card class name matched");
 });
 
