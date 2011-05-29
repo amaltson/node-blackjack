@@ -24,6 +24,7 @@ var blackjackClient = {
   maximumNumberOfLogsToDisplay : 3,
 
   processIncommingMessage : function(serverJsonMessage) {
+    console.log(serverJsonMessage);
     var jsonParsedMessage;
     this.logMessage("Message recieved:" + serverJsonMessage);
     // try {
