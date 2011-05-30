@@ -3,7 +3,7 @@ require.paths.unshift('./node_modules');
 var express = require('express');
 var app = express.createServer();
 
-var Blackjack = require('./scripts/gameState.js');
+var Blackjack = require('./scripts/game.js');
 var game = new Blackjack();
 
 app.configure(function() {
@@ -16,13 +16,12 @@ var io = require('socket.io');
 var socket = io.listen(app);
 socket.on('connection', function(client) {
   console.log('connected with socket.io');
-  var players = game.getAllPlayers(function() {
+  var players = game.getAllPlayers(function(players) {
     var initialState = {
       players: players,
       action: 'players'
     };
-  client.send(initialState);
-
+    client.send(initialState);
   });
   client.on('message', function(msg) {
     console.log(msg);
@@ -31,10 +30,33 @@ socket.on('connection', function(client) {
 });
 
 function processMessage(data) {
-  if (data.action === "hit") {
-    data.player.hand.push(dealNextCard());
-    socket.broadcast(data.player);
-  } else if (data.action === "stay") {
-    socket.broadcast({userId: data.player.userId, action: 'turn'});
+  switch(data.action) {
+    case 'hit':
+      var nextCard = game.dealNextCard();
+      game.getPlayer(data.userId, function(player) {
+        player.hand.push(nextCard);
+        socket.broadcast({
+          userId: data.player.userId,
+          card: nextCard,
+          action: 'hand'
+        });
+      });
+      break;
+    case 'stay':
+      socket.broadcast({
+        userId: data.player.userId,
+        action: 'turn'
+      });
+      break;
+    case 'login':
+      game.addPlayers(data.player, function() {
+        socket.broadcast({
+          player: data.player,
+          action: 'add'
+        });
+      });
+      break;
+    default:
+      // code
   }
 }
