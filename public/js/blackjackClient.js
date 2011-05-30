@@ -45,11 +45,15 @@ var blackjackClient = {
         // case 'showDealerCard':
         // break;
         // case 'assingCard':
-        this.assignCard("dealer", "hidden");
         this.assignCard("dealer", "A");
+        this.assignCard("dealer", "hidden");
         this.assignCard(player1.userId, "2");
         this.assignCard(player2.userId, "10");
         this.assignCard(player2.userId, "Q");
+        var aBlackjackClientInstance = this;
+        setTimeout(function() {
+          aBlackjackClientInstance.showDealerCard.apply(aBlackjackClientInstance, [ "10" ]);
+        }, 5000);
         // break;
         // case 'turn':
         this.enableTurnForPlayer(player1.userId);
@@ -95,9 +99,9 @@ var blackjackClient = {
     $('#' + userId + ' .cards').append('<img class="card_image" src="' + imageRelativePath + suiteCard + '.gif" />');
   },
 
-  // TODO implement showDealerCard
-  showDealerCard : function() {
-
+  showDealerCard : function(cardType) {
+    $('#dealer .cards').children().eq(1).remove();
+    this.assignCard("dealer", cardType);
   },
 
   generateRandomSuite : function() {
