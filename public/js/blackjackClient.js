@@ -40,12 +40,20 @@ var blackjackClient = {
         this.resetGame();
         this.addDealerAndBlackjackPlayers([ player1, player2 ]);
         // case 'end':
-        // this.updateScores(players);
         this.disableTurnForAllPlayers();
         // break;
-        // case 'hand':
-        this.assignCard(player1.userId, "s07");
-        this.assignCard(player2.userId, "s07");
+        // case 'showDealerCard':
+        // break;
+        // case 'assingCard':
+        this.assignCard("dealer", "A");
+        this.assignCard("dealer", "hidden");
+        this.assignCard(player1.userId, "2");
+        this.assignCard(player2.userId, "10");
+        this.assignCard(player2.userId, "Q");
+        var aBlackjackClientInstance = this;
+        setTimeout(function() {
+          aBlackjackClientInstance.showDealerCard.apply(aBlackjackClientInstance, [ "10" ]);
+        }, 5000);
         // break;
         // case 'turn':
         this.enableTurnForPlayer(player1.userId);
@@ -76,10 +84,34 @@ var blackjackClient = {
     $('#logList').append("<li>" + message + "</li>");
   },
 
-  assignCard : function(userId, cardImageName) {
-    $('#' + userId + ' .cards').append('<img class="card_image" src="img/' + cardImageName + '.gif" />');
+  // tested
+  assignCard : function(userId, cardType) {
+    var imageRelativePath = "img/";
+    if (userId === "dealer") {
+      imageRelativePath = "img_down/";
+    }
+
+    var suiteCard = cardType;
+    if (cardType !== "hidden") {
+      suiteCard = this.generateRandomSuite() + cardType.toLowerCase();
+    }
+
+    $('#' + userId + ' .cards').append('<img class="card_image" src="' + imageRelativePath + suiteCard + '.gif" />');
   },
 
+  showDealerCard : function(cardType) {
+    $('#dealer .cards').children().eq(1).remove();
+    this.assignCard("dealer", cardType);
+  },
+
+  generateRandomSuite : function() {
+    var randomCharacters = "cshd";
+    var randomNumber = Math.floor(Math.random() * randomCharacters.length);
+    return randomCharacters.substring(randomNumber, randomNumber + 1);
+
+  },
+
+  // TODO write a test for hit
   hit : function(playerUserId) {
     console.log(playerUserId + " pressed hit");
     this.socket.send({
@@ -88,6 +120,7 @@ var blackjackClient = {
     });
   },
 
+  // TODO write a test for stay
   stay : function(playerUserId) {
     console.log(playerUserId + " pressed stay");
     this.socket.send({
@@ -96,18 +129,17 @@ var blackjackClient = {
     });
   },
 
-  updateScores : function(players) {
-
-  },
-
+  // TODO write a test for remove player
   removePlayer : function(playerUserId) {
     $('#main').remove('#' + playerUserId);
   },
 
+  // TODO write a test for resetGame
   resetGame : function() {
     $('#main').empty();
   },
 
+  // TODO write a test for addDealerAndBlackjackPlayers
   addDealerAndBlackjackPlayers : function(players) {
     this.addDealer();
 
@@ -117,6 +149,7 @@ var blackjackClient = {
     }
   },
 
+  // TODO write a test for addDealer
   addDealer : function() {
     $('#main').append(this.createPlayerDiv("dealer", "Dealer"));
   },
@@ -129,13 +162,15 @@ var blackjackClient = {
     return playerDiv;
   },
 
+  // TODO write a test for addBlackjackPlayer
   addBlackjackPlayer : function(playerUserId, playerDisplayName) {
     var aBlackjackClientInstance = this;
 
     var playerDiv = aBlackjackClientInstance.createPlayerDiv(playerUserId, playerDisplayName);
     playerDiv.addClass('player');
-    playerDiv.find('.cards')
-        .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats"> <b>win: 0 lose: 0</b> </div>');
+    playerDiv
+        .find('.cards')
+        .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats" style="display:none;"> <b>win: 0 lose: 0</b> </div>');
 
     var playerActionDiv = playerDiv.find('.player_action');
     var hitButton = playerActionDiv.find(':button:first');
@@ -151,6 +186,7 @@ var blackjackClient = {
     $('#main').append(playerDiv);
   },
 
+  // TODO write a test for enableTurnForPlayer
   enableTurnForPlayer : function(userId) {
     this.hidePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player').removeClass('current_player').addClass('player');
@@ -158,10 +194,12 @@ var blackjackClient = {
     this.showPlayerActionButtonsForCurrentPlayer();
   },
 
+  // TODO write a test for disableTurnForAllPlayers
   disableTurnForAllPlayers : function() {
     $('#main .player_action :button').hide();
   },
 
+  // TODO write a test for playerBusted
   playerBusted : function() {
     this.hidePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player .player_action').append('<img class="busted_image" src="img/busted.png" />');
@@ -184,8 +222,6 @@ var blackjackClient = {
         currentPlayerActionButtons.hide();
       }
     }
-    // TODO
-    // throw an exception that buttons weren't found
   }
 
 };
