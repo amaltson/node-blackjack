@@ -23,6 +23,33 @@ var blackjackClient = {
    */
   maximumNumberOfLogsToDisplay : 3,
 
+  getUserId : function(callback) {
+    $('#login_button').click(function() {
+      $('#mask').fadeIn(1000);
+      $('#mask').fadeTo("fast", 0.0);
+      $('#login_dialog').fadeIn(1000);
+      $('#login_dialog').fadeTo("fast", 0.0);
+      callback($('#login_name').val());
+    });
+
+    var maskHeight = $(document).height();
+    var maskWidth = $(document).width();
+
+    $('#mask').css({
+      'width' : maskWidth,
+      'height' : maskHeight
+    });
+    $('#mask').fadeIn(1000);
+    $('#mask').fadeTo("slow", 0.95);
+
+    var windowHeight = $(window).height();
+    var windowWidth = $(window).width();
+
+    $('#login_dialog').css('top', windowHeight / 2 - $('#login_dialog').height() / 2);
+    $('#login_dialog').css('left', windowWidth / 2 - $('#login_dialog').width() / 2);
+    $('#login_dialog').fadeIn(2000);
+  },
+
   processIncommingMessage : function(serverJsonMessage) {
     var jsonParsedMessage;
     this.logMessage("Message recieved:" + serverJsonMessage);
