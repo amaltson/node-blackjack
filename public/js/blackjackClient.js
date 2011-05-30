@@ -187,6 +187,44 @@ var blackjackClient = {
     }
     // TODO
     // throw an exception that buttons weren't found
-  }
+  },
 
+  login: function(socket) {
+    var maskHeight = $(document).height();
+    var maskWidth = $(document).width();
+
+    //alert(maskWidth); 
+
+    $('#mask').css({
+      'width' : maskWidth,
+      'height' : maskHeight
+    });
+    $('#mask').fadeIn(1000);
+    $('#mask').fadeTo("slow", 0.95);
+
+    var winH = $(window).height();
+    var winW = $(window).width();
+
+    $('#login_dialog').css('top', winH / 2 - $('#login_dialog').height() / 2);
+    $('#login_dialog').css('left', winW / 2 - $('#login_dialog').width() / 2);
+    $('#login_dialog').fadeIn(2000);
+
+    $('#login_button').click(function() {
+      var username = $('#login_name').val();
+      if(username !== 'Please enter your name') {
+        $('#mask').fadeIn(1000);
+        $('#mask').fadeTo("fast", 0.0);
+        $('#mask').remove();
+        $('#login_dialog').fadeIn(1000);
+        $('#login_dialog').fadeTo("fast", 0.0);
+        socket.send({
+          player: {
+            userId: username,
+            name: username
+          },
+          action: 'login'
+        });
+      }
+    });
+  }
 };
