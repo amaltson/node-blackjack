@@ -31,7 +31,7 @@ var blackjackClient = {
         break;
       case 'add':
         var player = serverJsonMessage.player;
-        this.addBlackjackPlayer(player.userId, player.name);
+        this.addBlackjackPlayer(player.userId, player.name, player.hand);
         break;
       default:
         // case 'end':
