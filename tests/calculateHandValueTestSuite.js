@@ -1,13 +1,16 @@
+var Blackjack = require('../scripts/game.js');
+var blackjack = new Blackjack();
+
 this.calculateHandValueTestSuite = {
 	'calculateHandValue with null argument' : function(test) {
 		setTimeout(function() {
-			test.strictEqual(calculateHandValue(), 0, "Should be 0");
+			test.strictEqual(blackjack.calculateHandValue(), 0, "Should be 0");
 			test.done();
 		}, 10);
 	},
 	'calculateHandValue with empty collection' : function(test) {
 		setTimeout(function() {
-			test.strictEqual(calculateHandValue([]), 0, "Should be 0");
+			test.strictEqual(blackjack.calculateHandValue([]), 0, "Should be 0");
 			test.done();
 		}, 10);
 	},
@@ -17,7 +20,7 @@ this.calculateHandValueTestSuite = {
 				type : 'A'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 11, "Should be 11 but was "
 					+ aValue.toString());
 			test.done();
@@ -29,7 +32,7 @@ this.calculateHandValueTestSuite = {
 				type : '2'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 2, "Should be 2 but was "
 					+ aValue.toString());
 			test.done();
@@ -41,7 +44,7 @@ this.calculateHandValueTestSuite = {
 				type : '3'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 3, "Should be 3 but was "
 					+ aValue.toString());
 			test.done();
@@ -53,7 +56,7 @@ this.calculateHandValueTestSuite = {
 				type : '4'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 4, "Should be 4 but was "
 					+ aValue.toString());
 			test.done();
@@ -65,7 +68,7 @@ this.calculateHandValueTestSuite = {
 				type : '5'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 5, "Should be 5 but was "
 					+ aValue.toString());
 			test.done();
@@ -77,7 +80,7 @@ this.calculateHandValueTestSuite = {
 				type : '6'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 6, "Should be 6 but was "
 					+ aValue.toString());
 			test.done();
@@ -89,7 +92,7 @@ this.calculateHandValueTestSuite = {
 				type : '7'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 7, "Should be 7 but was "
 					+ aValue.toString());
 			test.done();
@@ -101,7 +104,7 @@ this.calculateHandValueTestSuite = {
 				type : '8'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 8, "Should be 8 but was "
 					+ aValue.toString());
 			test.done();
@@ -113,7 +116,7 @@ this.calculateHandValueTestSuite = {
 				type : '9'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 9, "Should be 9 but was "
 					+ aValue.toString());
 			test.done();
@@ -125,7 +128,7 @@ this.calculateHandValueTestSuite = {
 				type : '10'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 10, "Should be 10 but was "
 					+ aValue.toString());
 			test.done();
@@ -137,7 +140,7 @@ this.calculateHandValueTestSuite = {
 				type : 'J'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 10, "Should be 10 but was "
 					+ aValue.toString());
 			test.done();
@@ -149,7 +152,7 @@ this.calculateHandValueTestSuite = {
 				type : 'Q'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 10, "Should be 10 but was "
 					+ aValue.toString());
 			test.done();
@@ -161,7 +164,7 @@ this.calculateHandValueTestSuite = {
 				type : 'K'
 			};
 			var aHand = [ aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 10, "Should be 10 but was "
 					+ aValue.toString());
 			test.done();
@@ -173,7 +176,7 @@ this.calculateHandValueTestSuite = {
 				type : 'A'
 			};
 			var aHand = [ aCard, aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 12, "Should be 12 but was "
 					+ aValue.toString());
 			test.done();
@@ -189,7 +192,7 @@ this.calculateHandValueTestSuite = {
 				type : '2'
 			};
 			var aHand = [ aCard, anotherCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 13, "Should be 13 but was "
 					+ aValue.toString());
 			test.done();
@@ -205,7 +208,7 @@ this.calculateHandValueTestSuite = {
 				type : '9'
 			};
 			var aHand = [ aCard, anotherCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 20, "Should be 20 but was "
 					+ aValue.toString());
 			test.done();
@@ -220,7 +223,7 @@ this.calculateHandValueTestSuite = {
 				type : '10'
 			};
 			var aHand = [ aCard, anotherCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 21, "Should be 21 but was "
 					+ aValue.toString());
 			test.done();
@@ -235,7 +238,7 @@ this.calculateHandValueTestSuite = {
 				type : 'Q'
 			};
 			var aHand = [ aCard, anotherCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 21, "Should be 21 but was "
 					+ aValue.toString());
 			test.done();
@@ -247,7 +250,7 @@ this.calculateHandValueTestSuite = {
 				type : 'A'
 			};
 			var aHand = [ aCard, aCard, aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 13, "Should be 13 but was "
 					+ aValue.toString());
 			test.done();
@@ -265,7 +268,7 @@ this.calculateHandValueTestSuite = {
 				type : '2'
 			};
 			var aHand = [ aCard, anotherCard, aThirdCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 22,
 					"Should be 22 (busted constant value) but was "
 							+ aValue.toString());
@@ -284,7 +287,7 @@ this.calculateHandValueTestSuite = {
 				type : 'K'
 			};
 			var aHand = [ aCard, anotherCard, aThirdCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 22,
 					"Should be 22 (busted constant value) but was "
 							+ aValue.toString());
@@ -298,7 +301,7 @@ this.calculateHandValueTestSuite = {
 			};
 			var aHand = [ aCard, aCard, aCard, aCard, aCard, aCard, aCard,
 					aCard, aCard, aCard, aCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 21, "Should be 21 but was "
 					+ aValue.toString());
 			test.done();
@@ -316,7 +319,7 @@ this.calculateHandValueTestSuite = {
 				type : '5'
 			};
 			var aHand = [ aCard, anotherCard, aThirdCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 12, "Should be 12 but was "
 					+ aValue.toString());
 			test.done();
@@ -334,7 +337,7 @@ this.calculateHandValueTestSuite = {
 				type : 'A'
 			};
 			var aHand = [ aCard, anotherCard, aThirdCard ];
-			var aValue = calculateHandValue(aHand);
+			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 12, "Should be 12 but was "
 					+ aValue.toString());
 			test.done();
