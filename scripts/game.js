@@ -74,6 +74,16 @@ Blackjack.prototype = {
     callback(this.table[cur]);
   },
 
+  setTurn: function(userId, callback) {
+    for (var i = 0; i < this.table.length; i++) {
+      if (this.table[i] === userId) {
+        this.current = i;
+        break;
+      }
+    }
+    callback();
+  },
+
   /**
    * this simulates the dealer shoe
    * we are not keeping track of "burnt" cards

@@ -73,7 +73,21 @@ function processMessage(data, callback) {
           player: data.player,
           action: 'add'
         });
-        callback(data.player.userId);
+        game.getAllPlayers(function(players) {
+          // if this is the first player (after the dealer), make it
+          // their turn.
+          if (players.length === 2) {
+            game.setTurn(data.player.userId, function() {
+              game.currentTurn(function(userId) {
+                socket.broadcast({
+                  userId: data.player.userId,
+                  action: 'turn'
+                });
+              });
+            });
+          }
+          callback(data.player.userId);
+        });
       });
       break;
     default:

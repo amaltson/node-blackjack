@@ -35,6 +35,10 @@ var blackjackClient = {
         break;
       case 'remove':
         this.removePlayer(serverJsonMessage.userId);
+        break;
+      case 'turn':
+        this.enableTurnForPlayer(serverJsonMessage.userId);
+        break;
       default:
         // case 'end':
         this.disableTurnForAllPlayers();
@@ -49,9 +53,7 @@ var blackjackClient = {
           aBlackjackClientInstance.showDealerCard.apply(aBlackjackClientInstance, [ "10" ]);
         }, 5000);
         // break;
-        // case 'turn':
-        // this.enableTurnForPlayer(player1.userId);
-        // break;
+
         // case 'bust':
         // this.playerBusted();
         // this.enableTurnForPlayer(player2.userId);
