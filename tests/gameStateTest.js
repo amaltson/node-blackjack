@@ -104,6 +104,14 @@ module.exports = testCase({
         });
       });
       test.done();
+    },
+
+    'deal next card' : function(test) {
+      var card = blackjack.dealNextCard();
+      var re = /^(\d|10|J|Q|K|A)$/
+      console.log(card.type);
+      test.ok(re.exec(card.type), 'next card returned a valid card');
+      test.done();
     }
 });
 

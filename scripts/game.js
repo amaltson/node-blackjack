@@ -7,7 +7,6 @@ var Blackjack = module.exports = function Blackjack() {
   this.players = {};
   this.table = [];
   this.current = 0;
-
   return this;
 }
 
@@ -84,28 +83,28 @@ Blackjack.prototype = {
     var randomNumber = Math.floor(Math.random() * 13 + 1);
     if (randomNumber >= 2 && randomNumber <= 10) {
       return {
-        type: randomNumber + ''
+        type: randomNumber + ""
       };
     }
     switch (randomNumber) {
     case 1:
       return {
-        type : 'A'
+        type : "A"
       };
       break;
     case 11:
       return {
-        type : 'J'
+        type : "J"
       };
       break;
     case 12:
       return {
-        type : 'Q'
+        type : "Q"
       };
       break;
     case 13:
       return {
-        type : 'K'
+        type : "K"
       };
       break;
     default:
