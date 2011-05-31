@@ -49,6 +49,8 @@ function processMessage(data) {
       });
       break;
     case 'login':
+      var hand = [game.dealNextCard(), game.dealNextCard()];
+      data.player.hand = hand;
       game.addPlayers(data.player, function() {
         socket.broadcast({
           player: data.player,

@@ -14,6 +14,7 @@ var blackjackClient = {
 
   processIncommingMessage : function(serverJsonMessage) {
     var jsonParsedMessage;
+    console.log(serverJsonMessage);
     this.logMessage("Message recieved:" + serverJsonMessage);
     // try {
     // jsonParsedMessage = JSON.parse(message);
@@ -131,7 +132,7 @@ var blackjackClient = {
   addBlackjackPlayers : function(players) {
     for ( var playerIndex = 0; playerIndex < players.length; playerIndex += 1) {
       var player = players[playerIndex];
-      this.addBlackjackPlayer(player.userId, player.name);
+      this.addBlackjackPlayer(player.userId, player.name, player.hand);
     }
   },
 
@@ -144,7 +145,7 @@ var blackjackClient = {
   },
 
   // TODO write a test for addBlackjackPlayer
-  addBlackjackPlayer : function(playerUserId, playerDisplayName) {
+  addBlackjackPlayer : function(playerUserId, playerDisplayName, hand) {
     var aBlackjackClientInstance = this;
 
     var playerDiv = aBlackjackClientInstance.createPlayerDiv(playerUserId, playerDisplayName);
@@ -165,6 +166,10 @@ var blackjackClient = {
     });
     stayButton.hide();
     $('#main').append(playerDiv);
+
+    for (var i = 0; i < hand.length; i++) {
+      this.assignCard(playerUserId, hand[i].type);
+    }
   },
 
   // TODO write a test for enableTurnForPlayer
