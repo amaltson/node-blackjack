@@ -7,18 +7,6 @@ var Blackjack = module.exports = function Blackjack() {
   this.players = {};
   this.table = [];
   this.current = 0;
-
-  this.addPlayers({
-    userId:'dealer',
-    name:'Dealer',
-    hand: [{
-      type: this.dealNextCard() + "",
-    },
-    {
-      type: "hidden"
-    }]
-  }, function() {});
-
   return this;
 }
 

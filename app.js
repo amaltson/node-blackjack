@@ -5,6 +5,7 @@ var app = express.createServer();
 
 var Blackjack = require('./scripts/game.js');
 var game = new Blackjack();
+createDealer(game);
 
 app.configure(function() {
   app.use(express.static(__dirname + '/public'));
@@ -61,4 +62,16 @@ function processMessage(data) {
     default:
       // code
   }
+}
+
+function createDealer(game) {
+  var dealerCard = game.dealNextCard();
+  game.addPlayers({
+    userId:'dealer',
+    name:'Dealer',
+    hand: [dealerCard,
+    {
+      type: "hidden"
+    }]
+  }, function() {});
 }
