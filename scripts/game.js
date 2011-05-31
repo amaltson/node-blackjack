@@ -56,12 +56,12 @@ Blackjack.prototype = {
     if (this.current >= last) {
       this.current = last;
     }
-    var result = this.table[this.current];
     if (this.current < last) {
       this.current += 1;
     } else {
       this.current = 0;
     }
+    var result = this.table[this.current];
 
     callback(result);
   },

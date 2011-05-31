@@ -25,6 +25,12 @@ socket.on('connection', function(client) {
       action: 'start'
     };
     client.send(initialState);
+    game.currentTurn(function(userId) {
+      client.send({
+        userId: userId,
+        action: 'turn'
+      });
+    });
   });
   client.on('message', function(msg) {
     processMessage(msg, function(userId) {
@@ -59,9 +65,11 @@ function processMessage(data, callback) {
       });
       break;
     case 'stay':
-      socket.broadcast({
-        userId: data.player.userId,
-        action: 'turn'
+      game.nextTurn(function(userId) {
+        socket.broadcast({
+          userId: userId,
+          action: 'turn'
+        });
       });
       break;
     case 'login':
