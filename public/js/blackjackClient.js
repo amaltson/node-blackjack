@@ -33,6 +33,8 @@ var blackjackClient = {
         var player = serverJsonMessage.player;
         this.addBlackjackPlayer(player.userId, player.name, player.hand);
         break;
+      case 'remove':
+        this.removePlayer(serverJsonMessage.userId);
       default:
         // case 'end':
         this.disableTurnForAllPlayers();
@@ -49,8 +51,6 @@ var blackjackClient = {
         // break;
         // case 'turn':
         // this.enableTurnForPlayer(player1.userId);
-        // case 'remove':
-        // this.removePlayer(player1.userId);
         // break;
         // case 'bust':
         // this.playerBusted();
@@ -120,7 +120,7 @@ var blackjackClient = {
 
   // TODO write a test for remove player
   removePlayer : function(playerUserId) {
-    $('#main').remove('#' + playerUserId);
+    $('#' + playerUserId).remove();
   },
 
   // TODO write a test for resetGame

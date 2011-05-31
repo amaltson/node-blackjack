@@ -7,6 +7,8 @@ var Blackjack = require('./scripts/game.js');
 var game = new Blackjack();
 createDealer(game);
 
+var socketToPlayer = {};
+
 app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 });
@@ -26,11 +28,25 @@ socket.on('connection', function(client) {
   });
   client.on('message', function(msg) {
     console.log('Client message: ' + msg);
-    processMessage(msg);
+    processMessage(msg, function(userId) {
+      // on login events, keep around the socket to userId
+      socketToPlayer[client] = userId;
+    });
+  });
+  client.on('disconnect', function() {
+    console.log('Client disconnected');
+    var userId = socketToPlayer[client];
+    game.removePlayer(userId, function() {
+      socket.broadcast({
+        userId: userId,
+        action: 'remove'
+      });
+      delete socketToPlayer[client];
+    });
   });
 });
 
-function processMessage(data) {
+function processMessage(data, callback) {
   switch(data.action) {
     case 'hit':
       var nextCard = game.dealNextCard();
@@ -57,6 +73,7 @@ function processMessage(data) {
           player: data.player,
           action: 'add'
         });
+        callback(data.player.userId);
       });
       break;
     default:
