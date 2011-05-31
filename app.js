@@ -19,12 +19,12 @@ socket.on('connection', function(client) {
   var players = game.getAllPlayers(function(players) {
     var initialState = {
       players: players,
-      action: 'players'
+      action: 'start'
     };
     client.send(initialState);
   });
   client.on('message', function(msg) {
-    console.log(msg);
+    console.log('Client message: ' + msg);
     processMessage(msg);
   });
 });
