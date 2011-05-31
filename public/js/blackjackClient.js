@@ -39,15 +39,15 @@ var blackjackClient = {
       case 'turn':
         this.enableTurnForPlayer(serverJsonMessage.userId);
         break;
+      case 'assignCard':
+        this.assignCard(serverJsonMessage.userId, serverJsonMessage.card.type);
+        break;
       default:
         // case 'end':
         this.disableTurnForAllPlayers();
         // break;
         // case 'showDealerCard':
         // break;
-        // case 'assingCard':
-        // this.assignCard("dealer", "A");
-        // this.assignCard("dealer", "hidden");
         var aBlackjackClientInstance = this;
         setTimeout(function() {
           aBlackjackClientInstance.showDealerCard.apply(aBlackjackClientInstance, [ "10" ]);

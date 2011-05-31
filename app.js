@@ -27,7 +27,6 @@ socket.on('connection', function(client) {
     client.send(initialState);
   });
   client.on('message', function(msg) {
-    console.log('Client message: ' + msg);
     processMessage(msg, function(userId) {
       // on login events, keep around the socket to userId
       socketToPlayer[client] = userId;
@@ -53,9 +52,9 @@ function processMessage(data, callback) {
       game.getPlayer(data.userId, function(player) {
         player.hand.push(nextCard);
         socket.broadcast({
-          userId: data.player.userId,
+          userId: player.userId,
           card: nextCard,
-          action: 'hand'
+          action: 'assignCard'
         });
       });
       break;
