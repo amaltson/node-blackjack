@@ -67,71 +67,6 @@
 
 		<!-- Main Pane-->
 		<div id="main">
-			<div id="dealer">
-				<div class="turn_indicator">&nbsp;</div>
-				<div class="name">Dealer</div>
-				<div class="cards">
-					<img class="card_image" src="img_down/hidden.gif" /> <img
-						class="card_image" src="img_down/h2.gif" />
-				</div>
-			</div>
-
-			<div class="player" id="player_1">
-				<div class="turn_indicator">&nbsp;</div>
-				<div class="name">Player 1</div>
-				<div class="cards">
-					<img class="card_image" src="img/s6.gif" /> <img
-						class="card_image" src="img/h5.gif" /> <img class="card_image"
-						src="img/cq.gif" />
-				</div>
-				<div class="player_action">
-					<img class="busted_image" src="img/busted.png" />
-				</div>
-				<div class="stats">
-					<b>win: 7 lose: 2</b>
-				</div>
-			</div>
-
-			<div class="current_player" id="player_2">
-				<div class="turn_indicator">&nbsp;</div>
-				<div class="name">Player 2</div>
-				<div class="cards">
-					<img class="card_image" src="img/h4.gif" /> <img
-						class="card_image" src="img/dk.gif" /> <img class="card_image"
-						src="img/c2.gif" />
-				</div>
-				<div class="player_action">
-					<button type="button">Hit</button>
-					<button type="button">Stay</button>
-				</div>
-				<div class="stats">
-					<b>win: 1 lose: 3</b>
-				</div>
-			</div>
-
-			<div class="player" id="player_3">
-				<div class="turn_indicator">&nbsp;</div>
-				<div class="name">Player 3</div>
-				<div class="cards">
-					<img class="card_image" src="img/s7.gif" /> <img
-						class="card_image" src="img/d5.gif" />
-				</div>
-				<div class="stats">
-					<b>win: 0 lose: 0</b>
-				</div>
-			</div>
-
-			<div class="player" id="player_4">
-				<div class="turn_indicator">&nbsp;</div>
-				<div class="name">Player 4</div>
-				<div class="cards">
-					<img class="card_image" src="img/s10.gif" /> <img
-						class="card_image" src="img/d3.gif" />
-				</div>
-				<div class="stats">
-					<b>win: 2 lose: 2</b>
-				</div>
-			</div>
 		</div>
 		<!--! end of #main -->
 
@@ -202,42 +137,7 @@
 	<!-- socket.io stuff -->
 	<script src='/socket.io/socket.io.js'></script>
 
-
 	<script type='text/javascript'>
-    $(document).ready(function() {
-      if (true) {
-        return;
-      }
-      ;
-
-      var maskHeight = $(document).height();
-      var maskWidth = $(document).width();
-
-      //alert(maskWidth); 
-
-      $('#mask').css({
-        'width' : maskWidth,
-        'height' : maskHeight
-      });
-      $('#mask').fadeIn(1000);
-      $('#mask').fadeTo("slow", 0.95);
-
-      var winH = $(window).height();
-      var winW = $(window).width();
-
-      $('#login_dialog').css('top', winH / 2 - $('#login_dialog').height() / 2);
-      $('#login_dialog').css('left', winW / 2 - $('#login_dialog').width() / 2);
-      $('#login_dialog').fadeIn(2000);
-    });
-
-    $('#login_button').click(function() {
-      //if($('#login_name').value != 'Please enter your name') {
-      $('#mask').fadeIn(1000);
-      $('#mask').fadeTo("fast", 0.0);
-      $('#login_dialog').fadeIn(1000);
-      $('#login_dialog').fadeTo("fast", 0.0);
-      //}
-    });
   </script>
 	<!-- end scripts-->
 

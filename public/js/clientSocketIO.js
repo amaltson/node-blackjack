@@ -6,6 +6,7 @@ blackjackClient.connectToServer = function() {
 
   aBlackjackClientInstance.socket.on('connect', function() {
     aBlackjackClientInstance.logMessage("Connected to server");
+    aBlackjackClientInstance.loginPrompt(aBlackjackClientInstance.socket);
   });
 
   aBlackjackClientInstance.socket.on('message', function(serverMessage) {
