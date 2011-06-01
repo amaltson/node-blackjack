@@ -222,15 +222,14 @@ var blackjackClient = {
       'width' : maskWidth,
       'height' : maskHeight
     });
-    $('#mask').fadeIn(1000);
-    $('#mask').fadeTo("slow", 0.95);
+    $('#mask').css('display', 'block');
 
     var winH = $(window).height();
     var winW = $(window).width();
 
     $('#login_dialog').css('top', winH / 2 - $('#login_dialog').height() / 2);
     $('#login_dialog').css('left', winW / 2 - $('#login_dialog').width() / 2);
-    $('#login_dialog').fadeIn(2000);
+    $('#login_dialog').css('display', 'block');
 
     var login = function() {
       var username = $('#login_name').val();
@@ -238,8 +237,7 @@ var blackjackClient = {
         $('#mask').fadeIn(1000);
         $('#mask').fadeTo("fast", 0.0);
         $('#mask').remove();
-        $('#login_dialog').fadeIn(1000);
-        $('#login_dialog').fadeTo("fast", 0.0);
+        $('#login_dialog').remove();
         callbackToInvokeAfterUserIdIsEntered(username);
       }
     };
