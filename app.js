@@ -123,11 +123,15 @@ function processMessage(data, callback) {
  * turn.
  */
 function sendTurn(userId) {
+
+  // tell everyone who's turn it is.
+  socket.broadcast({
+    userId: userId,
+    action: 'currentTurn'
+  });
+  
+  // wisper to the actual player to enable their actions.
   if (userToSocket[userId]) {
-    socket.broadcast({
-      userId: userId,
-      action: 'currentTurn'
-    });
     userToSocket[userId].send({
       userId: userId,
       action: 'turn'
