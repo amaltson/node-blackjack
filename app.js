@@ -110,6 +110,10 @@ function sendTurn(userId) {
       userId: userId,
       action: 'turn'
     });
+    socket.broadcast({
+      userId: userId,
+      action: 'currentTurn'
+    });
   }
 }
 

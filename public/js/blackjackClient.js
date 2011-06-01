@@ -42,6 +42,9 @@ BlackjackClient.prototype = {
       case 'turn':
         this.enableTurnForPlayer(serverJsonMessage.userId);
         break;
+      case 'currentTurn':
+        this.showTurnForPlayer(serverJsonMessage.userId);
+        break;
       case 'assignCard':
         this.assignCard(serverJsonMessage.userId, serverJsonMessage.card.type);
         break;
@@ -166,6 +169,7 @@ BlackjackClient.prototype = {
     var stayButton = playerActionDiv.find(':button:last');
     stayButton.click(function() {
       aBlackjackClientInstance.stay.apply(aBlackjackClientInstance, [ playerUserId ]);
+      aBlackjackClientInstance.hidePlayerActionButtonsForCurrentPlayer();
     });
     stayButton.hide();
     $('#main').append(playerDiv);
@@ -177,9 +181,13 @@ BlackjackClient.prototype = {
 
   enableTurnForPlayer : function(userId) {
     this.hidePlayerActionButtonsForCurrentPlayer();
-    $('#main .current_player').removeClass('current_player').addClass('player');
-    $('#' + userId).removeClass('player').addClass('current_player');
+    this.showTurnForPlayer(userId);
     this.showPlayerActionButtonsForCurrentPlayer();
+  },
+
+  showTurnForPlayer: function(userId) {
+    $('#main .current_player').removeClass('current_player');
+    $('#' + userId).addClass('current_player');
   },
 
   disableTurnForAllPlayers : function() {
