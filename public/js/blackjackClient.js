@@ -1,17 +1,20 @@
 /* Author: Ahmed Javed 
  */
 
-var blackjackClient = {
+var BlackjackClient = function Blackjack() {
   /**
    * Socket io connection.
    */
-  socket : "",
+  this.socket = "",
 
   /**
    * Maximum number of logs to display on the main page.
    */
-  maximumNumberOfLogsToDisplay : 3,
+  this.maximumNumberOfLogsToDisplay = 3;
+  return this;
+};
 
+BlackjackClient.prototype = {
   processIncommingMessage : function(serverJsonMessage) {
     var jsonParsedMessage;
     console.log(serverJsonMessage);
@@ -73,7 +76,6 @@ var blackjackClient = {
     $('#logList').append("<li>" + message + "</li>");
   },
 
-  // tested
   assignCard : function(userId, cardType) {
     var imageRelativePath = "img/";
     if (userId === "dealer") {
@@ -118,9 +120,8 @@ var blackjackClient = {
     });
   },
 
-  // TODO write a test for remove player
   removePlayer : function(playerUserId) {
-    $('#' + playerUserId).remove();
+    $('#main #' + playerUserId).remove();
   },
 
   // TODO write a test for resetGame
@@ -179,7 +180,6 @@ var blackjackClient = {
     this.showPlayerActionButtonsForCurrentPlayer();
   },
 
-  // TODO write a test for disableTurnForAllPlayers
   disableTurnForAllPlayers : function() {
     $('#main .player_action :button').hide();
   },
@@ -210,6 +210,7 @@ var blackjackClient = {
     // throw an exception that buttons weren't found
   },
 
+  // TODO test loginPrompt
   loginPrompt : function(callbackToInvokeAfterUserIdIsEntered) {
     var maskHeight = $(document).height();
     var maskWidth = $(document).width();
