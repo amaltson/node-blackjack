@@ -167,12 +167,11 @@ var blackjackClient = {
     stayButton.hide();
     $('#main').append(playerDiv);
 
-    for (var i = 0; i < hand.length; i++) {
+    for ( var i = 0; i < hand.length; i++) {
       this.assignCard(playerUserId, hand[i].type);
     }
   },
 
-  // TODO write a test for enableTurnForPlayer
   enableTurnForPlayer : function(userId) {
     this.hidePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player').removeClass('current_player').addClass('player');
@@ -185,7 +184,6 @@ var blackjackClient = {
     $('#main .player_action :button').hide();
   },
 
-  // TODO write a test for playerBusted
   playerBusted : function() {
     this.hidePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player .player_action').append('<img class="busted_image" src="img/busted.png" />');
@@ -212,11 +210,11 @@ var blackjackClient = {
     // throw an exception that buttons weren't found
   },
 
-  loginPrompt: function(callbackToInvokeAfterUserIdIsEntered) {
+  loginPrompt : function(callbackToInvokeAfterUserIdIsEntered) {
     var maskHeight = $(document).height();
     var maskWidth = $(document).width();
 
-    //alert(maskWidth); 
+    // alert(maskWidth);
 
     $('#mask').css({
       'width' : maskWidth,
@@ -234,7 +232,7 @@ var blackjackClient = {
 
     var login = function() {
       var username = $('#login_name').val();
-      if(username !== 'Please enter your name') {
+      if (username !== 'Please enter your name') {
         $('#mask').fadeIn(1000);
         $('#mask').fadeTo("fast", 0.0);
         $('#mask').remove();
@@ -243,7 +241,6 @@ var blackjackClient = {
         callbackToInvokeAfterUserIdIsEntered(username);
       }
     };
-
 
     $('#login_button').click(function() {
       login();
