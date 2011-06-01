@@ -25,23 +25,32 @@ socket.on('connection', function(client) {
       action: 'start'
     };
     client.send(initialState);
+    game.currentTurn(function(userId) {
+      client.send({
+        userId: userId,
+        action: 'currentTurn'
+      });
+    });
   });
   client.on('message', function(msg) {
-    console.log('Client message: ' + msg);
     processMessage(msg, function(userId) {
       // on login events, keep around the socket to userId
-      socketToPlayer[client] = userId;
+      socketToPlayer[userId] = client;
     });
   });
   client.on('disconnect', function() {
     console.log('Client disconnected');
-    var userId = socketToPlayer[client];
+    for (var id in socketToPlayer) {
+      if (socketToPlayer[id] === client) {
+        var userId = socketToPlayer[id];
+      }
+    }
     game.removePlayer(userId, function() {
       socket.broadcast({
         userId: userId,
         action: 'remove'
       });
-      delete socketToPlayer[client];
+      delete socketToPlayer[userId];
     });
   });
 });
@@ -53,16 +62,15 @@ function processMessage(data, callback) {
       game.getPlayer(data.userId, function(player) {
         player.hand.push(nextCard);
         socket.broadcast({
-          userId: data.player.userId,
+          userId: player.userId,
           card: nextCard,
-          action: 'hand'
+          action: 'assignCard'
         });
       });
       break;
     case 'stay':
-      socket.broadcast({
-        userId: data.player.userId,
-        action: 'turn'
+      game.nextTurn(function(userId) {
+        sendTurn(userId);
       });
       break;
     case 'login':
@@ -74,10 +82,38 @@ function processMessage(data, callback) {
           action: 'add'
         });
         callback(data.player.userId);
+        game.getAllPlayers(function(players) {
+          // if this is the first player (after the dealer), make it
+          // their turn.
+          if (players.length === 2) {
+            game.setTurn(data.player.userId, function() {
+              game.currentTurn(function(userId) {
+                sendTurn(userId);
+              });
+            });
+          }
+        });
       });
       break;
     default:
       // code
+  }
+}
+
+/**
+ * Enables the turn for the given userId and broadcasts that it is that user's
+ * turn.
+ */
+function sendTurn(userId) {
+  if (socketToPlayer[userId]) {
+    socketToPlayer[userId].send({
+      userId: userId,
+      action: 'turn'
+    });
+    socket.broadcast({
+      userId: userId,
+      action: 'currentTurn'
+    });
   }
 }
 

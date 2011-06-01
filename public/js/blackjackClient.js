@@ -38,23 +38,28 @@ BlackjackClient.prototype = {
         break;
       case 'remove':
         this.removePlayer(serverJsonMessage.userId);
+        break;
+      case 'turn':
+        this.enableTurnForPlayer(serverJsonMessage.userId);
+        break;
+      case 'currentTurn':
+        this.showTurnForPlayer(serverJsonMessage.userId);
+        break;
+      case 'assignCard':
+        this.assignCard(serverJsonMessage.userId, serverJsonMessage.card.type);
+        break;
       default:
         // case 'end':
         this.disableTurnForAllPlayers();
         // break;
         // case 'showDealerCard':
         // break;
-        // case 'assingCard':
-        // this.assignCard("dealer", "A");
-        // this.assignCard("dealer", "hidden");
         var aBlackjackClientInstance = this;
         setTimeout(function() {
           aBlackjackClientInstance.showDealerCard.apply(aBlackjackClientInstance, [ "10" ]);
         }, 5000);
         // break;
-        // case 'turn':
-        // this.enableTurnForPlayer(player1.userId);
-        // break;
+
         // case 'bust':
         // this.playerBusted();
         // this.enableTurnForPlayer(player2.userId);
@@ -164,6 +169,7 @@ BlackjackClient.prototype = {
     var stayButton = playerActionDiv.find(':button:last');
     stayButton.click(function() {
       aBlackjackClientInstance.stay.apply(aBlackjackClientInstance, [ playerUserId ]);
+      aBlackjackClientInstance.hidePlayerActionButtonsForCurrentPlayer();
     });
     stayButton.hide();
     $('#main').append(playerDiv);
@@ -175,9 +181,13 @@ BlackjackClient.prototype = {
 
   enableTurnForPlayer : function(userId) {
     this.hidePlayerActionButtonsForCurrentPlayer();
-    $('#main .current_player').removeClass('current_player').addClass('player');
-    $('#' + userId).removeClass('player').addClass('current_player');
+    this.showTurnForPlayer(userId);
     this.showPlayerActionButtonsForCurrentPlayer();
+  },
+
+  showTurnForPlayer: function(userId) {
+    $('#main .current_player').removeClass('current_player');
+    $('#' + userId).addClass('current_player');
   },
 
   disableTurnForAllPlayers : function() {

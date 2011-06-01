@@ -53,13 +53,13 @@ module.exports = testCase({
     'player turns' : function(test) {
       blackjack.addPlayers({userId: 'hello'}, {userId: 'hi'}, function() {
         blackjack.nextTurn(function(userId) {
-          test.equals(userId, 'hello', 'first in, first player');
+          test.equals(userId, 'hi', 'first in, first player');
           blackjack.nextTurn(function(userId) {
-            test.equals(userId, 'hi', 'second player');
+            test.equals(userId, 'hello', 'second player');
             blackjack.nextTurn(function(userId) {
-              test.equals(userId, 'hello', 'back to first');
+              test.equals(userId, 'hi', 'back to first');
               blackjack.nextTurn(function(userId) {
-                test.equals(userId, 'hi', 'second player again');
+                test.equals(userId, 'hello', 'second player again');
               });
             });
           });
@@ -109,7 +109,6 @@ module.exports = testCase({
     'deal next card' : function(test) {
       var card = blackjack.dealNextCard();
       var re = /^(\d|10|J|Q|K|A)$/
-      console.log(card.type);
       test.ok(re.exec(card.type), 'next card returned a valid card');
       test.done();
     }
