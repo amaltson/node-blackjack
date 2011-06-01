@@ -190,9 +190,23 @@ BlackjackClient.prototype = {
     this.showPlayerActionButtonsForCurrentPlayer();
   },
 
-  showTurnForPlayer: function(userId) {
+  showTurnForPlayer : function(userId) {
     $('#main .current_player').removeClass('current_player');
     $('#' + userId).addClass('current_player');
+  },
+
+  showGameResultForPlayers : function(players) {
+    for ( var playerIndex = 0; playerIndex < players.length; playerIndex += 1) {
+      var player = players[playerIndex];
+      this.showGameResultForPlayer(player.userId, player.state);
+    }
+  },
+
+  showGameResultForPlayer : function(playerUserId, playerState) {
+    var bustedImage = $("#main #" + playerUserId + " .player_action :img");
+    if (!bustedImage) {
+      $("#main #" + playerUserId + " .player_action").text(playerState);
+    }
   },
 
   disableTurnForAllPlayers : function() {
