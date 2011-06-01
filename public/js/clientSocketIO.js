@@ -1,3 +1,5 @@
+var blackjackClient = new BlackjackClient();
+
 blackjackClient.connectToServer = function(userId) {
   var aBlackjackClientInstance = this;
 
