@@ -31,8 +31,12 @@
 <!-- CSS:  include my dialog UI -->
 <link rel="stylesheet" href="css/my_dialog.css" type="text/css" />
 
+<!-- CSS:  include CSS3 pattern -->
+<link rel="stylesheet" href="css/pattern.css" type="text/css" />
+
 <!-- CSS:  include web font -->
 <link href='http://fonts.googleapis.com/css?family=Paytone+One' rel='stylesheet' type='text/css'>
+<link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 
 <!-- CSS:  load main CSS depends on resolution using media queries -->
 <link rel="stylesheet" href="css/mobile_layout.css" />
@@ -54,27 +58,48 @@
 		<header>
 			<hgroup>
 				<!--<img src="img/banner.PNG" />-->
-				<h1>Node Blackjack</h1>
+				<h1>&nbsp;Node Blackjack</h1>
 			</hgroup>
 		</header>
 
 		<!-- Action Pane-->
 		<nav>
+			<!--
 			<ul>
 				<li><a href="#">Log Out</a>
 				</li>
 				<li><a href="#">About</a>
 				</li>
 			</ul>
+			-->
 		</nav>
 
 		<!-- Main Pane-->
-		<div id="main">
+		<div id="main" class="dots tiny green">			
+		
 		</div>
 		<!--! end of #main -->
 
 		<div id="sidebar">
 			<div id="howtoplay">
+				<ul>
+					<li>
+						<a href="#">
+							<h2>How to play</h2>
+							<p>TBA</p>
+						</a>
+					</li>
+				</ul>
+
+				<ul>
+					<li>
+						<a href="#">
+							<h2>Tips</h2>
+							<p>TBA</p>
+						</a>
+					</li>
+				</ul>
+				<!--
 				<h2>How to play</h2>
 				<p>The object of the blackjack game is to accumulate cards with
 					point totals as close to 21 without going over 21. Face cards
@@ -85,8 +110,10 @@
 					Ace and 10 (Blackjack) on the first two cards dealt is an automatic
 					player win at 1.5 to 1, unless the house ties. A player may stand
 					at any time.</p>
+				-->
 			</div>
 
+			<!--
 			<div id="logs">
 				<h2>Logs</h2>
 				<ul>
@@ -95,12 +122,13 @@
 					<li>Player 3 has joined!</li>
 				</ul>
 			</div>
+			-->
 		</div>
 		<!--! end of #sidebar -->
 
 		<!-- Footer Pane-->
 		<div id="footer">
-			<p>(C) Dev Days 2011</p>
+			<p></p>
 		</div>
 
 	</div>
