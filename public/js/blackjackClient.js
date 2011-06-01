@@ -214,7 +214,7 @@ var blackjackClient = {
     // throw an exception that buttons weren't found
   },
 
-  loginPrompt: function(socket) {
+  loginPrompt: function(callbackToInvokeAfterUserIdIsEntered) {
     var maskHeight = $(document).height();
     var maskWidth = $(document).width();
 
@@ -242,13 +242,7 @@ var blackjackClient = {
         $('#mask').remove();
         $('#login_dialog').fadeIn(1000);
         $('#login_dialog').fadeTo("fast", 0.0);
-        socket.send({
-          player: {
-            userId: username,
-            name: username
-          },
-          action: 'login'
-        });
+        callbackToInvokeAfterUserIdIsEntered(username);
       }
     };
 

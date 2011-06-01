@@ -1,4 +1,4 @@
-blackjackClient.connectToServer = function() {
+blackjackClient.connectToServer = function(userId) {
   var aBlackjackClientInstance = this;
 
   aBlackjackClientInstance.socket = new io.Socket('localhost');
@@ -6,7 +6,15 @@ blackjackClient.connectToServer = function() {
 
   aBlackjackClientInstance.socket.on('connect', function() {
     aBlackjackClientInstance.logMessage("Connected to server");
-    aBlackjackClientInstance.loginPrompt(aBlackjackClientInstance.socket);
+    aBlackjackClientInstance.loginPrompt(function(userId) {
+      aBlackjackClientInstance.socket.send({
+        player : {
+          userId : userId,
+          name : userId
+        },
+        action : 'login'
+      });
+    });
   });
 
   aBlackjackClientInstance.socket.on('message', function(serverMessage) {
