@@ -7,7 +7,7 @@ var Blackjack = require('./scripts/game.js');
 var game = new Blackjack();
 createDealer(game);
 
-var socketToPlayer = {};
+var userToSocket = {};
 
 app.configure(function() {
   app.use(express.static(__dirname + '/public'));
@@ -35,14 +35,14 @@ socket.on('connection', function(client) {
   client.on('message', function(msg) {
     processMessage(msg, function(userId) {
       // on login events, keep around the socket to userId
-      socketToPlayer[userId] = client;
+      userToSocket[userId] = client;
     });
   });
   client.on('disconnect', function() {
     console.log('Client disconnected');
-    for (var id in socketToPlayer) {
-      if (socketToPlayer[id] === client) {
-        var userId = socketToPlayer[id];
+    for (var id in userToSocket) {
+      if (userToSocket[id] === client) {
+        var userId = id;
       }
     }
     game.removePlayer(userId, function() {
@@ -50,7 +50,7 @@ socket.on('connection', function(client) {
         userId: userId,
         action: 'remove'
       });
-      delete socketToPlayer[userId];
+      delete userToSocket[userId];
     });
   });
 });
@@ -60,12 +60,30 @@ function processMessage(data, callback) {
     case 'hit':
       var nextCard = game.dealNextCard();
       game.getPlayer(data.userId, function(player) {
+
+        // add the next card to the player
         player.hand.push(nextCard);
         socket.broadcast({
           userId: player.userId,
           card: nextCard,
           action: 'assignCard'
         });
+
+        // check to make sure the player hasn't gone bust or got 21.
+        var handValue = game.calculateHandValue(player.hand);
+        if (handValue === game.BUSTED_VALUE) {
+          socket.broadcast({
+            userId: player.userId,
+            action: 'bust'
+          });
+          game.nextTurn(function(userId) {
+            sendTurn(userId);
+          });
+        } else if (handValue === game.BLACKJACK) {
+          game.nextTurn(function(userId) {
+            sendTurn(userId);
+          });
+        }
       });
       break;
     case 'stay':
@@ -105,14 +123,18 @@ function processMessage(data, callback) {
  * turn.
  */
 function sendTurn(userId) {
-  if (socketToPlayer[userId]) {
-    socketToPlayer[userId].send({
+
+  // tell everyone who's turn it is.
+  socket.broadcast({
+    userId: userId,
+    action: 'currentTurn'
+  });
+  
+  // wisper to the actual player to enable their actions.
+  if (userToSocket[userId]) {
+    userToSocket[userId].send({
       userId: userId,
       action: 'turn'
-    });
-    socket.broadcast({
-      userId: userId,
-      action: 'currentTurn'
     });
   }
 }

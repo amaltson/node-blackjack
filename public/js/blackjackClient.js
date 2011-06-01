@@ -48,6 +48,8 @@ BlackjackClient.prototype = {
       case 'assignCard':
         this.assignCard(serverJsonMessage.userId, serverJsonMessage.card.type);
         break;
+      case 'bust':
+        this.playerBusted(serverJsonMessage.userId);
       default:
         // case 'end':
         this.disableTurnForAllPlayers();
@@ -60,8 +62,6 @@ BlackjackClient.prototype = {
         }, 5000);
         // break;
 
-        // case 'bust':
-        // this.playerBusted();
         // this.enableTurnForPlayer(player2.userId);
         // break;
         // default:
@@ -186,6 +186,7 @@ BlackjackClient.prototype = {
   },
 
   showTurnForPlayer: function(userId) {
+    this.hidePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player').removeClass('current_player');
     $('#' + userId).addClass('current_player');
   },
@@ -194,9 +195,8 @@ BlackjackClient.prototype = {
     $('#main .player_action :button').hide();
   },
 
-  playerBusted : function() {
-    this.hidePlayerActionButtonsForCurrentPlayer();
-    $('#main .current_player .player_action').append('<img class="busted_image" src="img/busted.png" />');
+  playerBusted : function(userId) {
+    $('#' + userId + ' .player_action').append('<img class="busted_image" src="img/busted.png" />');
   },
 
   hidePlayerActionButtonsForCurrentPlayer : function() {
