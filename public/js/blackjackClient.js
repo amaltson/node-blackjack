@@ -187,6 +187,7 @@ BlackjackClient.prototype = {
 
   showTurnForPlayer: function(userId) {
     $('#main .current_player').removeClass('current_player');
+    this.hidePlayerActionButtonsForCurrentPlayer();
     $('#' + userId).addClass('current_player');
   },
 

@@ -70,23 +70,20 @@ function processMessage(data, callback) {
         });
 
         // check to make sure the player hasn't gone bust or got 21.
-        switch (game.calculateHandValue(player.hand)) {
-          case game.BUSTED_VALUE:
-            socket.broadcast({
-              userId: player.userId,
-              action: 'bust'
-            });
-            game.nextTurn(function(userId) {
-              sendTurn(userId);
-            });
-            break;
-          case game.BLACKJACK:
-            break;
-          default:
-            
-            break;
+        var handValue = game.calculateHandValue(player.hand);
+        if (handValue === game.BUSTED_VALUE) {
+          socket.broadcast({
+            userId: player.userId,
+            action: 'bust'
+          });
+          game.nextTurn(function(userId) {
+            sendTurn(userId);
+          });
+        } else if (handValue === game.BLACKJACK) {
+          game.nextTurn(function(userId) {
+            sendTurn(userId);
+          });
         }
-
       });
       break;
     case 'stay':
@@ -127,13 +124,13 @@ function processMessage(data, callback) {
  */
 function sendTurn(userId) {
   if (userToSocket[userId]) {
-    userToSocket[userId].send({
-      userId: userId,
-      action: 'turn'
-    });
     socket.broadcast({
       userId: userId,
       action: 'currentTurn'
+    });
+    userToSocket[userId].send({
+      userId: userId,
+      action: 'turn'
     });
   }
 }
