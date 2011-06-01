@@ -1,17 +1,20 @@
 /* Author: Ahmed Javed 
  */
 
-var blackjackClient = {
+var BlackjackClient = function Blackjack() {
   /**
    * Socket io connection.
    */
-  socket : "",
+  this.socket = "",
 
   /**
    * Maximum number of logs to display on the main page.
    */
-  maximumNumberOfLogsToDisplay : 3,
+  this.maximumNumberOfLogsToDisplay = 3;
+  return this;
+};
 
+BlackjackClient.prototype = {
   processIncommingMessage : function(serverJsonMessage) {
     var jsonParsedMessage;
     console.log(serverJsonMessage);
@@ -35,6 +38,16 @@ var blackjackClient = {
         break;
       case 'remove':
         this.removePlayer(serverJsonMessage.userId);
+        break;
+      case 'turn':
+        this.enableTurnForPlayer(serverJsonMessage.userId);
+        break;
+      case 'currentTurn':
+        this.showTurnForPlayer(serverJsonMessage.userId);
+        break;
+      case 'assignCard':
+        this.assignCard(serverJsonMessage.userId, serverJsonMessage.card.type);
+        break;
       default:
         // TODO arthur move this case including the two lines of code below
         // above default
@@ -51,9 +64,7 @@ var blackjackClient = {
           aBlackjackClientInstance.showDealerCard.apply(aBlackjackClientInstance, [ "10" ]);
         }, 5000);
         // break;
-        // case 'turn':
-        // this.enableTurnForPlayer(player1.userId);
-        // break;
+
         // case 'bust':
         // this.playerBusted();
         // this.enableTurnForPlayer(player2.userId);
@@ -75,7 +86,6 @@ var blackjackClient = {
     $('#logList').append("<li>" + message + "</li>");
   },
 
-  // tested
   assignCard : function(userId, cardType) {
     var imageRelativePath = "img/";
     if (userId === "dealer") {
@@ -120,9 +130,8 @@ var blackjackClient = {
     });
   },
 
-  // TODO write a test for remove player
   removePlayer : function(playerUserId) {
-    $('#' + playerUserId).remove();
+    $('#main #' + playerUserId).remove();
   },
 
   // TODO write a test for resetGame
@@ -165,6 +174,7 @@ var blackjackClient = {
     var stayButton = playerActionDiv.find(':button:last');
     stayButton.click(function() {
       aBlackjackClientInstance.stay.apply(aBlackjackClientInstance, [ playerUserId ]);
+      aBlackjackClientInstance.hidePlayerActionButtonsForCurrentPlayer();
     });
     stayButton.hide();
     $('#main').append(playerDiv);
@@ -174,20 +184,21 @@ var blackjackClient = {
     }
   },
 
-  // TODO write a test for enableTurnForPlayer
   enableTurnForPlayer : function(userId) {
     this.hidePlayerActionButtonsForCurrentPlayer();
-    $('#main .current_player').removeClass('current_player').addClass('player');
-    $('#' + userId).removeClass('player').addClass('current_player');
+    this.showTurnForPlayer(userId);
     this.showPlayerActionButtonsForCurrentPlayer();
   },
 
-  // TODO write a test for disableTurnForAllPlayers
+  showTurnForPlayer: function(userId) {
+    $('#main .current_player').removeClass('current_player');
+    $('#' + userId).addClass('current_player');
+  },
+
   disableTurnForAllPlayers : function() {
     $('#main .player_action :button').hide();
   },
 
-  // TODO write a test for playerBusted
   playerBusted : function() {
     this.hidePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player .player_action').append('<img class="busted_image" src="img/busted.png" />');
@@ -214,6 +225,7 @@ var blackjackClient = {
     // throw an exception that buttons weren't found
   },
 
+  // TODO test loginPrompt
   loginPrompt : function(callbackToInvokeAfterUserIdIsEntered) {
     var maskHeight = $(document).height();
     var maskWidth = $(document).width();
@@ -224,15 +236,14 @@ var blackjackClient = {
       'width' : maskWidth,
       'height' : maskHeight
     });
-    $('#mask').fadeIn(1000);
-    $('#mask').fadeTo("slow", 0.95);
+    $('#mask').css('display', 'block');
 
     var winH = $(window).height();
     var winW = $(window).width();
 
     $('#login_dialog').css('top', winH / 2 - $('#login_dialog').height() / 2);
     $('#login_dialog').css('left', winW / 2 - $('#login_dialog').width() / 2);
-    $('#login_dialog').fadeIn(2000);
+    $('#login_dialog').css('display', 'block');
 
     var login = function() {
       var username = $('#login_name').val();
@@ -240,8 +251,7 @@ var blackjackClient = {
         $('#mask').fadeIn(1000);
         $('#mask').fadeTo("fast", 0.0);
         $('#mask').remove();
-        $('#login_dialog').fadeIn(1000);
-        $('#login_dialog').fadeTo("fast", 0.0);
+        $('#login_dialog').remove();
         callbackToInvokeAfterUserIdIsEntered(username);
       }
     };
