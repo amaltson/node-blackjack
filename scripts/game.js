@@ -56,12 +56,12 @@ Blackjack.prototype = {
     if (this.current >= last) {
       this.current = last;
     }
-    var result = this.table[this.current];
     if (this.current < last) {
       this.current += 1;
     } else {
       this.current = 0;
     }
+    var result = this.table[this.current];
 
     callback(result);
   },
@@ -72,6 +72,16 @@ Blackjack.prototype = {
       cur = this.table.length - 1;
     }
     callback(this.table[cur]);
+  },
+
+  setTurn: function(userId, callback) {
+    for (var i = 0; i < this.table.length; i++) {
+      if (this.table[i] === userId) {
+        this.current = i;
+        break;
+      }
+    }
+    callback();
   },
 
   /**
