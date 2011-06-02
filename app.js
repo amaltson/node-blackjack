@@ -77,18 +77,18 @@ function processMessage(data, callback) {
             action: 'bust'
           });
           game.nextTurn(function(userId) {
-            sendTurn(userId);
+            sendTurn(userId, game);
           });
         } else if (handValue === game.BLACKJACK) {
           game.nextTurn(function(userId) {
-            sendTurn(userId);
+            sendTurn(userId, game);
           });
         }
       });
       break;
     case 'stay':
       game.nextTurn(function(userId) {
-        sendTurn(userId);
+        sendTurn(userId, game);
       });
       break;
     case 'login':
@@ -122,7 +122,7 @@ function processMessage(data, callback) {
  * Enables the turn for the given userId and broadcasts that it is that user's
  * turn.
  */
-function sendTurn(userId) {
+function sendTurn(userId, game) {
 
   // tell everyone who's turn it is.
   socket.broadcast({
@@ -137,6 +137,15 @@ function sendTurn(userId) {
       action: 'turn'
     });
   }
+
+  // if it's the dealer, end the game.
+  if(userId === 'dealer') {
+    endGame(game);
+  }
+}
+
+function endGame(game) {
+  dealerLogic(game);
 }
 
 function createDealer(game) {
@@ -163,7 +172,7 @@ function dealerLogic(game) {
       socket.broadcast({
         userId : 'dealer',
         card : dealerCard,
-        action : 'hand'
+        action : 'assignCard'
       });
     }
   });
