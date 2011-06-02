@@ -50,6 +50,7 @@ BlackjackClient.prototype = {
         break;
       case 'bust':
         this.playerBusted(serverJsonMessage.userId);
+        break;
       // TODO arthur will finish implementation for handling end event
       // above default
       // case 'end':

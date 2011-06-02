@@ -149,4 +149,22 @@ function createDealer(game) {
       type: "hidden"
     }]
   }, function() {});
+},
+
+function dealerLogic(game) {
+  game.getPlayer('dealer', function(player) {
+    player.hand.pop();
+    var dealerCard = null;
+    var currentHandValue = 0;
+    while (currentHandValue < 17) {
+      dealerCard = game.dealNextCard();
+      player.hand.push(dealerCard);
+      currentHandValue = game.calculateHandValue(player.hand);
+      socket.broadcast({
+        userId : 'dealer',
+        card : dealerCard,
+        action : 'hand'
+      });
+    }
+  });
 }
