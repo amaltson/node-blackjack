@@ -1,7 +1,12 @@
 var Blackjack = require('../scripts/game.js');
-var blackjack = new Blackjack();
+var testCase = require('nodeunit').testCase;
 
-this.calculateHandValueTestSuite = {
+module.exports = testCase({
+	setUp : function(callback) {
+		blackjack = new Blackjack();
+		callback();
+	},
+
 	'calculateHandValue with null argument' : function(test) {
 		setTimeout(function() {
 			test.strictEqual(blackjack.calculateHandValue(), 0, "Should be 0");
@@ -10,7 +15,9 @@ this.calculateHandValueTestSuite = {
 	},
 	'calculateHandValue with empty collection' : function(test) {
 		setTimeout(function() {
-			test.strictEqual(blackjack.calculateHandValue([]), 0, "Should be 0");
+			test
+					.strictEqual(blackjack.calculateHandValue([]), 0,
+							"Should be 0");
 			test.done();
 		}, 10);
 	},
@@ -343,4 +350,4 @@ this.calculateHandValueTestSuite = {
 			test.done();
 		}, 10);
 	}
-};
+});
