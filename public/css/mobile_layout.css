@@ -2,16 +2,14 @@ body,
 html {
 	margin:0;
 	padding:0;
-	color:#000;
-	background:#a7a09a;
+	height: 100%;
+	background:#000;
 }
 
 /* PAGE */
 #page {
 	width:100%;
 	margin:0 auto;
-	background:#9C9;
-	background-image:url('../img/bg_table.jpg');
 }
 
 /* HEADER */
@@ -53,6 +51,7 @@ nav li {
 	height: 40px;
 	align:center;
 	display:block;
+	color: #fff;
 }
 .current_player {
 	padding:10px;
@@ -60,6 +59,7 @@ nav li {
 	opacity: 0.9;
 	align:center;
 	background: #lightyellow;
+	color: #000;
 }
 .turn_indicator {
 	display:inline;
@@ -97,7 +97,7 @@ nav li {
 	display: none;
 	float:right;
 	width:30%;
-	background-image:url('../img/bg_paper.gif');
+	/*background-image:url('../img/bg_paper.gif');*/
 	/*background:#c9c;*/
 }
 #howtoplay {

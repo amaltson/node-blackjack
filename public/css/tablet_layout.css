@@ -8,7 +8,6 @@ h1 {
 #main {
 	float:left;
 	width:75%;
-	/*background:#9c9;*/
 	font-size:20px;
 }
 .cards {
@@ -16,9 +15,13 @@ h1 {
 	left:160px;
 	display:inline;
 }
+.card_image {
+	width: 36px;
+	height: 48px;
+}
 .player_action {
 	position:absolute;
-	left:280px;
+	left:350px;
 	display:inline;
 	align:center;
 }
@@ -34,7 +37,7 @@ h1 {
 	display: block;
 	float:right;
 	width:25%;
-	background-image:url('../img/bg_paper.gif');
+	/*background-image:url('../img/bg_paper.gif');*/
 	/*background:#c9c;*/
 }
 #howtoplay {
