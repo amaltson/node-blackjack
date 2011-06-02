@@ -97,6 +97,8 @@ nav li {
 	display: none;
 	float:right;
 	width:30%;
+	background:#333;
+	height: 100%;
 	/*background-image:url('../img/bg_paper.gif');*/
 	/*background:#c9c;*/
 }
