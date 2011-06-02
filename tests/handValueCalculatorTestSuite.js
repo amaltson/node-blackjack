@@ -23,9 +23,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single ace' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
+			var aCard = blackjack.shoe.dealAce();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 11, "Should be 11 but was "
@@ -35,9 +33,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 2' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '2'
-			};
+			var aCard = blackjack.shoe.dealTwo();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 2, "Should be 2 but was "
@@ -47,9 +43,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 3' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '3'
-			};
+			var aCard = blackjack.shoe.dealThree();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 3, "Should be 3 but was "
@@ -59,9 +53,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 4' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '4'
-			};
+			var aCard = blackjack.shoe.dealFour();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 4, "Should be 4 but was "
@@ -71,9 +63,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 5' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '5'
-			};
+			var aCard = blackjack.shoe.dealFive();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 5, "Should be 5 but was "
@@ -83,9 +73,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 6' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '6'
-			};
+			var aCard = blackjack.shoe.dealSix();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 6, "Should be 6 but was "
@@ -95,9 +83,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 7' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '7'
-			};
+			var aCard = blackjack.shoe.dealSeven();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 7, "Should be 7 but was "
@@ -107,9 +93,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 8' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '8'
-			};
+			var aCard = blackjack.shoe.dealEight();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 8, "Should be 8 but was "
@@ -119,9 +103,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 9' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '9'
-			};
+			var aCard = blackjack.shoe.dealNine();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 9, "Should be 9 but was "
@@ -131,9 +113,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single 10' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '10'
-			};
+			var aCard = blackjack.shoe.dealTen();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 10, "Should be 10 but was "
@@ -143,9 +123,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single jack' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'J'
-			};
+			var aCard = blackjack.shoe.dealJack();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 10, "Should be 10 but was "
@@ -155,9 +133,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single queen' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'Q'
-			};
+			var aCard = blackjack.shoe.dealQueen();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 10, "Should be 10 but was "
@@ -167,9 +143,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with a single king' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'K'
-			};
+			var aCard = blackjack.shoe.dealKing();
 			var aHand = [ aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 10, "Should be 10 but was "
@@ -179,9 +153,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with two aces' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
+			var aCard = blackjack.shoe.dealAce();
 			var aHand = [ aCard, aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 12, "Should be 12 but was "
@@ -192,12 +164,8 @@ module.exports = testCase({
 	'calculateHandValue with an ace and a 2 (the lowest number card)' : function(
 			test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
-			var anotherCard = {
-				type : '2'
-			};
+			var aCard = blackjack.shoe.dealAce();
+			var anotherCard = blackjack.shoe.dealTwo();
 			var aHand = [ aCard, anotherCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 13, "Should be 13 but was "
@@ -208,12 +176,8 @@ module.exports = testCase({
 	'calculateHandValue with an ace and a 9 (the highest number card not equal to 21)' : function(
 			test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
-			var anotherCard = {
-				type : '9'
-			};
+			var aCard = blackjack.shoe.dealAce();
+			var anotherCard = blackjack.shoe.dealNine();
 			var aHand = [ aCard, anotherCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 20, "Should be 20 but was "
@@ -223,12 +187,8 @@ module.exports = testCase({
 	},
 	'calculateHandValue with an ace and a 10' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
-			var anotherCard = {
-				type : '10'
-			};
+			var aCard = blackjack.shoe.dealAce();
+			var anotherCard = blackjack.shoe.dealTen();
 			var aHand = [ aCard, anotherCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 21, "Should be 21 but was "
@@ -238,12 +198,8 @@ module.exports = testCase({
 	},
 	'calculateHandValue with an ace and a face card (J,Q,K)' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
-			var anotherCard = {
-				type : 'Q'
-			};
+			var aCard = blackjack.shoe.dealAce();
+			var anotherCard = blackjack.shoe.dealQueen();
 			var aHand = [ aCard, anotherCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 21, "Should be 21 but was "
@@ -253,9 +209,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with 3 aces' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
+			var aCard = blackjack.shoe.dealAce();
 			var aHand = [ aCard, aCard, aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 13, "Should be 13 but was "
@@ -265,15 +219,9 @@ module.exports = testCase({
 	},
 	'calculateHandValue with value over 21' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '10'
-			};
-			var anotherCard = {
-				type : 'K'
-			};
-			var aThirdCard = {
-				type : '2'
-			};
+			var aCard = blackjack.shoe.dealTen();
+			var anotherCard = blackjack.shoe.dealKing();
+			var aThirdCard = blackjack.shoe.dealTwo();
 			var aHand = [ aCard, anotherCard, aThirdCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 22,
@@ -284,15 +232,9 @@ module.exports = testCase({
 	},
 	'calculateHandValue with way busted value over 21' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'J'
-			};
-			var anotherCard = {
-				type : 'Q'
-			};
-			var aThirdCard = {
-				type : 'K'
-			};
+			var aCard = blackjack.shoe.dealJack();
+			var anotherCard = blackjack.shoe.dealQueen();
+			var aThirdCard = blackjack.shoe.dealKing();
 			var aHand = [ aCard, anotherCard, aThirdCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 22,
@@ -303,9 +245,7 @@ module.exports = testCase({
 	},
 	'calculateHandValue with 11 aces' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
+			var aCard = blackjack.shoe.dealAce();
 			var aHand = [ aCard, aCard, aCard, aCard, aCard, aCard, aCard,
 					aCard, aCard, aCard, aCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
@@ -316,15 +256,9 @@ module.exports = testCase({
 	},
 	'calculateHandValue with ace first order' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : 'A'
-			};
-			var anotherCard = {
-				type : '6'
-			};
-			var aThirdCard = {
-				type : '5'
-			};
+			var aCard = blackjack.shoe.dealAce();
+			var anotherCard = blackjack.shoe.dealSix();
+			var aThirdCard = blackjack.shoe.dealFive();
 			var aHand = [ aCard, anotherCard, aThirdCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 12, "Should be 12 but was "
@@ -334,15 +268,9 @@ module.exports = testCase({
 	},
 	'calculateHandValue with ace last order' : function(test) {
 		setTimeout(function() {
-			var aCard = {
-				type : '5'
-			};
-			var anotherCard = {
-				type : '6'
-			};
-			var aThirdCard = {
-				type : 'A'
-			};
+			var aCard = blackjack.shoe.dealFive();
+			var anotherCard = blackjack.shoe.dealSix();
+			var aThirdCard = blackjack.shoe.dealAce();
 			var aHand = [ aCard, anotherCard, aThirdCard ];
 			var aValue = blackjack.calculateHandValue(aHand);
 			test.strictEqual(aValue, 12, "Should be 12 but was "
