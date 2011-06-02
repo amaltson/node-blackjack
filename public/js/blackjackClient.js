@@ -191,6 +191,7 @@ BlackjackClient.prototype = {
   },
 
   showTurnForPlayer : function(userId) {
+    $('#main .current_player').addClass('player');
     $('#main .current_player').removeClass('current_player');
     $('#' + userId).addClass('current_player');
   },
@@ -203,9 +204,9 @@ BlackjackClient.prototype = {
   },
 
   showGameResultForPlayer : function(playerUserId, playerState) {
-    var bustedImage = $("#main #" + playerUserId + " .player_action :img");
-    if (!bustedImage) {
-      $("#main #" + playerUserId + " .player_action").text(playerState);
+    var bustedImage = $("#main #" + playerUserId + " .player_action :image");
+    if (bustedImage.length === 0) {
+      $("#main #" + playerUserId + " .player_action").append('<div id="result">' + playerState + '</div>');
     }
   },
 
