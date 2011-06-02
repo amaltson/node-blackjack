@@ -61,8 +61,8 @@ test("Show dealer card", function() {
 test("Player busted", function() {
   blackjackTestClient.playerBusted();
   expect(2);
-  equals($("#main .current_player .player_action :hidden").length, 2, "Two buttons for current player are visible");
-  equals($("#main .current_player .player_action :last").attr('src'), "img/busted.png", "Busted image not found");
+  equals($("#main .current_player .player_action :button:hidden").length, 2, "Two buttons for current player are hidden");
+  equals($("#main .current_player .player_action :last").attr('src'), "img/busted.png", "Busted image found");
 });
 
 test("Enable turn for a player", function() {
@@ -73,7 +73,7 @@ test("Enable turn for a player", function() {
   equals($("#main #" + previousPlayerUserId + " .player_action :hidden").length, 2, "Two buttons for previous player userId:" + previousPlayerUserId + " are hidden");
   equals($("#main #" + previousPlayerUserId).attr("class"), "player", "class attribute for previous player userId:" + previousPlayerUserId + " is player");
   equals($("#main #" + newCurrentPlayerUserId + " .player_action :visible").length, 2, "Two buttons for current player userId:" + newCurrentPlayerUserId + " are visible");
-  equals($("#main #" + newCurrentPlayerUserId).attr("class"), "current_player", "class attribute for current player userId:" + newCurrentPlayerUserId + " is current_player");
+  equals($("#main #" + newCurrentPlayerUserId).attr("class"), "player current_player", "class attribute for current player userId:" + newCurrentPlayerUserId + " is current_player");
 
 });
 
@@ -92,5 +92,12 @@ test("Remove player", function() {
 
 test("Disable turn for all players", function() {
   blackjackTestClient.disableTurnForAllPlayers();
+  expect(1);
   equals($("#main .player_action :button:hidden").length, 4, "All player buttons are hidden");
+});
+
+test("Show result for player", function() {
+  blackjackTestClient.showGameResultForPlayer(clientTestsData.currentPlayerUserId, "WIN");
+  expect(1);
+  equals($("#main #" + clientTestsData.currentPlayerUserId + " .player_action #result").html(), "WIN", "Player shows WIN text");
 });
