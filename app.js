@@ -149,7 +149,7 @@ function createDealer(game) {
       type: "hidden"
     }]
   }, function() {});
-},
+}
 
 function dealerLogic(game) {
   game.getPlayer('dealer', function(player) {
