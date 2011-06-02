@@ -48,11 +48,12 @@ BlackjackClient.prototype = {
       case 'assignCard':
         this.assignCard(serverJsonMessage.userId, serverJsonMessage.card.type);
         break;
+      // TODO arthur will finish implementation for handling end event
+      // above default
+      // case 'end':
+      // this.disableTurnForAllPlayers();
+      // this.showGameResultForPlayers(players);
       default:
-        // TODO arthur move this case including the two lines of code below
-        // above default
-        // case 'end':
-        this.disableTurnForAllPlayers();
         // break;
         // case 'showDealerCard':
         // break;
