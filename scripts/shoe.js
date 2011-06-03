@@ -16,12 +16,7 @@ module.exports = function Shoe() {
       'K' ].map(function(aStringCode) {
     return makeCard(aStringCode);
   });
-  /**
-   * // bind this to a variable to access it inside functions. var self = this; //
-   * add the cards to the deck. [ 'A', '2', '3', '4', '5', '6', '7', '8', '9',
-   * '10', 'J', 'Q', 'K' ] .forEach(function(aCode) {
-   * self.deck.push(makeCard(aCode)); });
-   */
+
   // Function to get the next card, randomly from the deck.
   this.dealNextCard = function() {
     var deckIndex = this.randomCardIndex(this.deck.length);
