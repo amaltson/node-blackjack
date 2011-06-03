@@ -3,13 +3,12 @@
  */
 var BlackjackSocketIOClient = function BlackjackSocketIOClient() {
   /**
-   * Socket io connection.
+   * Socket IO connection.
    */
   this.socket = "";
 };
 
 BlackjackSocketIOClient.prototype = new BlackjackUI();
-
 var blackjackSocketIOClient = new BlackjackSocketIOClient();
 blackjackSocketIOClient.connectToServer = function(userId) {
   var anInstance = this;
@@ -45,18 +44,14 @@ blackjackSocketIOClient.connectToServer = function(userId) {
   });
 };
 
-// augmenting BlackjackUI's prototype to support hit action
-BlackjackUI.prototype.hit = function(playerUserId) {
-  console.log(playerUserId + " pressed hit");
+BlackjackSocketIOClient.prototype.hit = function(playerUserId) {
   this.socket.send({
     userId : playerUserId,
     action : "hit"
   });
 };
 
-// augmenting BlackjackUI's prototype to support stay action
-BlackjackUI.prototype.stay = function(playerUserId) {
-  console.log(playerUserId + " pressed stay");
+BlackjackSocketIOClient.prototype.stay = function(playerUserId) {
   this.socket.send({
     userId : playerUserId,
     action : "stay"

@@ -3,81 +3,83 @@
 
 module("client tests");
 
-// the name should be unique to avoid conflicts with globally defined variables
+// this name should be unique to avoid conflicts with globally defined variables
 var clientTestsData = {
   notSoRandomSuite : "c",
   currentPlayerUserId : "player_1"
 };
 
-var blackjackTestClient = new BlackjackClient();
+var testBlackjackUI = new BlackjackUI();
 
-blackjackTestClient.generateRandomSuite = function() {
+testBlackjackUI.generateRandomSuite = function() {
   return clientTestsData.notSoRandomSuite;
 };
+
+module("UI Tests");
 /**
  * Tests that more than 3 logs are only displayed on the main page.
  */
 test("Only 3 logs are shown", function() {
-  var maximumNumberOfLogsToDisplay = blackjackTestClient.maximumNumberOfLogsToDisplay;
+  var maximumNumberOfLogsToDisplay = testBlackjackUI.maximumNumberOfLogsToDisplay;
   var lastLog = "Log 4";
-  blackjackTestClient.logMessage(lastLog);
+  testBlackjackUI.logMessage(lastLog);
   var actualLastLog = $('#logList li:last');
   expect(2);
-  equals(actualLastLog.text(), lastLog, "Last log matches.");
-  equals($('#logList li').length, maximumNumberOfLogsToDisplay, "Number of logs dispalyed are " + maximumNumberOfLogsToDisplay);
+  equal(actualLastLog.text(), lastLog, "Last log matches.");
+  equal($('#logList li').length, maximumNumberOfLogsToDisplay, "Number of logs dispalyed are " + maximumNumberOfLogsToDisplay);
 });
 
 test("Player is assigned a card", function() {
   var cardType = "A";
-  blackjackTestClient.assignCard(clientTestsData.currentPlayerUserId, cardType);
+  testBlackjackUI.assignCard(clientTestsData.currentPlayerUserId, cardType);
   expect(3);
   var actualCards = $('#' + clientTestsData.currentPlayerUserId + ' .cards img');
-  equals(actualCards.length, 4, "Total number of cards is 4");
+  equal(actualCards.length, 4, "Total number of cards is 4");
   var lastCard = $('#' + clientTestsData.currentPlayerUserId + ' .cards img:last');
-  equals(lastCard.attr('src'), "img/" + clientTestsData.notSoRandomSuite + cardType.toLowerCase() + ".gif", "Names matched");
-  equals(lastCard.attr('class'), "card_image " + "card_" + clientTestsData.notSoRandomSuite + cardType.toLowerCase(), "Card class name matched");
+  equal(lastCard.attr('src'), "img/" + clientTestsData.notSoRandomSuite + cardType.toLowerCase() + ".gif", "Names matched");
+  equal(lastCard.attr('class'), "card_image " + "card_" + clientTestsData.notSoRandomSuite + cardType.toLowerCase(), "Card class name matched");
 });
 
 test("Hide current player's action buttons", function() {
-  blackjackTestClient.hidePlayerActionButtonsForCurrentPlayer();
+  testBlackjackUI.hidePlayerActionButtonsForCurrentPlayer();
   expect(1);
-  equals($("#main .current_player .player_action :hidden").length, 2, "Two buttons for current player are hidden");
+  equal($("#main .current_player .player_action :hidden").length, 2, "Two buttons for current player are hidden");
 });
 
 test("Show current player's action buttons", function() {
-  blackjackTestClient.hidePlayerActionButtonsForCurrentPlayer();
-  blackjackTestClient.showPlayerActionButtonsForCurrentPlayer();
+  testBlackjackUI.hidePlayerActionButtonsForCurrentPlayer();
+  testBlackjackUI.showPlayerActionButtonsForCurrentPlayer();
   expect(1);
-  equals($("#main .current_player .player_action :visible").length, 2, "Two buttons for current player are visible");
+  equal($("#main .current_player .player_action :visible").length, 2, "Two buttons for current player are visible");
 });
 
 test("Show dealer card", function() {
   var cardType = "3";
-  blackjackTestClient.assignCard("dealer", cardType);
+  testBlackjackUI.assignCard("dealer", cardType);
   expect(1);
-  equals($("#main #dealer .cards img:last").attr('src'), "img_down/" + clientTestsData.notSoRandomSuite + cardType.toLowerCase() + ".gif", "Two buttons for current player are visible");
+  equal($("#main #dealer .cards img:last").attr('src'), "img_down/" + clientTestsData.notSoRandomSuite + cardType.toLowerCase() + ".gif", "Two buttons for current player are visible");
 });
 
 test("Player busted", function() {
-  blackjackTestClient.playerBusted(clientTestsData.currentPlayerUserId);
+  testBlackjackUI.playerBusted(clientTestsData.currentPlayerUserId);
   expect(1);
-  equals($("#main .player_action").html(), "bust!", "Busted text found");
+  equal($("#main .player_action").html(), "bust!", "Busted text found");
 });
 
 test("Enable turn for a player", function() {
   var newCurrentPlayerUserId = "player_2";
   var previousPlayerUserId = clientTestsData.currentPlayerUserId;
-  blackjackTestClient.enableTurnForPlayer(newCurrentPlayerUserId);
+  testBlackjackUI.enableTurnForPlayer(newCurrentPlayerUserId);
   expect(4);
-  equals($("#main #" + previousPlayerUserId + " .player_action :hidden").length, 2, "Two buttons for previous player userId:" + previousPlayerUserId + " are hidden");
-  equals($("#main #" + previousPlayerUserId).attr("class"), "player", "class attribute for previous player userId:" + previousPlayerUserId + " is player");
-  equals($("#main #" + newCurrentPlayerUserId + " .player_action :visible").length, 2, "Two buttons for current player userId:" + newCurrentPlayerUserId + " are visible");
-  equals($("#main #" + newCurrentPlayerUserId).attr("class"), "player current_player", "class attribute for current player userId:" + newCurrentPlayerUserId + " is current_player");
+  equal($("#main #" + previousPlayerUserId + " .player_action :hidden").length, 2, "Two buttons for previous player userId:" + previousPlayerUserId + " are hidden");
+  equal($("#main #" + previousPlayerUserId).attr("class"), "player", "class attribute for previous player userId:" + previousPlayerUserId + " is player");
+  equal($("#main #" + newCurrentPlayerUserId + " .player_action :visible").length, 2, "Two buttons for current player userId:" + newCurrentPlayerUserId + " are visible");
+  equal($("#main #" + newCurrentPlayerUserId).attr("class"), "player current_player", "class attribute for current player userId:" + newCurrentPlayerUserId + " is current_player");
 
 });
 
 test("Remove player", function() {
-  blackjackTestClient.removePlayer(clientTestsData.currentPlayerUserId);
+  testBlackjackUI.removePlayer(clientTestsData.currentPlayerUserId);
   expect(1);
   var currentPlayerNotFound = true;
   $("#main").children().each(function() {
@@ -90,13 +92,39 @@ test("Remove player", function() {
 });
 
 test("Disable turn for all players", function() {
-  blackjackTestClient.disableTurnForAllPlayers();
+  testBlackjackUI.disableTurnForAllPlayers();
   expect(1);
-  equals($("#main .player_action :button:hidden").length, 4, "All player buttons are hidden");
+  equal($("#main .player_action :button:hidden").length, 4, "All player buttons are hidden");
 });
 
 test("Show result for player", function() {
-  blackjackTestClient.showGameResultForPlayer(clientTestsData.currentPlayerUserId, "WIN");
+  testBlackjackUI.showGameResultForPlayer(clientTestsData.currentPlayerUserId, "WIN");
   expect(1);
-  equals($("#main #" + clientTestsData.currentPlayerUserId + " .player_action").html(), "WIN!", "Player shows WIN text");
+  equal($("#main #" + clientTestsData.currentPlayerUserId + " .player_action").html(), "WIN!", "Player shows WIN text");
+});
+
+module("Socket IO Tests");
+
+var testBlackjackSocketIOClient = new BlackjackSocketIOClient();
+
+test("Test send hit message", function() {
+  expect(2);
+  testBlackjackSocketIOClient.socket = {
+    send : function(jsonObject) {
+      equal(jsonObject.userId, clientTestsData.currentPlayerUserId, "Correct user Id in server message");
+      equal(jsonObject.action, "hit", "Correct action in server message");
+    }
+  };
+  testBlackjackSocketIOClient.hit(clientTestsData.currentPlayerUserId);
+});
+
+test("Test send stay message", function() {
+  expect(2);
+  testBlackjackSocketIOClient.socket = {
+    send : function(jsonObject) {
+      equal(jsonObject.userId, clientTestsData.currentPlayerUserId, "Correct user Id in server message");
+      equal(jsonObject.action, "stay", "Correct action in server message");
+    }
+  };
+  testBlackjackSocketIOClient.stay(clientTestsData.currentPlayerUserId);
 });
