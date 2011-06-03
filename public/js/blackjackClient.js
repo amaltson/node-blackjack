@@ -31,6 +31,7 @@ BlackjackClient.prototype = {
       case 'start':
         this.resetGame();
         this.addBlackjackPlayers(serverJsonMessage.players);
+	//this.addRotateDealerCardButton();
         break;
       case 'add':
         var player = serverJsonMessage.player;
@@ -148,6 +149,32 @@ BlackjackClient.prototype = {
     }
   },
 
+  /*
+  addRotateDealerCardButton : function(imageRelativePath) {
+    //$('#dealer .player_action').html('<img id="rotate_button" onclick="alert($(window).height());" src="img/rotate_button.png" />');
+    $('#dealer .player_action').html('<img id="rotate_button" onclick="alert($.rotateDealerCards());" src="img/rotate_button.png" />');
+    //add event
+    var tempObject = this;
+    var rotateButton = $('#dealer .player_action').find('img');
+    rotateButton.click(function() {
+      $.each($('#dealer .cards').children(), function() {
+	
+        if($(this).hasClass('rotate_image')) {
+	  $(this).removeClass('rotate_image');
+	} else {
+	  $(this).addClass('rotate_image');
+	}
+      });
+      //$('#dealer .cards').children();
+      //tempObject.rotateDealerCards();
+    });
+  },
+
+  
+  rotateDealerCards: function() {
+    $('#dealer .cards').children().toggleClass('rotate_image');
+  },*/
+
   createPlayerDiv : function(divId, displayName) {
     var playerDiv = $('<div id="' + divId + '"/>');
     playerDiv.append('<div class="turn_indicator">&nbsp;</div>');
@@ -207,7 +234,8 @@ BlackjackClient.prototype = {
   showGameResultForPlayer : function(playerUserId, playerState) {
     var bustedImage = $("#main #" + playerUserId + " .player_action :image");
     if (bustedImage.length === 0) {
-      $("#main #" + playerUserId + " .cards").append('<span id="result">' + playerState + '</span>');
+	$("#main #" + playerUserId + " .player_action").html(playerState + '!');
+      //$("#main #" + playerUserId + " .cards").append('<span id="result">' + playerState + '</span>');
     }
   },
 
@@ -216,7 +244,8 @@ BlackjackClient.prototype = {
   },
 
   playerBusted : function(userId) {
-    $('#' + userId + ' .player_action').append('<img class="busted_image" src="img/busted.png" />');
+    //$('#' + userId + ' .player_action').append('<img class="busted_image" src="img/busted.png" />');
+    $('#' + userId + ' .player_action').html('bust!');
   },
 
   hidePlayerActionButtonsForCurrentPlayer : function() {

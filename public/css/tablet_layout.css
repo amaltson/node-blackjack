@@ -10,20 +10,31 @@ h1 {
 	width:75%;
 	font-size:20px;
 }
+.name {
+	font-size:30px;
+}
 .cards {
 	position:absolute;
 	left:160px;
 	display:inline;
 }
+#rotate_button {
+	width: 48px;
+	height:48px;
+}
 .card_image {
-	width: 36px;
-	height: 48px;
+	width: 34px;
+	height: 45px;
 }
 .player_action {
 	position:absolute;
-	left:350px;
+	left:400px;
 	display:inline;
 	align:center;
+
+	font-size:30px;
+	color: #white;
+	font-family: 'Paytone One', arial, serif;
 }
 .stats {
 	position:absolute;

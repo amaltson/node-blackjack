@@ -12,12 +12,14 @@ h1 {
 
 /* PAGE */
 #page {
-	width:90%;
-	height: 90%;
+	width: 90%;
+	height: 85%;
 }
 
 /* MAIN */
 #main {
+	position: relative;
+	padding-top: 40px;
 	float:left;
 	width: 70%;
 	height: 100%;
@@ -31,7 +33,7 @@ h1 {
 
 .name {
 	position:absolute;
-	left:100px;
+	left:20px;
 	display:inline;
 }
 .cards {
@@ -41,9 +43,13 @@ h1 {
 }
 .player_action {
 	position:absolute;
-	left:600px;
+	left:550px;
 	display:inline;
 	align:center;
+
+	font-size:36px;
+	color: #white;
+	font-family: 'Paytone One', arial, serif;
 }
 .busted_image {
 	width:200px;
@@ -64,6 +70,7 @@ h1 {
 
 /* SIDEBAR */
 #sidebar {
+	padding-top: 40px;
 	display: block;
 	float:right;
 	width:30%;
