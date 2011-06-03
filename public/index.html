@@ -274,7 +274,11 @@ Amhed, Arthur, Jeff, Melissa, Tomo
 	<script src='/socket.io/socket.io.js'></script>
 	<!-- end scripts-->
 
-
+	<script type='text/javascript'>
+	    $(document).ready(function() {
+	      blackjackSocketIOClient.connectToServer();
+	    });
+    </script>
 	<!--[if lt IE 7 ]>
     <script src="js/libs/dd_belatedpng.js"></script>
     <script>DD_belatedPNG.fix("img, .png_bg"); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>

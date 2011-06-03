@@ -1,4 +1,4 @@
-var BlackjackClient = function Blackjack() {
+var BlackjackClient = function BlackjackClient() {
   /**
    * Socket io connection.
    */

@@ -1,6 +1,10 @@
-var blackjackClient = new BlackjackClient();
+function BlackjackSocketIOClient() {
+};
 
-blackjackClient.connectToServer = function(userId) {
+BlackjackSocketIOClient.prototype = new BlackjackClient();
+
+var blackjackSocketIOClient = new BlackjackSocketIOClient();
+blackjackSocketIOClient.connectToServer = function(userId) {
   var aBlackjackClientInstance = this;
 
   aBlackjackClientInstance.socket = new io.Socket('localhost');
@@ -34,7 +38,7 @@ blackjackClient.connectToServer = function(userId) {
   });
 };
 
-blackjackClient.hit = function(playerUserId) {
+BlackjackClient.prototype.hit = function(playerUserId) {
   console.log(playerUserId + " pressed hit");
   this.socket.send({
     userId : playerUserId,
@@ -42,14 +46,10 @@ blackjackClient.hit = function(playerUserId) {
   });
 };
 
-blackjackClient.stay = function(playerUserId) {
+BlackjackClient.prototype.stay = function(playerUserId) {
   console.log(playerUserId + " pressed stay");
   this.socket.send({
     userId : playerUserId,
     action : "stay"
   });
 };
-
-$(document).ready(function() {
-  blackjackClient.connectToServer();
-});
