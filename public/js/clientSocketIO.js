@@ -34,6 +34,22 @@ blackjackClient.connectToServer = function(userId) {
   });
 };
 
+blackjackClient.hit = function(playerUserId) {
+  console.log(playerUserId + " pressed hit");
+  this.socket.send({
+    userId : playerUserId,
+    action : "hit"
+  });
+};
+
+blackjackClient.stay = function(playerUserId) {
+  console.log(playerUserId + " pressed stay");
+  this.socket.send({
+    userId : playerUserId,
+    action : "stay"
+  });
+};
+
 $(document).ready(function() {
   blackjackClient.connectToServer();
 });

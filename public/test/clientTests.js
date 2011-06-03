@@ -35,7 +35,7 @@ test("Player is assigned a card", function() {
   equals(actualCards.length, 4, "Total number of cards is 4");
   var lastCard = $('#' + clientTestsData.currentPlayerUserId + ' .cards img:last');
   equals(lastCard.attr('src'), "img/" + clientTestsData.notSoRandomSuite + cardType.toLowerCase() + ".gif", "Names matched");
-  equals(lastCard.attr('class'), "card_image", "Card class name matched");
+  equals(lastCard.attr('class'), "card_image " + "card_" + clientTestsData.notSoRandomSuite + cardType.toLowerCase(), "Card class name matched");
 });
 
 test("Hide current player's action buttons", function() {
@@ -53,15 +53,14 @@ test("Show current player's action buttons", function() {
 
 test("Show dealer card", function() {
   var cardType = "3";
-  blackjackTestClient.showDealerCard(cardType);
+  blackjackTestClient.assignCard("dealer", cardType);
   expect(1);
   equals($("#main #dealer .cards img:last").attr('src'), "img_down/" + clientTestsData.notSoRandomSuite + cardType.toLowerCase() + ".gif", "Two buttons for current player are visible");
 });
 
 test("Player busted", function() {
   blackjackTestClient.playerBusted();
-  expect(2);
-  equals($("#main .current_player .player_action :button:hidden").length, 2, "Two buttons for current player are hidden");
+  expect(1);
   equals($("#main .current_player .player_action :last").attr('src'), "img/busted.png", "Busted image found");
 });
 
@@ -99,5 +98,5 @@ test("Disable turn for all players", function() {
 test("Show result for player", function() {
   blackjackTestClient.showGameResultForPlayer(clientTestsData.currentPlayerUserId, "WIN");
   expect(1);
-  equals($("#main #" + clientTestsData.currentPlayerUserId + " .player_action #result").html(), "WIN", "Player shows WIN text");
+  equals($("#main #" + clientTestsData.currentPlayerUserId + " #result").html(), "WIN", "Player shows WIN text");
 });
