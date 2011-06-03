@@ -115,9 +115,8 @@ BlackjackClient.prototype = {
 
     var playerDiv = aBlackjackClientInstance.createPlayerDiv(playerUserId, playerDisplayName);
     playerDiv.addClass('player');
-    playerDiv
-        .find('.cards')
-        .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats" style="display:none;"> <b>win: 0 lose: 0</b> </div>');
+    playerDiv.find('.cards')
+        .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats" style="display:none;">');
 
     var playerActionDiv = playerDiv.find('.player_action');
     var hitButton = playerActionDiv.find(':button:first');
