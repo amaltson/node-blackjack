@@ -16,7 +16,9 @@
 // Function to calculate the Fibonacci number for a given integer n.
 function fib(n) {
 
-	if (n === 0) {
+	if (n < 0) {
+		return null;
+	} else if (n === 0) {
 		return 0;
 	} else if (n === 1) {
 		return 1;

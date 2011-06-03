@@ -1,4 +1,14 @@
 fibTestSuite = {
+	'fib with negative number' : function(test) {
+		setTimeout(function() {
+			test.expect(1); // Expecting to test only 1 assertion
+			var actual = fib(-1); // The tested Result
+			test.ok(actual == null, "Fib(-1) should have been null but was "
+					+ actual);
+			test.done(); // To stop the test and indicate that it's done
+		}, 10); // How long to wait before quitting the test
+	},
+
 	'fib with 0' : function(test) {
 		setTimeout(function() {
 			test.expect(1); // Expecting to test only 1 assertion
