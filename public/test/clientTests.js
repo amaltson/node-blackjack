@@ -59,9 +59,9 @@ test("Show dealer card", function() {
 });
 
 test("Player busted", function() {
-  blackjackTestClient.playerBusted();
+  blackjackTestClient.playerBusted(clientTestsData.currentPlayerUserId);
   expect(1);
-  equals($("#main .current_player .player_action :last").attr('src'), "img/busted.png", "Busted image found");
+  equals($("#main .player_action").html(), "bust!", "Busted text found");
 });
 
 test("Enable turn for a player", function() {
@@ -98,5 +98,5 @@ test("Disable turn for all players", function() {
 test("Show result for player", function() {
   blackjackTestClient.showGameResultForPlayer(clientTestsData.currentPlayerUserId, "WIN");
   expect(1);
-  equals($("#main #" + clientTestsData.currentPlayerUserId + " #result").html(), "WIN", "Player shows WIN text");
+  equals($("#main #" + clientTestsData.currentPlayerUserId + " .player_action").html(), "WIN!", "Player shows WIN text");
 });
