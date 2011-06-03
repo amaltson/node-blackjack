@@ -51,11 +51,9 @@ BlackjackClient.prototype = {
       case 'bust':
         this.playerBusted(serverJsonMessage.userId);
         break;
-      // TODO arthur will finish implementation for handling end event
-      // above default
-      // case 'end':
-      // this.disableTurnForAllPlayers();
-      // this.showGameResultForPlayers(players);
+      case 'end':
+        this.disableTurnForAllPlayers();
+        this.showGameResultForPlayers(serverJsonMessage.players);
       default:
         // break;
         // case 'showDealerCard':
@@ -209,7 +207,7 @@ BlackjackClient.prototype = {
   showGameResultForPlayer : function(playerUserId, playerState) {
     var bustedImage = $("#main #" + playerUserId + " .player_action :image");
     if (bustedImage.length === 0) {
-      $("#main #" + playerUserId + " .player_action").append('<div id="result">' + playerState + '</div>');
+      $("#main #" + playerUserId + " .cards").append('<span id="result">' + playerState + '</span>');
     }
   },
 
