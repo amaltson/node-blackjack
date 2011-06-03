@@ -51,11 +51,9 @@ BlackjackClient.prototype = {
       case 'bust':
         this.playerBusted(serverJsonMessage.userId);
         break;
-      // TODO arthur will finish implementation for handling end event
-      // above default
-      // case 'end':
-      // this.disableTurnForAllPlayers();
-      // this.showGameResultForPlayers(players);
+      case 'end':
+        this.disableTurnForAllPlayers();
+        this.showGameResultForPlayers(serverJsonMessage.players);
       default:
         // break;
         // case 'showDealerCard':
@@ -92,6 +90,12 @@ BlackjackClient.prototype = {
     var imageRelativePath = "img/";
     if (userId === "dealer") {
       imageRelativePath = "img_down/";
+      
+      // see if there is a hidden card already, remove it because this is the second card.
+      var dealerHiddenCard = $('#dealer .cards .card_hidden').remove();
+      if (dealerHiddenCard) {
+        dealerHiddenCard.remove();
+      }
     }
 
     var suiteCard = cardType;
@@ -99,12 +103,7 @@ BlackjackClient.prototype = {
       suiteCard = this.generateRandomSuite() + cardType.toLowerCase();
     }
 
-    $('#' + userId + ' .cards').append('<img class="card_image" src="' + imageRelativePath + suiteCard + '.gif" />');
-  },
-
-  showDealerCard : function(cardType) {
-    $('#dealer .cards').children().eq(1).remove();
-    this.assignCard("dealer", cardType);
+    $('#' + userId + ' .cards').append('<img class="card_image card_' + suiteCard + '" src="' + imageRelativePath + suiteCard + '.gif" />');
   },
 
   generateRandomSuite : function() {
@@ -208,7 +207,7 @@ BlackjackClient.prototype = {
   showGameResultForPlayer : function(playerUserId, playerState) {
     var bustedImage = $("#main #" + playerUserId + " .player_action :image");
     if (bustedImage.length === 0) {
-      $("#main #" + playerUserId + " .player_action").append('<div id="result">' + playerState + '</div>');
+      $("#main #" + playerUserId + " .cards").append('<span id="result">' + playerState + '</span>');
     }
   },
 
@@ -279,6 +278,21 @@ BlackjackClient.prototype = {
       if (event.which == '13') {
         login();
       }
+    });
+
+
+    $('.stickynotes').click(function() {
+	if($(this).hasClass('bigNotes')) {
+	   $(this).html($('#' + this.id + '.short').html());
+	   $(this).removeClass('short');
+	   $(this).find('a').css({'width':'20em','height':'20em', 'padding':'1em'});
+	} else {
+	   $(this).html($('#' + this.id + '.long').html());
+	   $(this).removeClass('long');
+	   $(this).find('a').css({'width':'50em','height':'50em', 'padding':'4em'});
+	}
+
+	$(this).toggleClass('bigNotes');
     });
   }
 };
