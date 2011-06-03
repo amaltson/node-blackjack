@@ -279,5 +279,20 @@ BlackjackClient.prototype = {
         login();
       }
     });
+
+
+    $('.stickynotes').click(function() {
+	if($(this).hasClass('bigNotes')) {
+	   $(this).html($('#' + this.id + '.short').html());
+	   $(this).removeClass('short');
+	   $(this).find('a').css({'width':'20em','height':'20em', 'padding':'1em'});
+	} else {
+	   $(this).html($('#' + this.id + '.long').html());
+	   $(this).removeClass('long');
+	   $(this).find('a').css({'width':'50em','height':'50em', 'padding':'4em'});
+	}
+
+	$(this).toggleClass('bigNotes');
+    });
   }
 };
