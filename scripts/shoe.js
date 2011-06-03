@@ -4,12 +4,6 @@
  */
 module.exports = function Shoe() {
 
-  // Initialize the deck
-  this.deck = [];
-
-  // bind this to a variable to access it inside functions.
-  var self = this;
-
   // convenience function that makes card objects.
   function makeCard(aStringCode) {
     return {
@@ -17,15 +11,20 @@ module.exports = function Shoe() {
     };
   }
 
-  // add the cards to the deck.
-  [ 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K' ]
-      .forEach(function(aCode) {
-        self.deck.push(makeCard(aCode));
-      });
-
+  // Initialize the deck
+  this.deck = [ 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q',
+      'K' ].map(function(aStringCode) {
+    return makeCard(aStringCode);
+  });
+  /**
+   * // bind this to a variable to access it inside functions. var self = this; //
+   * add the cards to the deck. [ 'A', '2', '3', '4', '5', '6', '7', '8', '9',
+   * '10', 'J', 'Q', 'K' ] .forEach(function(aCode) {
+   * self.deck.push(makeCard(aCode)); });
+   */
   // Function to get the next card, randomly from the deck.
   this.dealNextCard = function() {
-    var deckIndex = this.randomCardIndex();
+    var deckIndex = this.randomCardIndex(this.deck.length);
     if (deckIndex < 0 || deckIndex > this.deck.length) {
       throw Error(deckIndex + " couldn't be made into a card.");
     }
@@ -33,8 +32,8 @@ module.exports = function Shoe() {
   };
 
   // randomly pick a number between 0 and the size of the deck.
-  this.randomCardIndex = function() {
-    return Math.floor(Math.random() * self.deck.length);
+  this.randomCardIndex = function(maxDeckSize) {
+    return Math.floor(Math.random() * maxDeckSize);
   };
 
   // The following dealXX() methods are only there for testing purposes.
