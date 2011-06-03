@@ -103,7 +103,7 @@ test("Show result for player", function() {
   equal($("#main #" + clientTestsData.currentPlayerUserId + " .player_action").html(), "WIN!", "Player shows WIN text");
 });
 
-module("Socket IO Tests");
+module("Mock socket IO Tests");
 
 var testBlackjackSocketIOClient = new BlackjackSocketIOClient();
 
