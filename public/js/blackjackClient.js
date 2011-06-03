@@ -102,18 +102,12 @@ BlackjackClient.prototype = {
     }
   },
 
-  createPlayerDiv : function(divId, displayName) {
-    var playerDiv = $('<div id="' + divId + '"/>');
-    playerDiv.append('<div class="turn_indicator">&nbsp;</div>');
-    playerDiv.append('<div class="name">' + displayName + '</div>');
-    playerDiv.append('<div class="cards">');
-    return playerDiv;
-  },
-
   addBlackjackPlayer : function(playerUserId, playerDisplayName, hand) {
     var aBlackjackClientInstance = this;
-
-    var playerDiv = aBlackjackClientInstance.createPlayerDiv(playerUserId, playerDisplayName);
+    var playerDiv = $('<div id="' + playerUserId + '"/>');
+    playerDiv.append('<div class="turn_indicator">&nbsp;</div>');
+    playerDiv.append('<div class="name">' + playerDisplayName + '</div>');
+    playerDiv.append('<div class="cards">');
     playerDiv.addClass('player');
     playerDiv.find('.cards')
         .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats" style="display:none;">');
@@ -131,7 +125,6 @@ BlackjackClient.prototype = {
     });
     stayButton.hide();
     $('#main').append(playerDiv);
-
     for ( var i = 0; i < hand.length; i++) {
       this.assignCard(playerUserId, hand[i].type);
     }
