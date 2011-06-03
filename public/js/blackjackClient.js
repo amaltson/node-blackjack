@@ -1,9 +1,7 @@
-var BlackjackClient = function BlackjackClient() {
-  /**
-   * Socket io connection.
-   */
-  this.socket = "",
-
+/**
+ * BlackjackUI handles client socket IO.
+ */
+var BlackjackUI = function BlackjackUI() {
   /**
    * Maximum number of logs to display on the main page.
    */
@@ -11,7 +9,7 @@ var BlackjackClient = function BlackjackClient() {
   return this;
 };
 
-BlackjackClient.prototype = {
+BlackjackUI.prototype = {
   processIncommingMessage : function(serverJsonMessage) {
     var jsonParsedMessage;
     console.log(serverJsonMessage);
@@ -107,12 +105,12 @@ BlackjackClient.prototype = {
     playerDiv.append('<div class="name">' + playerDisplayName + '</div>');
     playerDiv.append('<div class="cards">');
 
-    var aBlackjackClientInstance = this;
+    var anInstance = this;
     var hitButton = this.createHiddenButton("Hit", playerUserId, function() {
-      aBlackjackClientInstance.hit.apply(aBlackjackClientInstance, [ playerUserId ]);
+      anInstance.hit.apply(anInstance, [ playerUserId ]);
     });
     var stayButton = this.createHiddenButton("Stay", playerUserId, function() {
-      aBlackjackClientInstance.stay.apply(aBlackjackClientInstance, [ playerUserId ]);
+      anInstance.stay.apply(anInstance, [ playerUserId ]);
     });
 
     var playerActionDiv = $('<div class="player_action"></div>').append(hitButton).append(stayButton);
