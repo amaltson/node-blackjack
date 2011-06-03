@@ -4,96 +4,90 @@
  */
 module.exports = function Shoe() {
 
-	this.dealNextCard = function() {
-		var deckIndex = this.randomCardIndex();
-		if (deckIndex < 0 || deckIndex > this.deck.length) {
-			throw Error(deckIndex + " couldn't be made into a card.");
-		}
-		return this.deck[deckIndex];
-	};
+  // Initialize the deck
+  this.deck = [];
 
-	this.deck = [ {
-		type : 'A'
-	}, {
-		type : '2'
-	}, {
-		type : '3'
-	}, {
-		type : '4'
-	}, {
-		type : '5'
-	}, {
-		type : '6'
-	}, {
-		type : '7'
-	}, {
-		type : '8'
-	}, {
-		type : '9'
-	}, {
-		type : '10'
-	}, {
-		type : 'J'
-	}, {
-		type : 'Q'
-	}, {
-		type : 'K'
-	} ];
+  // bind this to a variable to access it inside functions.
+  var self = this;
 
-	this.dealAce = function() {
-		return this.deck[0];
-	};
+  // convenience function that makes card objects.
+  function makeCard(aStringCode) {
+    return {
+      type : aStringCode
+    };
+  }
 
-	this.dealKing = function() {
-		return this.deck[12];
-	};
+  // add the cards to the deck.
+  [ 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K' ]
+      .forEach(function(aCode) {
+        self.deck.push(makeCard(aCode));
+      });
 
-	this.dealQueen = function() {
-		return this.deck[11];
-	};
+  // Function to get the next card, randomly from the deck.
+  this.dealNextCard = function() {
+    var deckIndex = this.randomCardIndex();
+    if (deckIndex < 0 || deckIndex > this.deck.length) {
+      throw Error(deckIndex + " couldn't be made into a card.");
+    }
+    return this.deck[deckIndex];
+  };
 
-	this.dealJack = function() {
-		return this.deck[10];
-	};
+  // randomly pick a number between 0 and the size of the deck.
+  this.randomCardIndex = function() {
+    return Math.floor(Math.random() * self.deck.length);
+  };
 
-	this.dealTen = function() {
-		return this.deck[9];
-	};
+  // The following dealXX() methods are only there for testing purposes.
+  // Or cheating, of course.
+  this.dealAce = function() {
+    return this.deck[0];
+  };
 
-	this.dealNine = function() {
-		return this.deck[8];
-	};
+  this.dealKing = function() {
+    return this.deck[12];
+  };
 
-	this.dealEight = function() {
-		return this.deck[7];
-	};
+  this.dealQueen = function() {
+    return this.deck[11];
+  };
 
-	this.dealSeven = function() {
-		return this.deck[6];
-	};
+  this.dealJack = function() {
+    return this.deck[10];
+  };
 
-	this.dealSix = function() {
-		return this.deck[5];
-	};
+  this.dealTen = function() {
+    return this.deck[9];
+  };
 
-	this.dealFive = function() {
-		return this.deck[4];
-	};
+  this.dealNine = function() {
+    return this.deck[8];
+  };
 
-	this.dealFour = function() {
-		return this.deck[3];
-	};
+  this.dealEight = function() {
+    return this.deck[7];
+  };
 
-	this.dealThree = function() {
-		return this.deck[2];
-	};
+  this.dealSeven = function() {
+    return this.deck[6];
+  };
 
-	this.dealTwo = function() {
-		return this.deck[1];
-	};
+  this.dealSix = function() {
+    return this.deck[5];
+  };
 
-	// randomly pick a number between 0 and 12
-	this.randomCardIndex = function() {
-		return Math.floor(Math.random() * 13);
-	};
+  this.dealFive = function() {
+    return this.deck[4];
+  };
+
+  this.dealFour = function() {
+    return this.deck[3];
+  };
+
+  this.dealThree = function() {
+    return this.deck[2];
+  };
+
+  this.dealTwo = function() {
+    return this.deck[1];
+  };
 };
