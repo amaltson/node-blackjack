@@ -77,18 +77,18 @@ function processMessage(data, callback) {
             action: 'bust'
           });
           game.nextTurn(function(userId) {
-            sendTurn(userId);
+            sendTurn(userId, game);
           });
         } else if (handValue === game.BLACKJACK) {
           game.nextTurn(function(userId) {
-            sendTurn(userId);
+            sendTurn(userId, game);
           });
         }
       });
       break;
     case 'stay':
       game.nextTurn(function(userId) {
-        sendTurn(userId);
+        sendTurn(userId, game);
       });
       break;
     case 'login':
@@ -122,7 +122,7 @@ function processMessage(data, callback) {
  * Enables the turn for the given userId and broadcasts that it is that user's
  * turn.
  */
-function sendTurn(userId) {
+function sendTurn(userId, game) {
 
   // tell everyone who's turn it is.
   socket.broadcast({
@@ -137,6 +137,42 @@ function sendTurn(userId) {
       action: 'turn'
     });
   }
+
+  // if it's the dealer, end the game.
+  if(userId === 'dealer') {
+    endGame(game);
+  }
+}
+
+function endGame(game) {
+  game.getPlayer('dealer', function(dealer) {
+
+    // let the dealer play
+    dealerLogic(dealer, game);
+
+    // put together the game end state.
+    var dealerHandValue = game.calculateHandValue(dealer.hand);
+    var playersEndState = [];
+    
+    game.getAllPlayers(function(players) {
+      for (var i = 0; i < players.length; i++) {
+        if (players[i].userId === 'dealer') {
+          continue;
+        }
+        var playerHandValue = game.calculateHandValue(players[i].hand);
+        var resultState = game.determinePlayerWin(dealerHandValue, playerHandValue);
+        playersEndState.push({
+          userId: players[i].userId,
+          state: resultState
+        });
+      }
+      // push down the end state.
+      socket.broadcast({
+        players: playersEndState,
+        action: 'end'
+      });
+    });
+  });
 }
 
 function createDealer(game) {
@@ -151,20 +187,18 @@ function createDealer(game) {
   }, function() {});
 }
 
-function dealerLogic(game) {
-  game.getPlayer('dealer', function(player) {
-    player.hand.pop();
-    var dealerCard = null;
-    var currentHandValue = 0;
-    while (currentHandValue < 17) {
-      dealerCard = game.dealNextCard();
-      player.hand.push(dealerCard);
-      currentHandValue = game.calculateHandValue(player.hand);
-      socket.broadcast({
-        userId : 'dealer',
-        card : dealerCard,
-        action : 'hand'
-      });
-    }
-  });
+function dealerLogic(dealer, game) {
+  dealer.hand.pop();
+  var dealerCard = null;
+  var currentHandValue = 0;
+  while (currentHandValue < 17) {
+    dealerCard = game.dealNextCard();
+    dealer.hand.push(dealerCard);
+    currentHandValue = game.calculateHandValue(dealer.hand);
+    socket.broadcast({
+      userId : 'dealer',
+      card : dealerCard,
+      action : 'assignCard'
+    });
+  }
 }
