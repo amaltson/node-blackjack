@@ -93,8 +93,11 @@ BlackjackClient.prototype = {
     if (userId === "dealer") {
       imageRelativePath = "img_down/";
       
-      // get the number of cards the dealer has
-      var dealerNumCards = $('#dealer .cards').children().size();
+      // see if there is a hidden card already, remove it because this is the second card.
+      var dealerHiddenCard = $('#dealer .cards .card_hidden').remove();
+      if (dealerHiddenCard) {
+        dealerHiddenCard.remove();
+      }
     }
 
     var suiteCard = cardType;
@@ -102,10 +105,6 @@ BlackjackClient.prototype = {
       suiteCard = this.generateRandomSuite() + cardType.toLowerCase();
     }
 
-    // if it's the second card for the dealer, we need to show the card.
-    if (userId === "dealer" && dealerNumCards > 2) {
-      $('#dealer .cards .card_hidden').remove();
-    }
     $('#' + userId + ' .cards').append('<img class="card_image card_' + suiteCard + '" src="' + imageRelativePath + suiteCard + '.gif" />');
   },
 

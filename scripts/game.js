@@ -126,14 +126,14 @@ Blackjack.prototype = {
 
   // parameter dealerTotal and playerTotal are integers
   determinePlayerWin: function(dealerTotal, playerTotal) {
-    if (playerTotal > blackjack) {
-      return 'BUST';
+    if (playerTotal > this.BLACKJACK) {
+      return 'bust';
     } else if (playerTotal > dealerTotal) {
-      return 'WIN';
+      return 'win';
     } else if (playerTotal == dealerTotal) {
-      return 'TIE';
+      return 'tie';
     } else {
-      return 'LOSE';
+      return 'lose';
     }
   },
 
