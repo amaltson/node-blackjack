@@ -103,31 +103,32 @@ BlackjackClient.prototype = {
   },
 
   addBlackjackPlayer : function(playerUserId, playerDisplayName, hand) {
-    var aBlackjackClientInstance = this;
-    var playerDiv = $('<div id="' + playerUserId + '"/>');
-    playerDiv.append('<div class="turn_indicator">&nbsp;</div>');
+    var playerDiv = $('<div id="' + playerUserId + '"/>').addClass('player');
     playerDiv.append('<div class="name">' + playerDisplayName + '</div>');
     playerDiv.append('<div class="cards">');
-    playerDiv.addClass('player');
-    playerDiv.find('.cards')
-        .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats" style="display:none;">');
 
-    var playerActionDiv = playerDiv.find('.player_action');
-    var hitButton = playerActionDiv.find(':button:first');
-    hitButton.click(function() {
+    var aBlackjackClientInstance = this;
+    var hitButton = this.createHiddenButton("Hit", playerUserId, function() {
       aBlackjackClientInstance.hit.apply(aBlackjackClientInstance, [ playerUserId ]);
     });
-    hitButton.hide();
-    var stayButton = playerActionDiv.find(':button:last');
-    stayButton.click(function() {
+    var stayButton = this.createHiddenButton("Stay", playerUserId, function() {
       aBlackjackClientInstance.stay.apply(aBlackjackClientInstance, [ playerUserId ]);
-      aBlackjackClientInstance.hidePlayerActionButtonsForCurrentPlayer();
     });
-    stayButton.hide();
+
+    var playerActionDiv = $('<div class="player_action"></div>').append(hitButton).append(stayButton);
+    playerDiv.append(playerActionDiv);
+
     $('#main').append(playerDiv);
+
     for ( var i = 0; i < hand.length; i++) {
       this.assignCard(playerUserId, hand[i].type);
     }
+  },
+
+  createHiddenButton : function(buttonText, playerUserId, buttonClickCallback) {
+    var blackjackButton = $('<button type="button">' + buttonText + '</button>');
+    blackjackButton.click(buttonClickCallback).hide();
+    return blackjackButton;
   },
 
   enableTurnForPlayer : function(userId) {
