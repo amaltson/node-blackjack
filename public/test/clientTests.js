@@ -6,7 +6,11 @@ module("client tests");
 // this name should be unique to avoid conflicts with globally defined variables
 var clientTestsData = {
   notSoRandomSuite : "c",
-  currentPlayerUserId : "player_1"
+  currentPlayerUserId : "player_1",
+  playerName : "test",
+  hand : [ {
+    type : '2'
+  } ]
 };
 
 var testBlackjackUI = new BlackjackUI();
@@ -103,10 +107,27 @@ test("Show result for player", function() {
   equal($("#main #" + clientTestsData.currentPlayerUserId + " .player_action").html(), "WIN!", "Player shows WIN text");
 });
 
+test("Create new blackjack player", function() {
+  testBlackjackUI.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
+  testBlackjackUI.hit = function() {
+    ok(true, "Hit button setup for clicks");
+  };
+  testBlackjackUI.stay = function() {
+    ok(true, "Stay button setup for clicks");
+  };
+  expect(7);
+  equal($("#main #" + clientTestsData.playerName + " .name").length, 1, "Player name div exists");
+  equal($("#main #" + clientTestsData.playerName + " .cards").length, 1, "Player cards div exists");
+  equal($("#main #" + clientTestsData.playerName + " .cards").children().length, 1, "Player has one card");
+  equal($("#main #" + clientTestsData.playerName + " .player_action").length, 1, "Player action div exists");
+  equal($("#main #" + clientTestsData.playerName + " .player_action :button:hidden").length, 2, "Player has two hidden buttons");
+  $("#main #" + clientTestsData.playerName + " .player_action :button:contains('Hit')").click();
+  $("#main #" + clientTestsData.playerName + " .player_action :button:contains('Stay')").click();
+});
+
 module("Mock socket IO Tests");
 
 var testBlackjackSocketIOClient = new BlackjackSocketIOClient();
-
 test("Test send hit message", function() {
   expect(2);
   testBlackjackSocketIOClient.socket = {
@@ -127,4 +148,28 @@ test("Test send stay message", function() {
     }
   };
   testBlackjackSocketIOClient.stay(clientTestsData.currentPlayerUserId);
+});
+
+test("Test hit message is sent when user clicks the hit button", function() {
+  testBlackjackSocketIOClient.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
+  expect(2);
+  testBlackjackSocketIOClient.socket = {
+    send : function(jsonObject) {
+      equal(jsonObject.userId, clientTestsData.playerName, "Correct user Id in server message");
+      equal(jsonObject.action, "hit", "Correct action in server message");
+    }
+  };
+  $("#main #" + clientTestsData.playerName + " .player_action :button:contains('Hit')").click();
+});
+
+test("Test stay message is sent when user clicks the stay button", function() {
+  testBlackjackSocketIOClient.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
+  expect(2);
+  testBlackjackSocketIOClient.socket = {
+    send : function(jsonObject) {
+      equal(jsonObject.userId, clientTestsData.playerName, "Correct user Id in server message");
+      equal(jsonObject.action, "stay", "Correct action in server message");
+    }
+  };
+  $("#main #" + clientTestsData.playerName + " .player_action :button:contains('Stay')").click();
 });
