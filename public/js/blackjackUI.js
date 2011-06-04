@@ -106,12 +106,11 @@ BlackjackUI.prototype = {
     playerDiv.append('<div class="cards">');
 
     var anInstance = this;
-    var hitButton = this.createHiddenButton("Hit", playerUserId, function() {
-      anInstance.hit.apply(anInstance, [ playerUserId ]);
-    });
-    var stayButton = this.createHiddenButton("Stay", playerUserId, function() {
-      anInstance.stay.apply(anInstance, [ playerUserId ]);
-    });
+    // TODO Lab 2 Task 2 create hit and stay buttons that are hidden. The third
+    // parameter is
+    // callback that is invoked when the button is clicked.
+    var hitButton;
+    var stayButton;
 
     var playerActionDiv = $('<div class="player_action"></div>').append(hitButton).append(stayButton);
     playerDiv.append(playerActionDiv);

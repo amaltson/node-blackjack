@@ -45,15 +45,15 @@ blackjackSocketIOClient.connectToServer = function(userId) {
 };
 
 BlackjackSocketIOClient.prototype.hit = function(playerUserId) {
-  this.socket.send({
-    userId : playerUserId,
-    action : "hit"
-  });
+  // TODO Lab 2 Task 2 invoke send api on socket to send a json message that has
+  // userId and
+  // action properties.
+  // userId is the parameter and action is 'hit'
 };
 
 BlackjackSocketIOClient.prototype.stay = function(playerUserId) {
-  this.socket.send({
-    userId : playerUserId,
-    action : "stay"
-  });
+  // TODO Lab 2 Task 2 invoke send api on socket to send a json message that has
+  // userId and
+  // action properties.
+  // userId is the parameter and action is 'stay'
 };
