@@ -1,72 +1,21 @@
-body,
-html {
-	margin:0;
-	padding:0;
-	height: 100%;
-	background:#000;
-}
-
 /* PAGE */
 #page {
 	width:100%;
-	margin:0 auto;
 }
 
 /* HEADER */
-header {
-	background:#000;
-}
 h1 { 
-	font-size:30px;
-	color: #white;
-	font-family: 'Paytone One', arial, serif;
-}
-
-/* NAV */
-nav {
-	background:#000;
-}
-nav ul {
-	list-style:none;
-}
-nav li {
-	display:inline;
+	font-size:24px;
 }
 
 /* MAIN */
 #main {
-	float:left;
 	width:100%;
-	/*background:#9c9;*/
 	font-size:12px;
 }
-#dealer {
-	padding:10px;
-	height: 40px;
-	align:center;
-	display:block;
-}
-.player {
-	padding:10px;
-	height: 40px;
-	align:center;
-	display:block;
-	color: #000;
-}
-.current_player {
-	padding:10px;
-	height: 40px;
-	opacity: 0.9;
-	align:center;
-	background: #lightyellow;
-	color: #000;
-}
-.turn_indicator {
-	display:inline;
-}
-.turn_indicator_image {
+.card_image {
 	width: 24px;
-	height: 24px;
+	height: 32px;
 }
 .name {
 	position:absolute;
@@ -74,8 +23,6 @@ nav li {
 	display:inline;
 
 	font-size:20px;
-	color: #000;
-	font-family: 'Paytone One', arial, serif;
 }
 .cards {
 	position:absolute;
@@ -84,51 +31,12 @@ nav li {
 }
 .player_action {
 	position:absolute;
-	left:240px;
-	display:inline;
-	align:center;
-
+	left:220px;
 	font-size:20px;
-	color: #white;
-	font-family: 'Paytone One', arial, serif;
-}
-#rotate_button {
-	width: 32px;
-	height:32px;
-}
-.rotate_image {
-	-webkit-transform:rotate(-180deg);  
-  	-o-transform:rotate(-180eg);  
-	-moz-transform:rotate(-180deg);
-}
-.busted_image {
-	width:120px;
-	height:40px;
-}
-.stats {
-	display: none;
 }
 
 /* SIDEBAR */
 #sidebar {
 	display: none;
-	float:right;
-	width:30%;
-	background:#333;
-	height: 100%;
-	/*background-image:url('../img/bg_paper.gif');*/
-	/*background:#c9c;*/
-}
-#howtoplay {
-	padding:5px;
-}
-#logs {
-	padding:5px;
 }
 
-#footer {
-	clear:both;
-	background:#000;
-	color: #fff;
-	font-size: 20px;
-}

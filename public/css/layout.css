@@ -2,58 +2,99 @@ body,
 html {
 	margin:0;
 	padding:0;
-	color:#000;
-}
-
-/* HEADER */
-h1 { 
-	font-size:60px;
+	height: 100%;
+	background:#000;
+	width:100%;
+	font:#fff;
 }
 
 /* PAGE */
 #page {
 	width: 90%;
 	height: 85%;
+	margin:0 auto;
 }
+
+/* HEADER */
+header {
+	background:#000;
+}
+h1 { 
+	font-size:60px;
+	color: #white;
+	font-family: 'Paytone One', arial, serif;
+}
+
 
 /* MAIN */
 #main {
 	position: relative;
 	padding-top: 40px;
 	float:left;
-	width: 70%;
+	width: 65%;
 	height: 100%;
 	font-size:22px;
+	height: 100%;
 
 	-moz-border-radius: 30px;
 	-webkit-border-radius: 30px;
 	border-radius: 30px; /* future proofing */
 	-khtml-border-radius: 30px; /* for old Konqueror browsers */
 }
-
+#dealer {
+	padding:10px;
+	height: 40px;
+	align:center;
+	display:block;
+}
+.player {
+	padding:10px;
+	height: 40px;
+	align:center;
+	display:block;
+	color: #000;
+}
+.card_image {
+	width: 34px;
+	height: 45px;
+}
+.current_player {
+	padding:10px;
+	height: 40px;
+	opacity: 0.9;
+	align:center;
+	background: #lightyellow;
+	color: #000;
+}
+.turn_indicator {
+	display:inline;
+}
+.turn_indicator_image {
+	width: 24px;
+	height: 24px;
+}
 .name {
 	position:absolute;
 	left:20px;
 	display:inline;
+
+	color: #000;
+	font-family: 'Paytone One', arial, serif;
 }
 .cards {
 	position:absolute;
-	left:260px;
+	left:150px;
 	display:inline;
 }
 .player_action {
 	position:absolute;
-	left:550px;
+	left:350px;
 	display:inline;
 	align:center;
 
-	font-size:36px;
+	font-size:32px;
 	color: #white;
 	font-family: 'Paytone One', arial, serif;
-}
-.busted_image {
-	width:200px;
-	height:70px;
 }
 .stats {
 	position:absolute;
@@ -61,6 +102,20 @@ h1 {
 	display: inline;
 }
 
+/* SIDEBAR */
+#sidebar {
+	padding-top: 40px;
+	display: block;
+	float:right;
+	width:35%;
+	background:#333;
+	height: 100%;
+	
+	-moz-border-radius: 30px;
+	-webkit-border-radius: 30px;
+	border-radius: 30px; /* future proofing */
+	-khtml-border-radius: 30px; /* for old Konqueror browsers */
+}
 #howtoplay {
 	padding:5px;
 }
@@ -68,18 +123,24 @@ h1 {
 	padding:5px;
 }
 
-/* SIDEBAR */
-#sidebar {
-	padding-top: 40px;
-	display: block;
-	float:right;
-	width:30%;
-	
-	-moz-border-radius: 30px;
-	-webkit-border-radius: 30px;
-	border-radius: 30px; /* future proofing */
-	-khtml-border-radius: 30px; /* for old Konqueror browsers */
+#footer {
+	clear:both;
+	background:#000;
+	color: #fff;
+	font-size: 20px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*STICKY NOTE*/
