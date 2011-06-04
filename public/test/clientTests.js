@@ -53,8 +53,11 @@ test("Hide current player's action buttons", function() {
 test("Show current player's action buttons", function() {
   testBlackjackUI.hidePlayerActionButtonsForCurrentPlayer();
   testBlackjackUI.showPlayerActionButtonsForCurrentPlayer();
-  expect(1);
+  expect(3);
   equal($("#main .current_player .player_action :visible").length, 2, "Two buttons for current player are visible");
+  equal($("#main .current_player .player_action :button:eq(0)").attr("style"), "display: inline;", "Hit has dispaly: inline style");
+  equal($("#main .current_player .player_action :button:eq(1)").attr("style"), "display: inline;", "Stay has dispaly: inline style");
+
 });
 
 test("Show dealer card", function() {
