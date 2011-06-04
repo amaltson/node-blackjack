@@ -108,11 +108,12 @@ test("Show result for player", function() {
 });
 
 test("Create new blackjack player", function() {
-  testBlackjackUI.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
-  testBlackjackUI.hit = function() {
+  var anotherTestBlackjackUI = new BlackjackUI();
+  anotherTestBlackjackUI.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
+  anotherTestBlackjackUI.hit = function() {
     ok(true, "Hit button setup for clicks");
   };
-  testBlackjackUI.stay = function() {
+  anotherTestBlackjackUI.stay = function() {
     ok(true, "Stay button setup for clicks");
   };
   expect(7);
@@ -126,50 +127,44 @@ test("Create new blackjack player", function() {
 });
 
 module("Mock socket IO Tests");
+var mockSocket = {};
+var testBlackjackUIForSocketIO = new BlackjackUI();
+var testBlackjackSocketIOClient = new BlackjackSocketIOClient(mockSocket, testBlackjackUIForSocketIO);
 
-var testBlackjackSocketIOClient = new BlackjackSocketIOClient();
 test("Test send hit message", function() {
-  expect(2);
-  testBlackjackSocketIOClient.socket = {
-    send : function(jsonObject) {
-      equal(jsonObject.userId, clientTestsData.currentPlayerUserId, "Correct user Id in server message");
-      equal(jsonObject.action, "hit", "Correct action in server message");
-    }
+  mockSocket.send = function(jsonObject) {
+    equal(jsonObject.userId, clientTestsData.currentPlayerUserId, "Correct user Id in server message");
+    equal(jsonObject.action, "hit", "Correct action in server message");
   };
-  testBlackjackSocketIOClient.hit(clientTestsData.currentPlayerUserId);
+  expect(2);
+  testBlackjackUIForSocketIO.hit(clientTestsData.currentPlayerUserId);
 });
 
 test("Test send stay message", function() {
-  expect(2);
-  testBlackjackSocketIOClient.socket = {
-    send : function(jsonObject) {
-      equal(jsonObject.userId, clientTestsData.currentPlayerUserId, "Correct user Id in server message");
-      equal(jsonObject.action, "stay", "Correct action in server message");
-    }
+  mockSocket.send = function(jsonObject) {
+    equal(jsonObject.userId, clientTestsData.currentPlayerUserId, "Correct user Id in server message");
+    equal(jsonObject.action, "stay", "Correct action in server message");
   };
-  testBlackjackSocketIOClient.stay(clientTestsData.currentPlayerUserId);
+  expect(2);
+  testBlackjackUIForSocketIO.stay(clientTestsData.currentPlayerUserId);
 });
 
 test("Test hit message is sent when user clicks the hit button", function() {
-  testBlackjackSocketIOClient.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
+  testBlackjackUIForSocketIO.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
   expect(2);
-  testBlackjackSocketIOClient.socket = {
-    send : function(jsonObject) {
-      equal(jsonObject.userId, clientTestsData.playerName, "Correct user Id in server message");
-      equal(jsonObject.action, "hit", "Correct action in server message");
-    }
+  mockSocket.send = function(jsonObject) {
+    equal(jsonObject.userId, clientTestsData.playerName, "Correct user Id in server message");
+    equal(jsonObject.action, "hit", "Correct action in server message");
   };
   $("#main #" + clientTestsData.playerName + " .player_action :button:contains('Hit')").click();
 });
 
 test("Test stay message is sent when user clicks the stay button", function() {
-  testBlackjackSocketIOClient.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
+  testBlackjackUIForSocketIO.addBlackjackPlayer(clientTestsData.playerName, clientTestsData.playerName, clientTestsData.hand);
   expect(2);
-  testBlackjackSocketIOClient.socket = {
-    send : function(jsonObject) {
-      equal(jsonObject.userId, clientTestsData.playerName, "Correct user Id in server message");
-      equal(jsonObject.action, "stay", "Correct action in server message");
-    }
+  mockSocket.send = function(jsonObject) {
+    equal(jsonObject.userId, clientTestsData.playerName, "Correct user Id in server message");
+    equal(jsonObject.action, "stay", "Correct action in server message");
   };
   $("#main #" + clientTestsData.playerName + " .player_action :button:contains('Stay')").click();
 });

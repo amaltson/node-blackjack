@@ -1,59 +1,49 @@
 /**
  * BlackjackSocketIOClient handles client socket IO.
  */
-var BlackjackSocketIOClient = function BlackjackSocketIOClient() {
-  /**
-   * Socket IO connection.
-   */
-  this.socket = "";
-};
-
-BlackjackSocketIOClient.prototype = new BlackjackUI();
-var blackjackSocketIOClient = new BlackjackSocketIOClient();
-blackjackSocketIOClient.connectToServer = function(userId) {
-  var anInstance = this;
-
-  anInstance.socket = new io.Socket('localhost');
-  anInstance.socket.connect();
-
-  anInstance.socket.on('connect', function() {
-    anInstance.logMessage("Connected to server");
-    anInstance.loginPrompt(function(userId) {
-      anInstance.socket.send({
-        player : {
-          userId : userId,
-          name : userId
-        },
-        action : 'login'
+var BlackjackSocketIOClient = function BlackjackSocketIOClient(socket, blackjackUI) {
+  this.connectToServer = function() {
+    socket.connect();
+    socket.on('connect', function() {
+      blackjackUI.logMessage("Connected to server");
+      blackjackUI.loginPrompt(function(userId) {
+        socket.send({
+          player : {
+            userId : userId,
+            name : userId
+          },
+          action : 'login'
+        });
       });
     });
-  });
 
-  anInstance.socket.on('message', function(serverMessage) {
-    anInstance.processIncommingMessage.apply(anInstance, [ serverMessage ]);
-  });
+    socket.on('message', function(serverMessage) {
+      blackjackUI.processIncommingMessage(serverMessage);
+    });
 
-  anInstance.socket.on('close', function() {
-    anInstance.logMessage("Connection closed");
-    anInstance.disableTurnForAllPlayers();
-  });
+    socket.on('close', function() {
+      blackjackUI.logMessage("Connection closed");
+      blackjackUI.disableTurnForAllPlayers();
+    });
 
-  anInstance.socket.on('disconnect', function() {
-    anInstance.logMessage("Connection disconnected");
-    anInstance.disableTurnForAllPlayers();
-  });
-};
+    socket.on('disconnect', function() {
+      blackjackUI.logMessage("Connection disconnected");
+      blackjackUI.disableTurnForAllPlayers();
+    });
 
-BlackjackSocketIOClient.prototype.hit = function(playerUserId) {
-  this.socket.send({
-    userId : playerUserId,
-    action : "hit"
-  });
-};
+  };
 
-BlackjackSocketIOClient.prototype.stay = function(playerUserId) {
-  this.socket.send({
-    userId : playerUserId,
-    action : "stay"
-  });
+  blackjackUI.hit = function(playerUserId) {
+    socket.send({
+      userId : playerUserId,
+      action : "hit"
+    });
+  };
+
+  blackjackUI.stay = function(playerUserId) {
+    socket.send({
+      userId : playerUserId,
+      action : "stay"
+    });
+  };
 };

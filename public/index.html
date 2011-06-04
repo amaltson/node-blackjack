@@ -276,6 +276,7 @@ Amhed, Arthur, Jeff, Melissa, Tomo
 
 	<script type='text/javascript'>
 	    $(document).ready(function() {
+	      var blackjackSocketIOClient = new BlackjackSocketIOClient(new io.Socket('localhost'),new BlackjackUI());
 	      blackjackSocketIOClient.connectToServer();
 	    });
     </script>
