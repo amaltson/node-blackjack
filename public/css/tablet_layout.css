@@ -1,3 +1,7 @@
+/* PAGE */
+#page {
+	width:100%;
+}
 
 /* HEADER */
 h1 { 
@@ -6,8 +10,7 @@ h1 {
 
 /* MAIN */
 #main {
-	float:left;
-	width:75%;
+	width:100%;
 	font-size:20px;
 }
 .name {
@@ -18,17 +21,13 @@ h1 {
 	left:160px;
 	display:inline;
 }
-#rotate_button {
-	width: 48px;
-	height:48px;
-}
 .card_image {
 	width: 34px;
 	height: 45px;
 }
 .player_action {
 	position:absolute;
-	left:400px;
+	left:450px;
 	display:inline;
 	align:center;
 
@@ -36,24 +35,8 @@ h1 {
 	color: #white;
 	font-family: 'Paytone One', arial, serif;
 }
-.stats {
-	position:absolute;
-	left:380px;
-	display: none;
-}
-
 
 /* SIDEBAR */
 #sidebar {
-	display: block;
-	float:right;
-	width:25%;
-	/*background-image:url('../img/bg_paper.gif');*/
-	/*background:#c9c;*/
-}
-#howtoplay {
-	padding:5px;
-}
-#logs {
-	padding:5px;
+	display: none;
 }
