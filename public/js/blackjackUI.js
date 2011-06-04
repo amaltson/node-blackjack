@@ -1,12 +1,7 @@
-/* Author: Ahmed Javed 
+/**
+ * BlackjackUI handles client socket IO.
  */
-
-var BlackjackClient = function Blackjack() {
-  /**
-   * Socket io connection.
-   */
-  this.socket = "",
-
+var BlackjackUI = function BlackjackUI() {
   /**
    * Maximum number of logs to display on the main page.
    */
@@ -14,19 +9,11 @@ var BlackjackClient = function Blackjack() {
   return this;
 };
 
-BlackjackClient.prototype = {
+BlackjackUI.prototype = {
   processIncommingMessage : function(serverJsonMessage) {
     var jsonParsedMessage;
     console.log(serverJsonMessage);
     this.logMessage("Message recieved:" + serverJsonMessage);
-    // try {
-    // jsonParsedMessage = JSON.parse(message);
-    // } catch (SyntaxError) {
-    // console.log('Invalid JSON: '+serverJsonMessage);
-    // might to be the best way but ok for now
-    // return;
-    // }
-    // switch (jsonParsedMessage.event) {
     switch (serverJsonMessage.action) {
       case 'start':
         this.resetGame();
@@ -55,22 +42,6 @@ BlackjackClient.prototype = {
         this.disableTurnForAllPlayers();
         this.showGameResultForPlayers(serverJsonMessage.players);
       default:
-        // break;
-        // case 'showDealerCard':
-        // break;
-        // case 'assingCard':
-        // this.assignCard("dealer", "A");
-        // this.assignCard("dealer", "hidden");
-        var aBlackjackClientInstance = this;
-        setTimeout(function() {
-          aBlackjackClientInstance.showDealerCard.apply(aBlackjackClientInstance, [ "10" ]);
-        }, 5000);
-        // break;
-
-        // this.enableTurnForPlayer(player2.userId);
-        // break;
-        // default:
-        // console.log("ERROR: Message event not understood");
     }
   },
   /**
@@ -90,8 +61,9 @@ BlackjackClient.prototype = {
     var imageRelativePath = "img/";
     if (userId === "dealer") {
       imageRelativePath = "img_down/";
-      
-      // see if there is a hidden card already, remove it because this is the second card.
+
+      // see if there is a hidden card already, remove it because this is the
+      // second card.
       var dealerHiddenCard = $('#dealer .cards .card_hidden').remove();
       if (dealerHiddenCard) {
         dealerHiddenCard.remove();
@@ -113,34 +85,14 @@ BlackjackClient.prototype = {
 
   },
 
-  // TODO write a test for hit
-  hit : function(playerUserId) {
-    console.log(playerUserId + " pressed hit");
-    this.socket.send({
-      userId : playerUserId,
-      action : "hit"
-    });
-  },
-
-  // TODO write a test for stay
-  stay : function(playerUserId) {
-    console.log(playerUserId + " pressed stay");
-    this.socket.send({
-      userId : playerUserId,
-      action : "stay"
-    });
-  },
-
   removePlayer : function(playerUserId) {
     $('#main #' + playerUserId).remove();
   },
 
-  // TODO write a test for resetGame
   resetGame : function() {
     $('#main').empty();
   },
 
-  // TODO write a test for addBlackjackPlayers
   addBlackjackPlayers : function(players) {
     for ( var playerIndex = 0; playerIndex < players.length; playerIndex += 1) {
       var player = players[playerIndex];
@@ -148,41 +100,37 @@ BlackjackClient.prototype = {
     }
   },
 
-  createPlayerDiv : function(divId, displayName) {
-    var playerDiv = $('<div id="' + divId + '"/>');
-    playerDiv.append('<div class="turn_indicator">&nbsp;</div>');
-    playerDiv.append('<div class="name">' + displayName + '</div>');
-    playerDiv.append('<div class="cards">');
-    return playerDiv;
-  },
-
-  // TODO write a test for addBlackjackPlayer
   addBlackjackPlayer : function(playerUserId, playerDisplayName, hand) {
-    var aBlackjackClientInstance = this;
+    var playerDiv = $('<div id="' + playerUserId + '"/>').addClass('player');
+    playerDiv.append('<div class="name">' + playerDisplayName + '</div>');
+    playerDiv.append('<div class="cards">');
 
-    var playerDiv = aBlackjackClientInstance.createPlayerDiv(playerUserId, playerDisplayName);
-    playerDiv.addClass('player');
-    playerDiv
-        .find('.cards')
-        .after('<div class="player_action"> <button type="button">Hit</button> <button type="button">Stay</button> </div> <div class="stats" style="display:none;"> <b>win: 0 lose: 0</b> </div>');
+    var anInstance = this;
+    var hitButton = this.createButton("Hit", playerUserId, function() {
+      anInstance.hit.apply(anInstance, [ playerUserId ]);
+    });
+    var stayButton = this.createButton("Stay", playerUserId, function() {
+      anInstance.stay.apply(anInstance, [ playerUserId ]);
+    });
 
-    var playerActionDiv = playerDiv.find('.player_action');
-    var hitButton = playerActionDiv.find(':button:first');
-    hitButton.click(function() {
-      aBlackjackClientInstance.hit.apply(aBlackjackClientInstance, [ playerUserId ]);
-    });
-    hitButton.hide();
-    var stayButton = playerActionDiv.find(':button:last');
-    stayButton.click(function() {
-      aBlackjackClientInstance.stay.apply(aBlackjackClientInstance, [ playerUserId ]);
-      aBlackjackClientInstance.hidePlayerActionButtonsForCurrentPlayer();
-    });
-    stayButton.hide();
+    var playerActionDiv = $('<div class="player_action"></div>').append(hitButton).append(stayButton);
+    playerDiv.append(playerActionDiv);
+
     $('#main').append(playerDiv);
-
+    // have to hide after appending to main div because buttons don't inline if
+    // done before appending
+    hitButton.hide();
+    stayButton.hide();
     for ( var i = 0; i < hand.length; i++) {
       this.assignCard(playerUserId, hand[i].type);
     }
+
+  },
+
+  createButton : function(buttonText, playerUserId, buttonClickCallback) {
+    var blackjackButton = $('<button type="button">' + buttonText + '</button>');
+    blackjackButton.click(buttonClickCallback);
+    return blackjackButton;
   },
 
   enableTurnForPlayer : function(userId) {
@@ -191,7 +139,7 @@ BlackjackClient.prototype = {
     this.showPlayerActionButtonsForCurrentPlayer();
   },
 
-  showTurnForPlayer: function(userId) {
+  showTurnForPlayer : function(userId) {
     this.hidePlayerActionButtonsForCurrentPlayer();
     $('#main .current_player').removeClass('current_player');
     $('#' + userId).addClass('current_player');
@@ -207,7 +155,7 @@ BlackjackClient.prototype = {
   showGameResultForPlayer : function(playerUserId, playerState) {
     var bustedImage = $("#main #" + playerUserId + " .player_action :image");
     if (bustedImage.length === 0) {
-      $("#main #" + playerUserId + " .cards").append('<span id="result">' + playerState + '</span>');
+      $("#main #" + playerUserId + " .player_action").html(playerState + '!');
     }
   },
 
@@ -216,7 +164,7 @@ BlackjackClient.prototype = {
   },
 
   playerBusted : function(userId) {
-    $('#' + userId + ' .player_action').append('<img class="busted_image" src="img/busted.png" />');
+    $('#' + userId + ' .player_action').html('bust!');
   },
 
   hidePlayerActionButtonsForCurrentPlayer : function() {
@@ -236,16 +184,11 @@ BlackjackClient.prototype = {
         currentPlayerActionButtons.hide();
       }
     }
-    // TODO
-    // throw an exception that buttons weren't found
   },
 
-  // TODO test loginPrompt
   loginPrompt : function(callbackToInvokeAfterUserIdIsEntered) {
     var maskHeight = $(document).height();
     var maskWidth = $(document).width();
-
-    // alert(maskWidth);
 
     $('#mask').css({
       'width' : maskWidth,
@@ -280,19 +223,26 @@ BlackjackClient.prototype = {
       }
     });
 
-
     $('.stickynotes').click(function() {
-	if($(this).hasClass('bigNotes')) {
-	   $(this).html($('#' + this.id + '.short').html());
-	   $(this).removeClass('short');
-	   $(this).find('a').css({'width':'20em','height':'20em', 'padding':'1em'});
-	} else {
-	   $(this).html($('#' + this.id + '.long').html());
-	   $(this).removeClass('long');
-	   $(this).find('a').css({'width':'50em','height':'50em', 'padding':'4em'});
-	}
+      if ($(this).hasClass('bigNotes')) {
+        $(this).html($('#' + this.id + '.short').html());
+        $(this).removeClass('short');
+        $(this).find('a').css({
+          'width' : '20em',
+          'height' : '20em',
+          'padding' : '1em'
+        });
+      } else {
+        $(this).html($('#' + this.id + '.long').html());
+        $(this).removeClass('long');
+        $(this).find('a').css({
+          'width' : '50em',
+          'height' : '50em',
+          'padding' : '4em'
+        });
+      }
 
-	$(this).toggleClass('bigNotes');
+      $(this).toggleClass('bigNotes');
     });
   }
 };

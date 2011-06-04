@@ -39,11 +39,9 @@
 <link  href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 
 <!-- CSS:  load main CSS depends on resolution using media queries -->
-<link rel="stylesheet" href="css/mobile_layout.css" />
-<link rel="stylesheet" media="screen and (min-width: 480px)"
-	href="css/tablet_layout.css" />
-<link rel="stylesheet" media="screen and (min-width: 900px)"
-	href="css/layout.css" />
+<link rel="stylesheet" href="css/layout.css" />
+<link rel="stylesheet" media="screen and (max-width: 700px)" href="css/tablet_layout.css" />
+<link rel="stylesheet" media="screen and (max-width: 480px)" href="css/mobile_layout.css" />
 
 <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 <script src="js/libs/modernizr-1.7.min.js"></script>
@@ -267,14 +265,19 @@ Amhed, Arthur, Jeff, Melissa, Tomo
 
 	<!-- scripts concatenated and minified via ant build script-->
 	<script src="js/plugins.js"></script>
-	<script src="js/blackjackClient.js"></script>
-	<script src="js/clientSocketIO.js"></script>
+	<script src="js/blackjackUI.js"></script>
+	<script src="js/blackjackSocketIOClient.js"></script>
 
 	<!-- socket.io stuff -->
 	<script src='/socket.io/socket.io.js'></script>
 	<!-- end scripts-->
 
-
+	<script type='text/javascript'>
+	    $(document).ready(function() {
+	      var blackjackSocketIOClient = new BlackjackSocketIOClient(new io.Socket('localhost'),new BlackjackUI());
+	      blackjackSocketIOClient.connectToServer();
+	    });
+    </script>
 	<!--[if lt IE 7 ]>
     <script src="js/libs/dd_belatedpng.js"></script>
     <script>DD_belatedPNG.fix("img, .png_bg"); // Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb </script>
