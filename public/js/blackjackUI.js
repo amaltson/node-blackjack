@@ -106,10 +106,10 @@ BlackjackUI.prototype = {
     playerDiv.append('<div class="cards">');
 
     var anInstance = this;
-    var hitButton = this.createHiddenButton("Hit", playerUserId, function() {
+    var hitButton = this.createButton("Hit", playerUserId, function() {
       anInstance.hit.apply(anInstance, [ playerUserId ]);
     });
-    var stayButton = this.createHiddenButton("Stay", playerUserId, function() {
+    var stayButton = this.createButton("Stay", playerUserId, function() {
       anInstance.stay.apply(anInstance, [ playerUserId ]);
     });
 
@@ -117,15 +117,19 @@ BlackjackUI.prototype = {
     playerDiv.append(playerActionDiv);
 
     $('#main').append(playerDiv);
-
+    // have to hide after appending to main div because buttons don't inline if
+    // done before appending
+    hitButton.hide();
+    stayButton.hide();
     for ( var i = 0; i < hand.length; i++) {
       this.assignCard(playerUserId, hand[i].type);
     }
+
   },
 
-  createHiddenButton : function(buttonText, playerUserId, buttonClickCallback) {
+  createButton : function(buttonText, playerUserId, buttonClickCallback) {
     var blackjackButton = $('<button type="button">' + buttonText + '</button>');
-    blackjackButton.click(buttonClickCallback).hide();
+    blackjackButton.click(buttonClickCallback);
     return blackjackButton;
   },
 
