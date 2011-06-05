@@ -171,6 +171,18 @@ function endGame(game) {
         players: playersEndState,
         action: 'end'
       });
+
+      setTimeout(function() {
+        game.resetPlayers(function(players) {
+          socket.broadcast({
+            players: players,
+            action: 'start'
+          });
+          game.nextTurn(function(userId) {
+            sendTurn(userId);
+          });
+        });
+      }, 10000);
     });
   });
 }

@@ -63,6 +63,27 @@ module.exports = function Blackjack() {
     callback();
   };
 
+  this.resetPlayers = function(callback) {
+    var that = this;
+    this.getAllPlayers(function(players) {
+
+      // reset all the player's hands
+      for (var i = 0; i < players.length; i++) {
+        var player = players[i];
+        var firstCard = that.shoe.dealNextCard();
+        if (player.userId === 'dealer') {
+          player.hand = [firstCard, {type:'hidden'}];
+        } else {
+          var secondCard = that.shoe.dealNextCard();
+          player.hand = [firstCard, secondCard];
+        }
+      }
+      
+      // callback with the reset players.
+      callback(players);
+    });
+  };
+
   this.nextTurn = function(callback) {
     var last = this.table.length - 1;
     if (this.current >= last) {
@@ -76,7 +97,7 @@ module.exports = function Blackjack() {
     var result = this.table[this.current];
 
     callback(result);
-  },
+  };
 
   this.currentTurn = function(callback) {
     var cur = this.current;
