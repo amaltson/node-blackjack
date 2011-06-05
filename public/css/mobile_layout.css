@@ -8,6 +8,14 @@
 	width:100%;
 }
 
+/* define player name font size here */
+.name {
+}
+
+/* define card image size here */
+.card_image {
+}
+
 /* SIDEBAR */
 #sidebar {
 	display: none;
