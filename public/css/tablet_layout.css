@@ -3,37 +3,10 @@
 	width:100%;
 }
 
-/* HEADER */
-h1 { 
-	font-size:50px;
-}
-
 /* MAIN */
+
 #main {
 	width:100%;
-	font-size:20px;
-}
-.name {
-	font-size:30px;
-}
-.cards {
-	position:absolute;
-	left:160px;
-	display:inline;
-}
-.card_image {
-	width: 34px;
-	height: 45px;
-}
-.player_action {
-	position:absolute;
-	left:450px;
-	display:inline;
-	align:center;
-
-	font-size:30px;
-	color: #white;
-	font-family: 'Paytone One', arial, serif;
 }
 
 /* SIDEBAR */

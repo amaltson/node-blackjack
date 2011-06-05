@@ -40,6 +40,13 @@
 
 <!-- CSS:  load main CSS depends on resolution using media queries -->
 <link rel="stylesheet" href="css/layout.css" />
+<!--
+-----------------------------------------------------------
+Lab 3: Media Query - Task 2 code should be added above
+       under <link rel="stylesheet" href="css/layout.css" />
+-----------------------------------------------------------
+-->
+
 
 <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 <script src="js/libs/modernizr-1.7.min.js"></script>
@@ -54,17 +61,16 @@ Lab 3: Media Query - Task 1 code should be added here
 	h1 {
 		font-size:60px;
 	}
-	<!-- add meddia query code above, under h1 style definition
- 
-	Note: You want to surround h1 style definition with media query statement like
-	@media ({target_media}) {
-		h1{ font-size: {desired_font_size}px; }
+	@media (max-width: 800px) {
+		h1 {
+			font-size:50px;
+		}
 	}
-
-	Once you made the change, save and reload the page.
-        If you apply it correctly, you should see the title text change size when
-        you resize your browser window
-	-->
+	@media (max-width: 480px) {
+		h1 {
+			font-size:30px;
+		}
+	}
 	</style>
 <!-- 
 -----------------------------------------------------------

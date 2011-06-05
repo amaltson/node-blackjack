@@ -3,36 +3,9 @@
 	width:100%;
 }
 
-/* HEADER */
-h1 { 
-	font-size:24px;
-}
-
 /* MAIN */
 #main {
 	width:100%;
-	font-size:12px;
-}
-.card_image {
-	width: 24px;
-	height: 32px;
-}
-.name {
-	position:absolute;
-	left:10px;
-	display:inline;
-
-	font-size:20px;
-}
-.cards {
-	position:absolute;
-	left:100px;
-	display:inline;
-}
-.player_action {
-	position:absolute;
-	left:220px;
-	font-size:20px;
 }
 
 /* SIDEBAR */
