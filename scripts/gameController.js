@@ -7,22 +7,18 @@ module.exports = function GameController(socket) {
   var game = new Blackjack();
 
   var that = this;
+
+  /**
+   * Initializes this GameController by creating a new dealer and starting
+   * to listen to socket.io events.
+   */
   this.initialize = function() {
+    this.createDealer();
+    
     socket.on('connection', function(client) {
-      console.log('connected with socket.io');
-      var players = game.getAllPlayers(function(players) {
-        var initialState = {
-          players : players,
-          action : 'start'
-        };
-        client.send(initialState);
-        game.currentTurn(function(userId) {
-          client.send({
-            userId : userId,
-            action : 'currentTurn'
-          });
-        });
-      });
+
+      that.clientConnected(client);
+
       client.on('message', function(msg) {
         that.processMessage(msg, function(userId) {
           // on login events, keep around the socket to userId
@@ -30,91 +26,150 @@ module.exports = function GameController(socket) {
         });
       });
       client.on('disconnect', function() {
-        console.log('Client disconnected');
-        for ( var id in userToSocket) {
-          if (userToSocket[id] === client) {
-            var userId = id;
-          }
-        }
-        game.removePlayer(userId, function() {
-          socket.broadcast({
-            userId : userId,
-            action : 'remove'
-          });
-          delete userToSocket[userId];
+        that.clientDisconnected(client);
+      });
+    });
+  };
+
+  /**
+   * A new client has connected. We need to send all the current connected
+   * users to this new client and push down who's turn it is.
+   */
+  this.clientConnected = function(clientSocket) {
+    var players = game.getAllPlayers(function(players) {
+      var initialState = {
+        players : players,
+        action : 'start'
+      };
+      clientSocket.send(initialState);
+      game.currentTurn(function(userId) {
+        clientSocket.send({
+          userId : userId,
+          action : 'currentTurn'
         });
       });
     });
   };
 
+  /**
+   * A client has disconnected, we need to remove the associated user.
+   */
+  this.clientDisconnected = function(clientSocket) {
+    for ( var id in userToSocket) {
+      if (userToSocket[id] === clientSocket) {
+        var userId = id;
+      }
+    }
+    game.removePlayer(userId, function() {
+      socket.broadcast({
+        userId : userId,
+        action : 'remove'
+      });
+      delete userToSocket[userId];
+    });
+  }
+
+  /**
+   * Process the message we got from the client based on action.
+   */
   this.processMessage = function(data, callback) {
     switch (data.action) {
-    case 'hit':
-      var nextCard = game.dealNextCard();
-      game.getPlayer(data.userId, function(player) {
-
-        // add the next card to the player
-        player.hand.push(nextCard);
-        socket.broadcast({
-          userId : player.userId,
-          card : nextCard,
-          action : 'assignCard'
-        });
-
-          // check to make sure the player hasn't gone bust or got 21.
-          var handValue = game.calculateHandValue(player.hand);
-          if (handValue === game.BUSTED_VALUE) {
-            socket.broadcast({
-              userId: player.userId,
-              action: 'bust'
-            });
-            game.nextTurn(function(userId) {
-              that.sendTurn(userId);
-            });
-          } else if (handValue === game.BLACKJACK) {
-            game.nextTurn(function(userId) {
-              that.sendTurn(userId);
-            });
-          }
-        });
+      case 'hit':
+        this.playerHit(data)
         break;
       case 'stay':
-        game.nextTurn(function(userId) {
-          that.sendTurn(userId);
-        });
+        this.playerStay()
         break;
       case 'login':
-        game.getPlayer(data.player.userId, function(player) {
-          if (player) {
-            data.player.userId += '1';
-            data.player.name += '1';
-          }
-          var hand = [game.dealNextCard(), game.dealNextCard()];
-          data.player.hand = hand;
-          game.addPlayers(data.player, function() {
-            socket.broadcast({
-              player: data.player,
-              action: 'add'
-            });
-            callback(data.player.userId);
-            game.getAllPlayers(function(players) {
-              // if is the first player (after the dealer), make it
-              // their turn.
-              if (players.length === 2) {
-                game.setTurn(data.player.userId, function() {
-                  game.currentTurn(function(userId) {
-                    that.sendTurn(userId);
-                  });
-                });
-              }
-            });
-          });
-        });
+        this.playerLogin(data, callback);
         break;
       default:
         // code
     }
   };
+
+  /**
+   * Player 'hit', asking for another card. Adds another card to the player.
+   * Furthermore, we check if the player is bust or got blackjack.
+   */
+  this.playerHit = function(data) {
+    var nextCard = game.dealNextCard();
+    game.getPlayer(data.userId, function(player) {
+
+      // add the next card to the player
+      player.hand.push(nextCard);
+      socket.broadcast({
+        userId : player.userId,
+        card : nextCard,
+        action : 'assignCard'
+      });
+
+      // check to make sure the player hasn't gone bust or got 21.
+      var handValue = game.calculateHandValue(player.hand);
+      if (handValue === game.BUSTED_VALUE) {
+        socket.broadcast({
+          userId: player.userId,
+          action: 'bust'
+        });
+        game.nextTurn(function(userId) {
+          that.sendTurn(userId);
+        });
+      } else if (handValue === game.BLACKJACK) {
+        game.nextTurn(function(userId) {
+          that.sendTurn(userId);
+        });
+      }
+    });
+  };
+
+  /**
+   * The player 'stays', so we just need to move on to the next player.
+   */
+  this.playerStay = function() {
+    game.nextTurn(function(userId) {
+      that.sendTurn(userId);
+    });
+  };
+
+  /**
+   * The player is trying to log in. We'll need to add the player and
+   * broadcast to everyone that the player was added. Furthermore,
+   * if this is the first player, make it their turn.
+   * We also have to sanitize the userid and avoid duplicates.
+   *
+   * @param data the data pushed to the server.
+   * @param callback we need to callback with the userId so it can be
+   * associated with a socket.
+   */
+  this.playerLogin = function(data, callback) {
+    game.getPlayer(data.player.userId, function(player) {
+      if (player) {
+        data.player.userId += '1';
+        data.player.name += '1';
+      }
+      var hand = [game.dealNextCard(), game.dealNextCard()];
+      data.player.hand = hand;
+      game.addPlayers(data.player, function() {
+        socket.broadcast({
+          player: data.player,
+          action: 'add'
+        });
+        callback(data.player.userId);
+        game.getAllPlayers(function(players) {
+          // if is the first player (after the dealer), make it
+          // their turn.
+          if (players.length === 2) {
+            game.setTurn(data.player.userId, function() {
+              game.currentTurn(function(userId) {
+                that.sendTurn(userId);
+              });
+            });
+          }
+        });
+      });
+    });
+  }
+
 
   this.createDealer = function() {
     var dealerCard = game.dealNextCard();
@@ -170,6 +225,10 @@ module.exports = function GameController(socket) {
     }
   };
 
+  /**
+   * Ends the blackjack game. Calculates the scores and pushes down an end state.
+   * After 10 seconds, it restarts the game.
+   */
   this.endGame = function() {
     game.getPlayer('dealer', function(dealer) {
 
@@ -198,6 +257,7 @@ module.exports = function GameController(socket) {
           action: 'end'
         });
 
+        // restart the game.
         setTimeout(function() {
           game.resetPlayers(function(players) {
             socket.broadcast({

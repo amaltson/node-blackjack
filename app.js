@@ -15,7 +15,6 @@ var io = require('socket.io');
 var socket = io.listen(app);
 
 var gameController = new GameController(socket);
-gameController.createDealer();
 gameController.initialize();
 
 
