@@ -72,9 +72,6 @@ module.exports = function GameController(socket, game) {
    */
   this.processMessage = function(data, callback) {
     switch (data.action) {
-      case 'hit':
-        this.playerHit(data)
-        break;
       case 'stay':
         this.playerStay()
         break;
@@ -89,36 +86,10 @@ module.exports = function GameController(socket, game) {
   /**
    * Player 'hit', asking for another card. Adds another card to the player.
    * Furthermore, we check if the player is bust or got blackjack.
+   * If the player went bust, we need to broadcast that. If they got blackjack,
+   * we just move on to the next turn.
    */
-  this.playerHit = function(data) {
-    var nextCard = game.dealNextCard();
-    game.getPlayer(data.userId, function(player) {
-
-      // add the next card to the player
-      player.hand.push(nextCard);
-      socket.broadcast({
-        userId : player.userId,
-        card : nextCard,
-        action : 'assignCard'
-      });
-
-      // check to make sure the player hasn't gone bust or got 21.
-      var handValue = game.calculateHandValue(player.hand);
-      if (handValue === game.BUSTED_VALUE) {
-        socket.broadcast({
-          userId: player.userId,
-          action: 'bust'
-        });
-        game.nextTurn(function(userId) {
-          that.sendTurn(userId);
-        });
-      } else if (handValue === game.BLACKJACK) {
-        game.nextTurn(function(userId) {
-          that.sendTurn(userId);
-        });
-      }
-    });
-  };
+  
 
   /**
    * The player 'stays', so we just need to move on to the next player.
