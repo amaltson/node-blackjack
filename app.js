@@ -92,24 +92,30 @@ function processMessage(data, callback) {
       });
       break;
     case 'login':
-      var hand = [game.dealNextCard(), game.dealNextCard()];
-      data.player.hand = hand;
-      game.addPlayers(data.player, function() {
-        socket.broadcast({
-          player: data.player,
-          action: 'add'
-        });
-        callback(data.player.userId);
-        game.getAllPlayers(function(players) {
-          // if this is the first player (after the dealer), make it
-          // their turn.
-          if (players.length === 2) {
-            game.setTurn(data.player.userId, function() {
-              game.currentTurn(function(userId) {
-                sendTurn(userId);
+      game.getPlayer(data.player.userId, function(player) {
+        if (player) {
+          data.player.userId += '1';
+          data.player.name += '1';
+        }
+        var hand = [game.dealNextCard(), game.dealNextCard()];
+        data.player.hand = hand;
+        game.addPlayers(data.player, function() {
+          socket.broadcast({
+            player: data.player,
+            action: 'add'
+          });
+          callback(data.player.userId);
+          game.getAllPlayers(function(players) {
+            // if this is the first player (after the dealer), make it
+            // their turn.
+            if (players.length === 2) {
+              game.setTurn(data.player.userId, function() {
+                game.currentTurn(function(userId) {
+                  sendTurn(userId);
+                });
               });
-            });
-          }
+            }
+          });
         });
       });
       break;

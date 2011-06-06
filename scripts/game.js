@@ -21,6 +21,10 @@ module.exports = function Blackjack() {
   this.calculateHandValue = function(aHand) {
     return this.calculator.calculateHandValue(aHand);
   };
+  
+  this.determinePlayerWin = function(dealerTotal, playerTotal) {
+    return this.calculator.determinePlayerWin(dealerTotal, playerTotal);
+  }
 
   /**
    * Adds players to the current game. No arguments on the function because
@@ -115,19 +119,6 @@ module.exports = function Blackjack() {
       }
     }
     callback();
-  };
-
-  // parameter dealerTotal and playerTotal are integers
-  this.determinePlayerWin = function(dealerTotal, playerTotal) {
-    if (playerTotal > this.BLACKJACK) {
-      return 'bust';
-    } else if (playerTotal > dealerTotal) {
-      return 'win';
-    } else if (playerTotal == dealerTotal) {
-      return 'tie';
-    } else {
-      return 'lose';
-    }
   };
 
   return this;
