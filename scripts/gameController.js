@@ -147,6 +147,11 @@ module.exports = function GameController(socket) {
         data.player.userId += '1';
         data.player.name += '1';
       }
+
+      // remove spaces to sanitize userId.
+      data.player.userId = data.player.userId.replace(/\s+/g, '');
+
+      // create the new player.
       var hand = [game.dealNextCard(), game.dealNextCard()];
       data.player.hand = hand;
       game.addPlayers(data.player, function() {
