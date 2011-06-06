@@ -1,5 +1,6 @@
 require.paths.unshift('./node_modules');
 
+var cf = require('cloudfoundry');
 var express = require('express');
 var app = express.createServer();
 
@@ -10,10 +11,14 @@ app.configure(function() {
   app.use(express.static(__dirname + '/public'));
 });
 
-app.listen(9000);
+app.listen(cf.port || 9000);
 
-var io = require('socket.io');
-var socket = io.listen(app);
+var socket = require("socket.io").listen(app, {
+  transports: ['xhr-polling'],
+  transportOptions: {
+    'xhr-polling': {duration: 10000}
+  }
+});
 
 var gameController = new GameController(socket, new Blackjack());
 gameController.initialize();

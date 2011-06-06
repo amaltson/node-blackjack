@@ -2,8 +2,9 @@
   "name":"node-blackjack",
   "version":"0.0.1",
   "dependencies":{
-    "express":"",
-    "socket.io":"",
-    "nodeunit":""
+    "express":"*",
+    "socket.io":"*",
+    "cloudfoundry":"*",
+    "nodeunit":"*"
   }
 }
