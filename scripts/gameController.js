@@ -1,10 +1,8 @@
-var Blackjack = require('./game.js');
-
-module.exports = function GameController(socket) {
+module.exports = function GameController(socket, game) {
 
   var socket = socket;
   var userToSocket = {};
-  var game = new Blackjack();
+  var game = game;
 
   var that = this;
 

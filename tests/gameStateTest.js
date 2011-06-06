@@ -3,7 +3,6 @@ var testCase = require('nodeunit').testCase;
 
 module.exports = testCase({
     setUp: function (callback) {
-      this.foo = 'bar';
       blackjack = new Blackjack();
       callback();
     },
