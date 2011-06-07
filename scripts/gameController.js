@@ -142,8 +142,9 @@ module.exports = function GameController(socket, game) {
   this.playerLogin = function(data, callback) {
     game.getPlayer(data.player.userId, function(player) {
       if (player) {
-        data.player.userId += '1';
-        data.player.name += '1';
+        var uniqueNameHackNum = Math.floor(Math.random() * 100);
+        data.player.userId += uniqueNameHackNum;
+        data.player.name += uniqueNameHackNum;
       }
 
       // remove spaces to sanitize userId.
